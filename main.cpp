@@ -1,14 +1,4 @@
-#include<iostream>//cin cout
-using namespace std; //std::
-
-// include อื่นๆ
-#include <stdio.h>//puts
-#include <stdlib.h>
-#include <conio.h>
-#include <cctype>
-#include <string.h>
-
-// #include "head.cpp"
+#include "head.cpp"
 
 //ไฟล์ sale
 #include "sale.cpp" 
