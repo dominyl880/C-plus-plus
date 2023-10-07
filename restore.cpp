@@ -3,7 +3,6 @@
 #include <conio.h>
 #include <cctype>
 #include <string.h>
-#include <iostream>
 
 FILE *fp, *cp;
 

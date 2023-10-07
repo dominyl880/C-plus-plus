@@ -3,8 +3,7 @@
 #include <conio.h>
 #include <cctype>
 #include <string.h>
-#include <iomanip>
-#include <iostream>
+#include <iomanip> 
 
 #include "header.cpp"
 #include "footer.cpp"

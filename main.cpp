@@ -1,69 +1,46 @@
-///hello
+#include<iostream>//cin cout
+using namespace std; //std::
 
-#include <stdio.h>
+// include อื่นๆ
+#include <stdio.h>//puts
 #include <stdlib.h>
 #include <conio.h>
 #include <cctype>
 #include <string.h>
-#include <iostream>
 
-#include "sale.cpp"
-// #include "backup.cpp"
-// #include "restore.cpp"
+// #include "head.cpp"
+
+//ไฟล์ sale
+#include "sale.cpp" 
 
 int main()
 {
   char sel;
-  do
-  {
-    system("cls");
-    headerTable();
-    char menu1[40] = "Press [P] to Product Menu Page";
-    printf("%*s\n", 41 + strlen(menu1) / 2, menu1, 40 - strlen(menu1) / 2, "");
-    char menu2[40] = "Press [T] to Type Menu Page";
-    printf("%*s\n", 41 + strlen(menu2) / 2, menu2, 40 - strlen(menu2) / 2, "");
-    char menu3[40] = "Press [C] to Stock Menu page";
-    printf("%*s\n", 41 + strlen(menu3) / 2, menu3, 40 - strlen(menu3) / 2, "");
-    char menu4[40] = "Press [S] to Sale Menu page";
-    printf("%*s\n", 41 + strlen(menu4) / 2, menu4, 40 - strlen(menu4) / 2, "");
-    // char menu5[40] = "Press [B] to Backup";
-    // printf("%*s\n", 41 + strlen(menu5) / 2, menu5, 40 - strlen(menu5) / 2, "");
-    // char menu5[40] = "Press [R] to Restore";
-    // printf("%*s\n", 41 + strlen(menu5) / 2, menu5, 40 - strlen(menu5) / 2, "");
-    puts("");
+  do{
+      system("cls"); //ล้างหน้าจอ
+      headerTable();  //แสดง =======
+      cout<<"Press [P] to Product Menu Page"<<endl;
+      cout<<"Press [T] to Type Menu Page"<<endl;  
+      cout<<"Press [C] to Stock Menu page"<<endl;
+      cout<<"Press [S] to Sale Menu page"<<endl;
 
-    footerExit();
+      puts("");//ไม่ต้องกด enter จะเร็วกว่า cin
+      // cin>>sel;
 
-    sel = toupper(getche());
-    switch (sel)
-    {
-    case 'P':
-      productMenu();
-      break;
-    case 'T':
-      typeMenu();
-      break;
-    case 'C':
-      stockMenu();
-      break;
-    case 'S':
-      saleMenu();
-      break;
-      // case 'B':
-      //   system("cls");
-      //   headerTable();
-      //   backup();
-      //   footer();
-      //   break;
+      footerExit();//include มาจาก sale แล้ว sale เอามาจากอื่นๆ อีกที
 
-      // case 'R':
-      //   system("cls");
-      //   headerTable();
-      //   restore();
-      //   // backup();
-      //   footer();
-      //   break;
-    }
-  } while (sel != 'X');
+      sel = toupper(getche());
+      if(sel=='P'){
+        productMenu();
+      }else if(sel=='T'){
+        typeMenu();
+      }else if(sel=='C'){
+        stockMenu();
+      }else if(sel=='S'){
+        saleMenu();
+      }
+  }while(sel != 'X'); //X!=X F
+//ออกกด X เล็กใหญ่ก็ได้
+
   return 0;
 }
