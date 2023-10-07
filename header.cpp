@@ -1,4 +1,11 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+#include <cctype>
+#include <string.h>
+#include <iostream>
+
 void headerTable()
 {
-  cout<<"===============================|   General Store   |==============================="<<endl;
+  printf("=============================|   General Store   |=============================\n");
 }
