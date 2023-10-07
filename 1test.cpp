@@ -16,7 +16,7 @@ int main(){
                         {5,5}
                       };
     string select,This,ID;
-    int c,beforeDel; //หาตำแหน่ง  , จำนวนข้อมูลก่อนลบ 
+    int c,beforeDel,k; //หาตำแหน่ง  , จำนวนข้อมูลก่อนลบ 
     char anw; //เช็ค Y N 
     string old; //เก็บไอดีเก่า
 
@@ -35,8 +35,9 @@ int main(){
                } 
                c=m+1;
            }
-        //    cout<<endl;
        }
+            beforeDel=c; //เพิ่มสำหรับใช้ลบข้อมูล
+
        for(int i=0;i<c;i++){
            for(int i2=0;i2<3;i2++){
                cout<<setw(8)<<product[i][i2]<<"   ";
@@ -56,7 +57,7 @@ int main(){
             cout<<"====================SEARCH================================="<<endl;
             cout<<"Enter ID : "; cin>>ID;
 
-
+            // ตารางรายการทั้งหมด
             for(int m=0; m<100;m++){
                 for(int u=0; u<3;u++){
                     if(product[m][u]==""){
@@ -73,6 +74,7 @@ int main(){
                     }
                 }  
             }  
+
             if(This==""){
                 cout<<"Not Found!"<<endl;
             }else{
@@ -218,11 +220,9 @@ int main(){
                 cout<<"Not Found!"<<endl;
             }else{
                     cout<<"---------------------------------------------------"<<endl;
-                    cout<<"ID = "<<product[c][0]<<endl; //ห้ามแก้ไอดี
                     do{
-                        cout<<"Do you want to delete this? (Y/N) : "; cin>>anw;
+                        cout<<"Do you want to delete "<<product[c][0]<<"? (Y/N) : "; cin>>anw;
                         if(anw=='Y'){
-                            old=product[c][0];
                             product[c][0]="";
                             cout<<"Completed."<<endl; 
                             anw='N';
@@ -250,28 +250,43 @@ int main(){
                                 }  
                             }  
             }
-            cout<<c<<endl;
+            // cout<<c<<endl;
           
-            cout<<beforeDel<<endl;
-            // del row
-              product[c][0]="";
-              product[c][1]="";
-              product[c][2]="";
-              price[c][0]=NULL;
-              price[c][1]=NULL;
+            // cout<<beforeDel<<endl;
+            for(int i=c;i<beforeDel;i++){
+                        product[i][0]="";
+                        product[i][1]="";
+                        product[i][2]="";
+                        price[i][0]=0;
+                        price[i][1]=0;
+                        
+                        string Rid;
+                        stringstream ss;
+                        ss << (i+1);
+                        Rid="P"+ss.str();
 
-              product[c][0]=old;
-              product[c][1]=product[c+1][1];
-              product[c][2]=product[c+1][2];
-              price[c][0]=price[c+1][0];
-              price[c][1]=price[c+1][1];
+                        product[i][0]=Rid;
+                        
+                        product[i][1]=product[i+1][1];
+                        product[i][2]=product[i+1][2];
+                        price[i][0]=price[i+1][0];
+                        price[i][1]=price[i+1][1];
 
-              product[c+1][0]="";
-              product[c+1][1]="";
-              product[c+1][2]="";
-              price[c+1][0]=NULL;
-              price[c+1][1]=NULL;
+                        product[i+1][0]="";
+                        product[i+1][1]="";
+                        product[i+1][2]="";
+                        price[i+1][0]=0;
+                        price[i+1][1]=0;
 
+                        k=i;
+                        
+                cout<<endl;
+            }
+                        product[k][0]="";
+                        product[k][1]="";
+                        product[k][2]="";
+                        price[k][0]=0;
+                        price[k][1]=0;
 
             This="";
             cout<<"========================================================="<<endl;
