@@ -1,9 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <conio.h>
-#include <cctype>
-#include <string.h> 
-
 #include "product.cpp"
 
 int stockAmount(char *code)

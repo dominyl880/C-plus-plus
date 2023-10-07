@@ -1,10 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <conio.h>
-#include <cctype>
-#include <string.h>
-#include <iomanip> 
-
 #include "header.cpp"
 #include "footer.cpp"
 

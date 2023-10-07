@@ -1,11 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <conio.h>
-#include <cctype>
-#include <string.h>
-
-
-
 #include "stock.cpp"
 
 struct sale
