@@ -177,12 +177,6 @@ void stockMenu()
     sel = toupper(getche());
     system("cls");
     headerTable();
-    // if(sel=='A'){
-    //   stockAdd();
-    // }
-    // if(sel=='B'){
-    //   stockEdit();
-    // }
     switch (sel)
     {
     case 'A':
@@ -192,5 +186,5 @@ void stockMenu()
       stockEdit();
       break;
     }
-  }while(sel != 'X');
+  } while (sel != 'X');
 }
