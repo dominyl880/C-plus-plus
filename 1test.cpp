@@ -1,23 +1,33 @@
 #include<iostream>
 using namespace std;
 #include <sstream>
+#include <iomanip>
 
 int main(){
     string product[100][3]={{"P1","Pen","T1"},
-                            {"P2","Eraser","T1"}
+                            {"P2","Eraser","T1"},
+                            {"P3","KKK","T1"},
+                            {"P4","WWWW","T1"}
+
                            };
     int price[100][2]={{5,10},
-                        {2,9}
+                        {2,9},
+                        {5,5},
+                        {5,5}
                       };
     string select,This,ID;
-    int c;
+    int c,beforeDel; //หาตำแหน่ง  , จำนวนข้อมูลก่อนลบ 
+    char anw; //เช็ค Y N 
+    string old; //เก็บไอดีเก่า
+
     do{
        cout<<"========================================================="<<endl;
        cout<<"S = show"<<endl;
        cout<<"A = add"<<endl;
        cout<<"E = Edit"<<endl;
        cout<<"D = Delete"<<endl;
-       cout<<"--Show List--"<<endl;
+       cout<<setw(35)<<"--Show List--"<<endl;
+       cout<<endl;
        for(int m=0; m<100;m++){
            for(int u=0; u<3;u++){
                if(product[m][u]==""){
@@ -29,11 +39,12 @@ int main(){
        }
        for(int i=0;i<c;i++){
            for(int i2=0;i2<3;i2++){
-               cout<<product[i][i2]<<"   ";
+               cout<<setw(8)<<product[i][i2]<<"   ";
            }
            for(int i3=0;i3<2;i3++){
-               cout<<price[i][i3]<<"   ";
+               cout<<setw(8)<<price[i][i3]<<"   ";
            }
+           cout<<endl;
            cout<<endl;
        } 
        cout<<"========================================================="<<endl;
@@ -53,7 +64,6 @@ int main(){
                     } 
                     c=m+1;
                 }
-                cout<<endl;
             }
             for(int i=0;i<c;i++){
                 for(int i2=0;i2<3;i2++){
@@ -88,7 +98,6 @@ int main(){
                         } 
                         c=m+1;
                     }
-                    // cout<<endl;
                 }
                 // cout<<"last = "<<c<<endl;
                 string Rid;
@@ -108,6 +117,7 @@ int main(){
 
         }else if(select=="E"){
             // =======================Edit=================================
+            cout<<"Enter ID : "; cin>>ID;
             for(int m=0; m<100;m++){
                 for(int u=0; u<3;u++){
                     if(product[m][u]==""){
@@ -115,7 +125,6 @@ int main(){
                     } 
                     c=m+1;
                 }
-                cout<<endl;
             }
             for(int i=0;i<c;i++){
                 for(int i2=0;i2<3;i2++){
@@ -128,19 +137,144 @@ int main(){
             if(This==""){
                 cout<<"Not Found!"<<endl;
             }else{
-                    cout<<"ID : "<<product[c][0]<<endl;
-                    cout<<"Name : "<<product[c][1]<<endl;
-                    cout<<"Type : "<<product[c][2]<<endl;
-                    cout<<"price : "<<price[c][0]<<endl;
-                    cout<<"amount : "<<price[c][1]<<endl;
+                    cout<<"---------------------------------------------------"<<endl;
+                    cout<<"ID = "<<product[c][0]<<endl; //ห้ามแก้ไอดี
+                    do{
+                        cout<<"Do you want to edit Name? (Y/N) : "; cin>>anw;
+                        if(anw=='Y'){
+                            cout<<"New Name : "; cin>>product[c][1];
+                            cout<<"Completed."<<endl; 
+                            anw='N';
+                        }else if(anw=='N'){
+                            cout<<"You have skipped."<<endl;
+                        }else{
+                            cout<<"Try again."<<endl;
+                        }
+                    }while(anw!='N');
+                    
+                    do{
+                        cout<<"Do you want to edit Type? (Y/N) : "; cin>>anw;
+                        if(anw=='Y'){
+                            cout<<"New Type : "; cin>>product[c][2];
+                            cout<<"Completed."<<endl; 
+                            anw='N';
+                        }else if(anw=='N'){
+                            cout<<"You have skipped."<<endl;
+                        }else{
+                            cout<<"Try again."<<endl;
+                        }
+                    }while(anw!='N');
+
+                    do{
+                        cout<<"Do you want to edit Price? (Y/N) : "; cin>>anw;
+                        if(anw=='Y'){
+                            cout<<"New Price : "; cin>>price[c][0];
+                            cout<<"Completed."<<endl; 
+                            anw='N';
+                        }else if(anw=='N'){
+                            cout<<"You have skipped."<<endl;
+                        }else{
+                            cout<<"Try again."<<endl;
+                        }
+                    }while(anw!='N');
+
+                     do{
+                        cout<<"Do you want to edit Amount? (Y/N) : "; cin>>anw;
+                        if(anw=='Y'){
+                            cout<<"New Amount : "; cin>>price[c][1];
+                            cout<<"Completed."<<endl; 
+                            anw='N';
+                        }else if(anw=='N'){
+                            cout<<"You have skipped."<<endl;
+                        }else{
+                            cout<<"Try again."<<endl;
+                        }
+                    }while(anw!='N');
                     cout<<endl; 
             }
             This="";
             cout<<"========================================================="<<endl;
             
         }else if(select=="D"){
-            // =======================Delete=================================
+            // =======================Delete================================= 
+            cout<<"Enter ID : "; cin>>ID;
+            for(int m=0; m<100;m++){
+                for(int u=0; u<3;u++){
+                    if(product[m][u]==""){
+                        break; //ข้ามไป
+                    } 
+                    c=m+1;
+                }
+            }
+            for(int i=0;i<c;i++){
+                for(int i2=0;i2<3;i2++){
+                    if(ID==product[i][i2]){
+                        This=product[i][i2];
+                        c=i; 
+                    }
+                }  
+            }  
+            if(This==""){
+                cout<<"Not Found!"<<endl;
+            }else{
+                    cout<<"---------------------------------------------------"<<endl;
+                    cout<<"ID = "<<product[c][0]<<endl; //ห้ามแก้ไอดี
+                    do{
+                        cout<<"Do you want to delete this? (Y/N) : "; cin>>anw;
+                        if(anw=='Y'){
+                            old=product[c][0];
+                            product[c][0]="";
+                            cout<<"Completed."<<endl; 
+                            anw='N';
+                        }else if(anw=='N'){
+                            cout<<"You have skipped."<<endl;
+                        }else{
+                            cout<<"Try again."<<endl;
+                        }
+                    }while(anw!='N');
 
+                            for(int m=0; m<100;m++){
+                                for(int u=0; u<3;u++){
+                                    if(product[m][u]==""){
+                                        break;
+                                        c=m;
+                                    } 
+                                }
+                            }
+                            for(int i=0;i<c;i++){
+                                for(int i2=0;i2<3;i2++){
+                                    if(ID==product[i][i2]){
+                                        This=product[i][i2];
+                                        c=i; 
+                                    }
+                                }  
+                            }  
+            }
+            cout<<c<<endl;
+          
+            cout<<beforeDel<<endl;
+            // del row
+              product[c][0]="";
+              product[c][1]="";
+              product[c][2]="";
+              price[c][0]=NULL;
+              price[c][1]=NULL;
+
+              product[c][0]=old;
+              product[c][1]=product[c+1][1];
+              product[c][2]=product[c+1][2];
+              price[c][0]=price[c+1][0];
+              price[c][1]=price[c+1][1];
+
+              product[c+1][0]="";
+              product[c+1][1]="";
+              product[c+1][2]="";
+              price[c+1][0]=NULL;
+              price[c+1][1]=NULL;
+
+
+            This="";
+            cout<<"========================================================="<<endl;
             
         }
  
