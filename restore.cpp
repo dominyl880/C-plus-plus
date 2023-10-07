@@ -1,8 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <conio.h>
-#include <cctype>
-#include <string.h>
+#include "head.cpp"
 
 FILE *fp, *cp;
 
@@ -32,23 +28,18 @@ struct type
 void restore()
 {
   bool n;
-  char head[40] = "---| Processing Restore |---";
-  printf("%*s\n", 41 + strlen(head) / 2, head, 40 - strlen(head) / 2, "");
+  cout<<"---| Processing Restore |---"<<endl;
 
   n = true;
 
   cp = fopen("productstore.dat", "wb");
   if ((fp = fopen("productbackup.dat", "rb")) == NULL)
-    printf("Open File 'product.dat' Error!\n");
-  else
-  {
-    printf("Processing Backup 'product.dat'.....\n");
-    for (;;)
-    {
-      if (fread(&pd, sizeof(pd), 1, fp) != 1)
-      {
-        if (feof(fp))
-        {
+    cout<<"Open File 'product.dat' Error!"<<endl;
+  else{
+    cout<<"Processing Backup 'product.dat'....."<<endl;
+    for (;;){
+      if (fread(&pd, sizeof(pd), 1, fp) != 1){
+        if (feof(fp)){
           fclose(fp);
           break;
         }
@@ -57,7 +48,7 @@ void restore()
       n = false;
     }
     if (n)
-      printf("Not Thing In File 'product.dat'!..\n");
+      cout<<"Not Thing In File 'product.dat'!.."<<endl; 
   }
   fclose(cp);
   remove("product.dat");
@@ -67,16 +58,12 @@ void restore()
 
   cp = fopen("typestore.dat", "wb");
   if ((fp = fopen("typebackup.dat", "rb")) == NULL)
-    printf("Open File 'type.dat' Error!\n");
-  else
-  {
-    printf("Processing Backup 'type.dat'.....\n");
-    for (;;)
-    {
-      if (fread(&ty, sizeof(ty), 1, fp) != 1)
-      {
-        if (feof(fp))
-        {
+    cout<<"Open File 'type.dat' Error!"<<endl;
+  else{
+    cout<<"Processing Backup 'type.dat'....."<<endl;
+    for (;;){
+      if (fread(&ty, sizeof(ty), 1, fp) != 1){
+        if (feof(fp)){
           fclose(fp);
           break;
         }
@@ -85,7 +72,7 @@ void restore()
       n = false;
     }
     if (n)
-      printf("Not Thing In File 'type.dat'!..\n");
+      cout<<"Not Thing In File 'type.dat'!.."<<endl;
   }
   fclose(cp);
   remove("type.dat");
@@ -95,16 +82,12 @@ void restore()
 
   cp = fopen("salestore.dat", "wb");
   if ((fp = fopen("salebackup.dat", "rb")) == NULL)
-    printf("Open File 'sale.dat' Error!\n");
-  else
-  {
-    printf("Processing Backup 'sale.dat'.....\n");
-    for (;;)
-    {
-      if (fread(&sa, sizeof(sa), 1, fp) != 1)
-      {
-        if (feof(fp))
-        {
+    cout<<"Open File 'sale.dat' Error!"<<endl;
+  else{
+    cout<<"Processing Backup 'sale.dat'....."<<endl;
+    for (;;){
+      if (fread(&sa, sizeof(sa), 1, fp) != 1){
+        if (feof(fp)){
           fclose(fp);
           break;
         }
@@ -113,11 +96,11 @@ void restore()
       n = false;
     }
     if (n)
-      printf("Not Thing In File 'sale.dat'!..\n");
+      cout<<"Not Thing In File 'sale.dat'!.."<<endl;
   }
   fclose(cp);
   remove("sale.dat");
   rename("salestore.dat", "sale.dat");
 
-  printf("Process Restore Done!\n\n");
+  cout<<"Process Restore Done!"<<endl;
 }
