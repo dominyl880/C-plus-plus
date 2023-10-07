@@ -1,4 +1,4 @@
-#include<iostream>
+#include<iostream>//55
 using namespace std;
 int main(){
     int a[6]={6,2,0,6,0,2};
