@@ -1,4 +1,10 @@
-#include "head.cpp"
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+#include <cctype>
+#include <string.h>
+#include <iomanip> 
+
 #include "header.cpp"
 #include "footer.cpp"
 
@@ -14,9 +20,12 @@ int typeLast()
 {
   tySE = fopen("type.dat", "rb");
   int n = 1;
-  for (;;){
-    if (fread(&typeSE, sizeof(typeSE), 1, tySE) != 1){
-      if (feof(tySE)){
+  for (;;)
+  {
+    if (fread(&typeSE, sizeof(typeSE), 1, tySE) != 1)
+    {
+      if (feof(tySE))
+      {
         fclose(tySE);
         break;
       }
@@ -33,35 +42,43 @@ void typeList()
 {
 
   bool n = true;
-  if ((ty = fopen("type.dat", "rb")) == NULL){
-    cout<<"Open File 'type.dat' Error!"<<endl;
+  if ((ty = fopen("type.dat", "rb")) == NULL)
+  {
+    printf("Open File 'type.dat' Error!\n");
   }
-  else{
-    if (fread(&type, sizeof(type), 1, ty) != 1){
-      if (feof(ty)){
+  else
+  {
+    if (fread(&type, sizeof(type), 1, ty) != 1)
+    {
+      if (feof(ty))
+      {
         fclose(ty);
         n = false;
-        cout<<"Don't Have Any Type!"<<endl;
+        char mes[40] = "Don't Have Any Type!";
+        printf("%*s\n", 41 + strlen(mes) / 2, mes, 40 - strlen(mes) / 2, "");
       }
     }
-    if (n){
+    if (n)
+    {
       char head[40] = "---| Type List |---";
       printf("%*s\n", 41 + strlen(head) / 2, head, 40 - strlen(head) / 2, "");
-      cout<<"---| Type List |---"<<endl;
-      cout<<"-------------------------"<<endl;
-      cout<<"Code                 Name"<<endl;
-      cout<<"-------------------------"<<endl;
-      for (;;){
+      printf("%28s-------------------------\n", " ");
+      printf("%28sCode                 Name\n", " ");
+      printf("%28s-------------------------\n", " ");
+      for (;;)
+      {
         printf("%28s%4d%21s\n", " ", type.code, type.name);
 
-        if (fread(&type, sizeof(type), 1, ty) != 1){
-          if (feof(ty)){
+        if (fread(&type, sizeof(type), 1, ty) != 1)
+        {
+          if (feof(ty))
+          {
             fclose(ty);
             break;
           }
         }
       }
-      cout<<"-------------------------"<<endl; 
+      printf("%28s-------------------------\n", " ");
     }
   }
 }
@@ -69,32 +86,36 @@ void typeList()
 void typeAdd()
 {
 
-  do{
-    cout<<"---| Add New Type |---"<<endl;
+  do
+  {
+    char head[40] = "---| Add New Type |---";
+    printf("%*s\n", 41 + strlen(head) / 2, head, 40 - strlen(head) / 2, "");
     ty = fopen("type.dat", "ab");
-    cout<<"Code : ";
+    printf("Code : ");
     int code = typeLast();
     printf("%d\n", code);
     type.code = code;
     // fflush(stdin);
     // gets(type.code);
 
-    cout<<"Name : ";
+    printf("Name : ");
     fflush(stdin);
     gets(type.name);
-    cout<<"Are you sure want to Add new Type"<<endl;
-    cout<<"Press Y to Confirm!"<<endl;
+    printf("Are you sure want to Add new Type\n");
+    printf("Press Y to Confirm!\n");
     fflush(stdin);
-    if (toupper(getch()) == 'Y'){
+    if (toupper(getch()) == 'Y')
+    {
       fwrite(&type, sizeof(type), 1, ty);
-      cout<<"Add New Type Success!"<<endl;
+      printf("Add New Type Success!\n\n");
     }
-    else{
-      cout<<"Cancel Add New Type!"<<endl;
+    else
+    {
+      printf("Cancel Add New Type!\n\n");
     }
     fclose(ty);
-    cout<<"Do You To Add More New Type?"<<endl;
-    cout<<"Press Y to Add More"<<endl;
+    printf("Do You To Add More New Type?\n");
+    printf("Press Y to Add More\n");
     fflush(stdin);
   } while (toupper(getch()) == 'Y');
 
@@ -105,15 +126,19 @@ char *typeDisplay(int code)
 {
   tySE = fopen("type.dat", "rb");
   int n = 0;
-  for (;;){
-    if (fread(&typeSE, sizeof(typeSE), 1, tySE) != 1){
-      if (feof(tySE)){
+  for (;;)
+  {
+    if (fread(&typeSE, sizeof(typeSE), 1, tySE) != 1)
+    {
+      if (feof(tySE))
+      {
         fclose(tySE);
         break;
       }
     }
     n++;
-    if (typeSE.code == code){
+    if (typeSE.code == code)
+    {
       fclose(tySE);
       return typeSE.name;
     }
@@ -128,15 +153,19 @@ int typeSearch(int code)
 {
   tySE = fopen("type.dat", "rb");
   int n = 0;
-  for (;;){
-    if (fread(&typeSE, sizeof(typeSE), 1, tySE) != 1){
-      if (feof(tySE)){
+  for (;;)
+  {
+    if (fread(&typeSE, sizeof(typeSE), 1, tySE) != 1)
+    {
+      if (feof(tySE))
+      {
         fclose(tySE);
         break;
       }
     }
     n++;
-    if (typeSE.code == code){
+    if (typeSE.code == code)
+    {
       fclose(tySE);
       return code;
     }
@@ -174,47 +203,56 @@ int typeSearch(int code)
 void typeEdit()
 {
   int num = sizeof(type);
-  if ((ty = fopen("type.dat", "r+b")) == NULL){
-    cout<<"Open File 'type.dat' Error!"<<endl;
+  if ((ty = fopen("type.dat", "r+b")) == NULL)
+  {
+    printf("Open File 'type.dat' Error!\n");
   }
-  else{
-    cout<<"---| Edit Type |---"<<endl;
+  else
+  {
+    char head[40] = "---| Edit Type |---";
+    printf("%*s\n", 41 + strlen(head) / 2, head, 40 - strlen(head) / 2, "");
     int code;
-    cout<<"Enter Code For Edit Type: ";
+    printf("Enter Code For Edit Type: ");
     fflush(stdin);
     scanf("%d", &code);
     bool n = true;
-    for (;;){
-      if (fread(&type, sizeof(type), 1, ty) != 1){
-        if (feof(ty)){
+    for (;;)
+    {
+      if (fread(&type, sizeof(type), 1, ty) != 1)
+      {
+        if (feof(ty))
+        {
           fclose(ty);
           break;
         }
       }
-      if (type.code == code){
-        cout<<"New Value For Edit!"<<endl;
+      if (type.code == code)
+      {
+        printf("New Value For Edit!\n");
         // printf("Code : ");
-        cout<<"Name : ";
+        printf("Name : ");
         fflush(stdin);
         gets(type.name);
-        cout<<"Are you sure want to Edit Type?"<<endl;
-        cout<<"Press Y to Confirm!"<<endl;
+        printf("Are you sure want to Edit Type?\n");
+        printf("Press Y to Confirm!\n");
         fflush(stdin);
-        if (toupper(getch()) == 'Y'){
+        if (toupper(getch()) == 'Y')
+        {
           fseek(ty, -(num), SEEK_CUR);
           fwrite(&type, num, 1, ty);
           fclose(ty);
-          cout<<"Edit Type Success!"<<endl;
+          printf("Edit Type Success!\n");
         }
-        else{
-          cout<<"Cancel Edit!"<<endl;
+        else
+        {
+          printf("Cancel Edit!\n");
         }
         n = false;
         break;
       }
     }
     if (n)
-      cout<<"Search This Code Not Found"<<endl;
+      printf("Search This Code Not Found\n");
   }
 
   footerAny();
@@ -225,43 +263,51 @@ void typeDel()
 
   tyCP = fopen("backupbreak.dat", "wb");
   if ((ty = fopen("type.dat", "rb")) == NULL)
-    cout<<"Open File 'type.dat' Error!"<<endl;
-  else{
-    cout<<"---| Delete Type |---"<<endl;
+    printf("Open File 'type.dat' Error!\n");
+  else
+  {
+    char head[40] = "---| Delete Type |---";
+    printf("%*s\n", 41 + strlen(head) / 2, head, 40 - strlen(head) / 2, "");
     bool n = true;
     int code;
-    cout<<"Code for Delete Type: ";
+    printf("Code for Delete Type: ");
     fflush(stdin);
     scanf("%d", &code);
-    for (;;){
-      if (fread(&type, sizeof(type), 1, ty) != 1){
-        if (feof(ty)){
+    for (;;)
+    {
+      if (fread(&type, sizeof(type), 1, ty) != 1)
+      {
+        if (feof(ty))
+        {
           fclose(ty);
           break;
         }
       }
-      if (type.code != code){
+      if (type.code != code)
+      {
         fwrite(&type, sizeof(type), 1, tyCP);
       }
-      else{
-        cout<<"Are You Sure Want To Delete Type"<<endl;
-        cout<<"Press Y to Confirm!"<<endl;
+      else
+      {
+        printf("Are You Sure Want To Delete Type\n");
+        printf("Press Y to Confirm!\n");
         fflush(stdin);
-        if (toupper(getch()) != 'Y'){
+        if (toupper(getch()) != 'Y')
+        {
           fwrite(&type, sizeof(type), 1, tyCP);
         }
         n = false;
       }
     }
     if (n)
-      cout<<"Search This Code Not Found"<<endl;
+      printf("Search This Code Not Found\n");
   }
 
   fclose(tyCP);
   remove("type.dat");
   rename("backupbreak.dat", "type.dat");
 
-  cout<<"Delete Type Success!"<<endl;
+  printf("Delete Type Success!\n");
 
   footerAny();
 }
@@ -269,14 +315,20 @@ void typeDel()
 void typeMenu()
 {
   char sel;
-  do{
+  do
+  {
     system("cls");
     headerTable();
-    cout<<"---| Type Menu |---"<<endl;
-    cout<<"Press [L] to List"<<endl;
-    cout<<"Press [N] to New"<<endl;
-    cout<<"Press [E] to Edit"<<endl;
-    cout<<"Press [D] to Delete"<<endl;
+    char head[40] = "---| Type Menu |---";
+    printf("%*s\n", 41 + strlen(head) / 2, head, 40 - strlen(head) / 2, "");
+    char menu1[40] = "Press [L] to List";
+    printf("%*s\n", 41 + strlen(menu1) / 2, menu1, 40 - strlen(menu1) / 2, "");
+    char menu2[40] = "Press [N] to New";
+    printf("%*s\n", 41 + strlen(menu2) / 2, menu2, 40 - strlen(menu2) / 2, "");
+    char menu3[40] = "Press [E] to Edit";
+    printf("%*s\n", 41 + strlen(menu3) / 2, menu3, 40 - strlen(menu3) / 2, "");
+    char menu4[40] = "Press [D] to Delete";
+    printf("%*s\n", 41 + strlen(menu4) / 2, menu4, 40 - strlen(menu4) / 2, "");
     puts("");
 
     footerReturn();
