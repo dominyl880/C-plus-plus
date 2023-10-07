@@ -9,10 +9,11 @@ int main()
   do{
       system("cls"); //ล้างหน้าจอ
       headerTable();  //แสดง =======
-      cout<<"Press [P] to Product Menu Page"<<endl;
-      cout<<"Press [T] to Type Menu Page"<<endl;  
-      cout<<"Press [C] to Stock Menu page"<<endl;
-      cout<<"Press [S] to Sale Menu page"<<endl;
+      //cout<<setw(4);
+      cout<<setw(56)<<"Press [P] to Product Menu Page"<<endl;
+      cout<<setw(53)<<"Press [T] to Type Menu Page"<<endl;  
+      cout<<setw(54)<<"Press [C] to Stock Menu page"<<endl;
+      cout<<setw(53)<<"Press [S] to Sale Menu page"<<endl;
 
       puts("");//ไม่ต้องกด enter จะเร็วกว่า cin
       // cin>>sel;
