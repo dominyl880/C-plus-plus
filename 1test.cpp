@@ -78,18 +78,19 @@ int main(){
 
 
         }else if(select=="A"){
-            for(int m=0; m<100;m++){
-                for(int u=0; u<3;u++){
-                    // cout<<product[m][u]<<"   ";
-                    
-                    if(product[m][u]==""){
-                        break; //ข้ามไป
-                    } 
-                    c=m+1;
+            // =======================Add=================================
+                for(int m=0; m<100;m++){
+                    for(int u=0; u<3;u++){
+                        // cout<<product[m][u]<<"   ";
+                        
+                        if(product[m][u]==""){
+                            break; //ข้ามไป
+                        } 
+                        c=m+1;
+                    }
+                    // cout<<endl;
                 }
-                // cout<<endl;
-            }
-                cout<<"last = "<<c<<endl;
+                // cout<<"last = "<<c<<endl;
                 string Rid;
                 stringstream ss;
                 ss << (c+1);
@@ -106,8 +107,40 @@ int main(){
             // }
 
         }else if(select=="E"){
+            // =======================Edit=================================
+            for(int m=0; m<100;m++){
+                for(int u=0; u<3;u++){
+                    if(product[m][u]==""){
+                        break; //ข้ามไป
+                    } 
+                    c=m+1;
+                }
+                cout<<endl;
+            }
+            for(int i=0;i<c;i++){
+                for(int i2=0;i2<3;i2++){
+                    if(ID==product[i][i2]){
+                        This=product[i][i2];
+                        c=i; 
+                    }
+                }  
+            }  
+            if(This==""){
+                cout<<"Not Found!"<<endl;
+            }else{
+                    cout<<"ID : "<<product[c][0]<<endl;
+                    cout<<"Name : "<<product[c][1]<<endl;
+                    cout<<"Type : "<<product[c][2]<<endl;
+                    cout<<"price : "<<price[c][0]<<endl;
+                    cout<<"amount : "<<price[c][1]<<endl;
+                    cout<<endl; 
+            }
+            This="";
+            cout<<"========================================================="<<endl;
             
         }else if(select=="D"){
+            // =======================Delete=================================
+
             
         }
  
