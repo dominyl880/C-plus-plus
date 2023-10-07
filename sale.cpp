@@ -3,8 +3,7 @@
 #include <conio.h>
 #include <cctype>
 #include <string.h>
-
-
+ 
 
 #include "stock.cpp"
 

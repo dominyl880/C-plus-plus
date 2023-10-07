@@ -2,8 +2,7 @@
 #include <stdlib.h>
 #include <conio.h>
 #include <cctype>
-#include <string.h>
-#include <iostream>
+#include <string.h> 
 
 FILE *fp, *cp;
 
