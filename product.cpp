@@ -2,20 +2,21 @@ void product(){
       string This,ID;
       char sell_p;
       int c,c2;
+      char anw;
       const int columnWidth = 10;
-      string Product_list[100][3]={{"P1","Pen","1"},
-                                   {"P2","Eraser","1"},
-                                   {"P3","Pencil","1"},
-                                   {"P4","Ruler","1"},
-                                   {"P5","Chicken","2"},
-                                   {"P6","Duck","2"},
-                                   {"P7","Pig","2"},
-                                   {"P8","Rice","2"},
-                                   {"P9","Egg","2"},
-                                   {"P10","Coca cola","3"},
-                                   {"P11","Milk","3"},
-                                   {"P12","Water","3"},
-                                   {"P13","Bread","2"}
+      string Product_list[100][3]={{"P1","Pen","T1"},
+                                   {"P2","Eraser","T1"},
+                                   {"P3","Pencil","T1"},
+                                   {"P4","Ruler","T1"},
+                                   {"P5","Chicken","T2"},
+                                   {"P6","Duck","T2"},
+                                   {"P7","Pig","T2"},
+                                   {"P8","Rice","T2"},
+                                   {"P9","Egg","T2"},
+                                   {"P10","Coca cola","T3"},
+                                   {"P11","Milk","T3"},
+                                   {"P12","Water","T3"},
+                                   {"P13","Bread","T2"}
                                   };
       int Price_list[100][2]={{5,3},
                               {5,3},
@@ -123,7 +124,84 @@ void product(){
                 cout<<"-------------------------------------------------------------------------------"<<endl;
             // }
           }else if(sell_p=='E'){
-            // EditProduct();
+            cout<<setw(60)<<"--------------- Edit Product ---------------"<<endl;
+            cout<<"Enter ID : "; cin>>ID;
+            for(int m=0; m<100;m++){
+                for(int u=0; u<3;u++){
+                    if(Product_list[m][u]==""){
+                        break; //ข้ามไป
+                    } 
+                    c=m+1;
+                }
+            }
+            for(int i=0;i<c;i++){
+                for(int i2=0;i2<3;i2++){
+                    if(ID==Product_list[i][i2]){
+                        This=Product_list[i][i2];
+                        c=i; 
+                    }
+                }  
+            }  
+            if(This==""){
+                cout<<"Not Found!"<<endl;
+            }else{
+                    cout<<"---------------------------------------------------"<<endl;
+                    cout<<"ID = "<<Product_list[c][0]<<endl; //ห้ามแก้ไอดี
+                    do{
+                        cout<<"Do you want to edit Name? (Y/N) : "; cin>>anw;
+                        if(anw=='Y'){
+                            cout<<"New Name : "; cin>>Product_list[c][1];
+                            cout<<"Completed."<<endl; 
+                            anw='N';
+                        }else if(anw=='N'){
+                            cout<<"You have skipped."<<endl;
+                        }else{
+                            cout<<"Try again."<<endl;
+                        }
+                    }while(anw!='N');
+                    
+                    do{
+                        cout<<"Do you want to edit Type? (Y/N) : "; cin>>anw;
+                        if(anw=='Y'){
+                            cout<<"New Type : "; cin>>Product_list[c][2];
+                            cout<<"Completed."<<endl; 
+                            anw='N';
+                        }else if(anw=='N'){
+                            cout<<"You have skipped."<<endl;
+                        }else{
+                            cout<<"Try again."<<endl;
+                        }
+                    }while(anw!='N');
+
+                    do{
+                        cout<<"Do you want to edit Price? (Y/N) : "; cin>>anw;
+                        if(anw=='Y'){
+                            cout<<"New Price : "; cin>>Price_list[c][0];
+                            cout<<"Completed."<<endl; 
+                            anw='N';
+                        }else if(anw=='N'){
+                            cout<<"You have skipped."<<endl;
+                        }else{
+                            cout<<"Try again."<<endl;
+                        }
+                    }while(anw!='N');
+
+                     do{
+                        cout<<"Do you want to edit Amount? (Y/N) : "; cin>>anw;
+                        if(anw=='Y'){
+                            cout<<"New Amount : "; cin>>Price_list[c][1];
+                            cout<<"Completed."<<endl; 
+                            anw='N';
+                        }else if(anw=='N'){
+                            cout<<"You have skipped."<<endl;
+                        }else{
+                            cout<<"Try again."<<endl;
+                        }
+                    }while(anw!='N');
+                    cout<<endl; 
+            }
+            This="";
+            cout<<"-------------------------------------------------------------------------------"<<endl;
           }else if(sell_p=='D'){
             // DelProduct();
           }

@@ -6,6 +6,10 @@
 #include"header.cpp"
 #include"product.cpp"
 
+  int c,beforeDel; //หาตำแหน่ง  , จำนวนข้อมูลก่อนลบ 
+  char anw; //เช็ค Y N 
+  string old; //เก็บไอดีเก่า
+
 // ================================Type Menu==========================
 void typeMenu(){
       string This,ID;
@@ -46,8 +50,8 @@ void typeMenu(){
             cout<<"Enter ID : "; cin>>ID;
 
 
-            for(int m=0; m<100;m++){
-                for(int u=0; u<3;u++){
+            for(int m=0; m<10;m++){
+                for(int u=0; u<2;u++){
                     if(Type_list[m][u]==""){
                         break; //ข้ามไป
                     } 
@@ -56,7 +60,7 @@ void typeMenu(){
                 cout<<endl;
             }
             for(int i=0;i<t;i++){
-                for(int i2=0;i2<3;i2++){
+                for(int i2=0;i2<2;i2++){
                     if(ID==Type_list[i][i2]){
                         This=Type_list[i][i2];
                         t=i; 
@@ -99,7 +103,57 @@ void typeMenu(){
                 cout<<"-------------------------------------------------------------------------------"<<endl;
             // }
           }else if(sell_t=='E'){
-            // EditType();
+            cout<<setw(60)<<"--------------- Edit Type ---------------"<<endl;
+            cout<<"Enter ID : "; cin>>ID;
+            //cout<<ID<<endl;
+            for(int m=0; m<10;m++){
+                for(int u=0;u<2;u++){
+                  //cout<<m<<"    "<<u<<" = ";
+                  //cout<<Type_list[m][u]<<endl;
+
+                    if(Type_list[m][u]==""){
+                        break; //ข้ามไป
+                    } 
+                    c=m+1;
+                }
+            }
+            //cout<<c<<endl;
+            for(int i=0;i<c;i++){
+                for(int i2=0;i2<2;i2++){
+                    //cout<<Type_list[i][i2]<<endl;
+                    if(ID==Type_list[i][i2]){
+                        
+                      
+                        This=Type_list[i][i2];
+                        c=i; 
+                    }
+                }  
+            }  
+            //cout<<c<<endl;
+
+            //cout<<This<<endl;
+
+            if(This==""){
+                cout<<"Not Found!"<<endl;
+            }else{
+                    cout<<"---------------------------------------------------"<<endl;
+                    cout<<"ID = "<<Type_list[c][0]<<endl; //ห้ามแก้ไอดี
+                    do{
+                        cout<<"Do you want to edit Name? (Y/N) : "; cin>>anw;
+                        if(anw=='Y'){
+                            cout<<"New Name : "; cin>>Type_list[c][1];
+                            cout<<"Completed."<<endl; 
+                            anw='N';
+                        }else if(anw=='N'){
+                            cout<<"You have skipped."<<endl;
+                        }else{
+                            cout<<"Try again."<<endl;
+                        }
+                    }while(anw!='N');
+                    cout<<endl;
+            }
+            This="";
+            cout<<"-------------------------------------------------------------------------------"<<endl;
           }else if(sell_t=='D'){
             // DelType();
           }
@@ -175,7 +229,84 @@ void sale(){
                 cout<<"-------------------------------------------------------------------------------"<<endl;
             // }
           }else if(sell_s=='E'){
-            // Editsale();
+            cout<<setw(60)<<"--------------- Edit Sale ---------------"<<endl;
+            cout<<"Enter ID : "; cin>>ID;
+            for(int m=0; m<100;m++){
+                for(int u=0; u<3;u++){
+                    if(Sale_list[m][u]==""){
+                        break; //ข้ามไป
+                    } 
+                    c=m+1;
+                }
+            }
+            for(int i=0;i<c;i++){
+                for(int i2=0;i2<3;i2++){
+                    if(ID==Sale_list[i][i2]){
+                        This=Sale_list[i][i2];
+                        c=i; 
+                    }
+                }  
+            }  
+            if(This==""){
+                cout<<"Not Found!"<<endl;
+            }else{
+                    cout<<"---------------------------------------------------"<<endl;
+                    cout<<"ID = "<<Sale_list[c][0]<<endl; //ห้ามแก้ไอดี
+                    do{
+                        cout<<"Do you want to edit ID Product? (Y/N) : "; cin>>anw;
+                        if(anw=='Y'){
+                            cout<<"New ID Product : "; cin>>Sale_list[c][1];
+                            cout<<"Completed."<<endl; 
+                            anw='N';
+                        }else if(anw=='N'){
+                            cout<<"You have skipped."<<endl;
+                        }else{
+                            cout<<"Try again."<<endl;
+                        }
+                    }while(anw!='N');
+
+                    do{
+                        cout<<"Do you want to edit Price? (Y/N) : "; cin>>anw;
+                        if(anw=='Y'){
+                            cout<<"New Price : "; cin>>Price_list[c][0];
+                            cout<<"Completed."<<endl; 
+                            anw='N';
+                        }else if(anw=='N'){
+                            cout<<"You have skipped."<<endl;
+                        }else{
+                            cout<<"Try again."<<endl;
+                        }
+                    }while(anw!='N');
+
+                     do{
+                        cout<<"Do you want to edit Amount? (Y/N) : "; cin>>anw;
+                        if(anw=='Y'){
+                            cout<<"New Amount : "; cin>>Price_list[c][1];
+                            cout<<"Completed."<<endl; 
+                            anw='N';
+                        }else if(anw=='N'){
+                            cout<<"You have skipped."<<endl;
+                        }else{
+                            cout<<"Try again."<<endl;
+                        }
+                    }while(anw!='N');
+                    
+                    do{
+                        cout<<"Do you want to edit Total? (Y/N) : "; cin>>anw;
+                        if(anw=='Y'){
+                            cout<<"New Total : "; cin>>Price_list[c][2];
+                            cout<<"Completed."<<endl; 
+                            anw='N';
+                        }else if(anw=='N'){
+                            cout<<"You have skipped."<<endl;
+                        }else{
+                            cout<<"Try again."<<endl;
+                        }
+                    }while(anw!='N');
+                    cout<<endl; 
+            }
+            This="";
+            cout<<"-------------------------------------------------------------------------------"<<endl;
           }else if(sell_s=='D'){
             // Delsale();
           }
