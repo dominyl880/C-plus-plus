@@ -1,9 +1,10 @@
 void product(){
       string This,ID;
       char sell_p;
-      int c,c2;
+      int c,c2,k;
       char anw;
       const int columnWidth = 10;
+      int beforeDel;
       string Product_list[100][3]={{"P1","Pen","T1"},
                                    {"P2","Eraser","T1"},
                                    {"P3","Pencil","T1"},
@@ -44,6 +45,18 @@ void product(){
           cin>>sell_p;
           system("cls");
           sell_p = toupper(sell_p);
+
+// beforeDel--
+            for(int m=0; m<100;m++){
+           for(int u=0; u<3;u++){
+               if(Product_list[m][u]==""){
+                   break; //ข้ามไป
+               } 
+               c=m+1;
+           }
+       }
+            beforeDel=c;
+
           if(sell_p=='L'){ 
               cout<<setw(60)<<"--------------- List Product ---------------"<<endl;
               cout<<"-------------------------------------------------------------------------------"<<endl;
@@ -203,9 +216,105 @@ void product(){
             This="";
             cout<<"-------------------------------------------------------------------------------"<<endl;
           }else if(sell_p=='D'){
-            // DelProduct();
-          }
-      }while(sell_p!='X');
+            cout<<setw(60)<<"--------------- Delete Product ---------------"<<endl;
+            cout<<"Enter ID : "; cin>>ID;
+            for(int m=0; m<100;m++){
+                for(int u=0; u<3;u++){
+                    if(Product_list[m][u]==""){
+                        break; //ข้ามไป
+                    } 
+                    c=m+1;
+                }
+            }
+            for(int i=0;i<c;i++){
+                for(int i2=0;i2<3;i2++){
+                    if(ID==Product_list[i][i2]){
+                        This=Product_list[i][i2];
+                        c=i; 
+                    }
+                }  
+            }
+            if(This==""){
+                cout<<"Not Found!"<<endl;
+            }else{
+                    cout<<"-------------------------------------------------------------------------------"<<endl;
+                    do{
+                        cout<<"Do you want to delete "<<Product_list[c][0]<<"? (Y/N) : "; cin>>anw;
+                        if(anw=='Y'){
+                            Product_list[c][0]="";
+                            cout<<"Completed."<<endl; 
+                            anw='N';
+                        }else if(anw=='N'){
+                            cout<<"You have skipped."<<endl;
+                        }else{
+                            cout<<"Try again."<<endl;
+                        }
+                    }while(anw!='N');
+
+                            for(int m=0; m<100;m++){
+                                for(int u=0; u<3;u++){
+                                    if(Product_list[m][u]==""){
+                                        break;
+                                        c=m;
+                                    } 
+                                }
+                            }
+                            for(int i=0;i<c;i++){
+                                for(int i2=0;i2<3;i2++){
+                                    if(ID==Product_list[i][i2]){
+                                        This=Product_list[i][i2];
+                                        c=i; 
+                                    }
+                                }  
+                            }  
+            }
+            // cout<<c<<endl;
+          
+            // cout<<beforeDel<<endl;
+            for(int i=c;i<beforeDel;i++){
+                        Product_list[i][0]="";
+                        Product_list[i][1]="";
+                        Product_list[i][2]="";
+                        Price_list[i][0]=0;
+                        Price_list[i][1]=0;
+                        
+                        string Rid;
+                        stringstream ss;
+                        ss << (i+1);
+                        Rid="P"+ss.str();
+
+                        Product_list[i][0]=Rid;
+                        
+                        Product_list[i][1]=Product_list[i+1][1];
+                        Product_list[i][2]=Product_list[i+1][2];
+                        Price_list[i][0]=Price_list[i+1][0];
+                        Price_list[i][1]=Price_list[i+1][1];
+
+                        Product_list[i+1][0]="";
+                        Product_list[i+1][1]="";
+                        Product_list[i+1][2]="";
+                        Price_list[i+1][0]=0;
+                        Price_list[i+1][1]=0;
+
+                        k=i;
+                        
+                cout<<endl;
+            }
+                        Product_list[k][0]="";
+                        Product_list[k][1]="";
+                        Product_list[k][2]="";
+                        Price_list[k][0]=0;
+                        Price_list[k][1]=0;
+
+            This="";
+            cout<<"-------------------------------------------------------------------------------"<<endl;
+            
+        }
+ 
+
+    }while(sell_p!='X');
+
 }
+
 
 
