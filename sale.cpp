@@ -1,9 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <conio.h>
-#include <cctype>
-#include <string.h>
- 
 
 #include "stock.cpp"
 
@@ -20,29 +14,22 @@ FILE *sa, *saCP;
 void saleHistory()
 {
   bool n = true;
-  if ((sa = fopen("sale.dat", "rb")) == NULL)
-  {
-    printf("Open File 'sale.dat' Error!\n");
+  if ((sa = fopen("sale.dat", "rb")) == NULL){
+    cout<<"Open File 'sale.dat' Error!"<<endl;
   }
-  else
-  {
-    if (fread(&sale, sizeof(sale), 1, sa) != 1)
-    {
-      if (feof(sa))
-      {
+  else{
+    if (fread(&sale, sizeof(sale), 1, sa) != 1){
+      if (feof(sa)){
         fclose(sa);
         n = false;
       }
     }
-    if (n)
-    {
-      char head[40] = "---| History Sale |---";
-      printf("%*s\n", 41 + strlen(head) / 2, head, 40 - strlen(head) / 2, "");
-      printf("---------------------------------------------------------------------------------\n");
-      printf("             Customer   Code              Product      Price   Amount        Net\n");
-      printf("---------------------------------------------------------------------------------\n");
-      for (;;)
-      {
+    if (n){
+      cout<<setw(45)<<"---| History Sale |---"<<endl;
+      cout<<"---------------------------------------------------------------------------------"<<endl;
+      cout<<"             Customer   Code              Product      Price   Amount        Net"<<endl;
+      cout<<"---------------------------------------------------------------------------------"<<endl;
+      for (;;){
         printf("%21s%7s%21s%11.2f%9d%11.2f\n", sale.cus, sale.code, productName(sale.code), sale.price, sale.amount, (float)sale.price * sale.amount);
 
         if (fread(&sale, sizeof(sale), 1, sa) != 1)
@@ -54,7 +41,7 @@ void saleHistory()
           }
         }
       }
-      printf("---------------------------------------------------------------------------------\n");
+      cout<<"---------------------------------------------------------------------------------"<<endl;
     }
   }
 }
@@ -64,56 +51,55 @@ void saleNew()
 
   do
   {
-    char head[40] = "======>| New Sell |<======";
-    printf("%*s\n", 41 + strlen(head) / 2, head, 40 - strlen(head) / 2, "");
+    cout<<setw(52)<<"======>| New Sell |<======"<<endl;
     sa = fopen("sale.dat", "ab");
     int n;
     bool check;
     productList();
     do
     {
-      printf("Enter Product Code : ");
+      cout<<"Enter Product Code : "<<endl;
       fflush(stdin);
       gets(sale.code);
       n = stockAmount(sale.code);
       if (n < 0)
       {
         check = true;
-        printf("Search This Code Not Found\n");
+        cout<<"Search This Code Not Found"<<endl;
       }
       else if (n == 0)
       {
         check = true;
-        printf("This Product Is Out Of Stock\n");
+        cout<<"This Product Is Out Of Stock"<<endl;
       }
       else
       {
         check = false;
       }
     } while (check);
-    printf("Customer Name : ");
+    cout<<"Customer Name : ";
     fflush(stdin);
     gets(sale.cus);
 
     do
     {
-      printf("Amount : ");
+      cout<<"Amount : ";
       fflush(stdin);
       scanf("%d", &sale.amount);
       if (sale.amount < 0)
       {
-        printf("Wrong Number Input!\n");
+        cout<<"Wrong Number Input!"<<endl;
         check = true;
       }
       else if (sale.amount == 0)
       {
-        printf("Number Input Must Greater Than Or Equal To 1\n");
+        cout<<"Number Input Must Greater Than Or Equal To 1"<<endl;
         check = true;
       }
       else if (sale.amount > n)
       {
         check = true;
-        printf("Don't Have Product In Stock Not Enough\n");
+        cout<<"Don't Have Product In Stock Not Enough"<<endl;
       }
       else
       {
@@ -125,17 +111,17 @@ void saleNew()
 
     printf("Net Price : %.2f \n", sale.price * sale.amount);
 
-    printf("Are You Sure Want To New Sell\n");
-    printf("Press Y To Confirm!\n");
+    cout<<"Are You Sure Want To New Sell"<<endl;
+    cout<<"Press Y To Confirm!"<<endl;
     fflush(stdin);
     if (toupper(getch()) == 'Y')
     {
       stockDown(sale.code, sale.amount);
       fwrite(&sale, sizeof(sale), 1, sa);
     }
-    printf("New Sale Success!\n\n");
-    printf("Do You To New More Sell\n");
-    printf("Press Y to New Sell\n");
+    cout<<"New Sale Success!"<<endl;
+    cout<<"Do You To New More Sell"<<endl;
+    cout<<"Press Y to New Sell"<<endl;
     fflush(stdin);
   } while (toupper(getch()) == 'Y');
   fclose(sa);
@@ -151,12 +137,9 @@ void saleMenu()
     system("cls");
     headerTable();
 
-    char head[40] = "---| Sale Menu |---";
-    printf("%*s\n", 41 + strlen(head) / 2, head, 40 - strlen(head) / 2, "");
-    char menu1[40] = "Press [H] to History";
-    printf("%*s\n", 41 + strlen(menu1) / 2, menu1, 40 - strlen(menu1) / 2, "");
-    char menu2[40] = "Press [S] to Sell";
-    printf("%*s\n", 41 + strlen(menu2) / 2, menu2, 40 - strlen(menu2) / 2, "");
+    cout<<setw(49)<<"---| Sale Menu |---"<<endl;
+    cout<<setw(50)<<"Press [H] to History"<<endl;
+    cout<<setw(47)<<"Press [S] to Sell"<<endl;
     puts("");
 
     footerReturn();
