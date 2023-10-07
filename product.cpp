@@ -1,4 +1,3 @@
-
 #include "type.cpp"
 
 struct product{
@@ -63,16 +62,14 @@ void productList(){
       if(feof(pd)){
         fclose(pd);
         n = false;
-        char mes[40] = "Don't Have Any Product!";
-        printf("%*s\n", 41 + strlen(mes) / 2, mes, 40 - strlen(mes) / 2, "");
+        cout<<"Don't Have Any Product!"<<endl;
       }
     }
     if(n){
-      char head[40] = "---| Product List |---";
-      printf("%*s\n", 41 + strlen(head) / 2, head, 40 - strlen(head) / 2, "");
-      printf("%6s---------------------------------------------------------------------\n", " ");
-      printf("%6s   Code                 Name       Price  Amount                 Type\n", " ");
-      printf("%6s---------------------------------------------------------------------\n", " ");
+      cout<<setw(45)<<"---| Product List |---"<<endl;
+      cout<<"---------------------------------------------------------------------"<<endl;;
+      cout<<"   Code                 Name       Price  Amount                 Type"<<endl;
+      cout<<"---------------------------------------------------------------------"<<endl;
       for(;;){
         printf("%7s%6s%21s%12.2f%8d%21s\n", " ", prod.code, prod.name, prod.price, prod.amount, typeDisplay(prod.type));
 
@@ -83,7 +80,7 @@ void productList(){
           }
         }
       }
-      printf("%6s---------------------------------------------------------------------\n", " ");
+      cout<<"---------------------------------------------------------------------"<<endl;
     }
   }
 }
@@ -92,55 +89,50 @@ void productAdd()
 {
   pd = fopen("product.dat", "ab");
   do{
-    char head[40] = "---| Add New Product |---";
-    printf("%*s\n", 41 + strlen(head) / 2, head, 40 - strlen(head) / 2, "");
-    printf("Add New Product\n");
-    printf("Code : ");
+    cout<<setw(45)<<"---| Add New Product |---"<<endl;
+    cout<<"Add New Product"<<endl;
+    cout<<"Code : ";
     fflush(stdin);
     gets(prod.code);
-    printf("Name : ");
+    cout<<"Name : ";
     fflush(stdin);
     gets(prod.name);
     bool n = true;
-    do
-    {
-      printf("Price : ");
+    do{
+      cout<<"Price : ";
       fflush(stdin);
       scanf("%f", &prod.price);
       if(prod.price >= 1){
         n = false;
       }
-      else
-      {
-        printf("Price Must Greater Than Or Equal To 1\n");
+      else{
+        cout<<"Price Must Greater Than Or Equal To 1"<<endl;
         n = true;
       }
     } while (n);
-    do
-    {
-      printf("Amount : ");
+    do{
+      cout<<"Amount : ";
       fflush(stdin);
       scanf("%d", &prod.amount);
       if(prod.amount >= 0){
         n = false;
       }
-      else
-      {
+      else{
         n = true;
-        printf("Amount Must Greater Than Or Equal To 0\n");
+        cout<<"Amount Must Greater Than Or Equal To 0"<<endl;
       }
     }while(n);
-    printf("\n");
+    cout<<endl;
     typeList();
-    printf("\n");
+    cout<<endl;
     n = false;
     do{
-      printf("\nType : ");
+      cout<<"\nType : ";
       fflush(stdin);
       scanf("%d", &prod.type);
       int check = typeSearch(prod.type);
       if(check < 0){
-        printf("\nThis Code Not Found In Type List!\n");
+        cout<<"\nThis Code Not Found In Type List!"<<endl;
         n = true;
       }
       else{
@@ -150,18 +142,18 @@ void productAdd()
 
     // printf("This Product Will Be Code : %s", prod.code);
 
-    printf("Are You Sure Want To Add New Product\n");
-    printf("Press Y To Confirm!\n");
+    cout<<"Are You Sure Want To Add New Product"<<endl;
+    cout<<"Press Y To Confirm!"<<endl;
     fflush(stdin);
     if(toupper(getch()) == 'Y'){
       fwrite(&prod, sizeof(prod), 1, pd);
-      printf("Add New Product Success!\n\n");
+      cout<<"Add New Product Success!"<<endl;
     }
     else{
-      printf("Cancel Add New Product!\n\n");
+      cout<<"Cancel Add New Product!"<<endl;
     }
-    printf("Do You To Add More New Product?\n");
-    printf("Press Y to Add More\n");
+    cout<<"Do You To Add More New Product?"<<endl;
+    cout<<"Press Y to Add More"<<endl;
     fflush(stdin);
   }while(toupper(getch()) == 'Y');
   fclose(pd);
@@ -171,13 +163,12 @@ void productAdd()
 
 void productEdit(){
   if((pd = fopen("product.dat", "r+b")) == NULL){
-    printf("Open File 'product.dat' Error!\n");
+    cout<<"Open File 'product.dat' Error!"<<endl;
   }else{
     int num = sizeof(prod);
-    char head[40] = "---| Edit Product |---";
-    printf("%*s\n", 41 + strlen(head) / 2, head, 40 - strlen(head) / 2, "");
+    cout<<setw(45)<<"---| Edit Product |---"<<endl;
     char code[5];
-    printf("Enter Code For Edit Product: ");
+    cout<<"Enter Code For Edit Product: ";
     fflush(stdin);
     gets(code);
     bool n = true;
@@ -189,57 +180,57 @@ void productEdit(){
         }
       }
       if(strcmp(prod.code, code) == 0){
-        printf("New Value For Edit!\n");
-        printf("Do You Want To Edit Code\n");
-        printf("Press Y To Yes!\n");
+        cout<<"New Value For Edit!"<<endl;
+        cout<<"Do You Want To Edit Code"<<endl;
+        cout<<"Press Y To Yes!"<<endl;
         fflush(stdin);
         if(toupper(getch()) == 'Y'){
-          printf("Code : ");
+          cout<<"Code : ";
           fflush(stdin);
           gets(prod.code);
         }
-        printf("Do You Want To Edit Name\n");
-        printf("Press Y To Yes!\n");
+        cout<<"Do You Want To Edit Name"<<endl;
+        cout<<"Press Y To Yes!"<<endl;
         fflush(stdin);
         if(toupper(getch()) == 'Y'){
-          printf("Name : ");
+          cout<<"Name : ";
           fflush(stdin);
           gets(prod.name);
         }
-        printf("Do You Want To Edit Price\n");
-        printf("Press Y To Yes!\n");
+        cout<<"Do You Want To Edit Price"<<endl;
+        cout<<"Press Y To Yes!"<<endl;
         fflush(stdin);
         if(toupper(getch()) == 'Y'){
           do{
-            printf("Price : ");
+            cout<<"Price : ";
             fflush(stdin);
             scanf("%f", &prod.price);
             if(prod.price >= 1){
               n = false;
             }
             else{
-              printf("Price Must Greater Than Or Equal To 1\n");
+              cout<<"Price Must Greater Than Or Equal To 1"<<endl;
               n = true;
             }
           } while(n);
         }
-        printf("Do You Want To Edit Type\n");
-        printf("Press Y To Yes!\n");
+        cout<<"Do You Want To Edit Type"<<endl;
+        cout<<"Press Y To Yes!"<<endl;
         fflush(stdin);
         if(toupper(getch()) == 'Y'){
           bool n = false;
-          printf("\n");
+          cout<<endl;
           typeList();
-          printf("\n");
+          cout<<endl;
           do{
             fflush(stdin);
-            printf("\nType : ");
+            cout<<"\nType : ";
             scanf("%d", &prod.type);
             int check = typeSearch(prod.type);
             // fflush(stdin);
             // gets(prod.type);
             if(check < 0){
-              printf("\nThis Code Not Found In Type List!\n");
+              cout<<"\nThis Code Not Found In Type List!"<<endl;
               n = true;
             }
             else{
@@ -247,25 +238,24 @@ void productEdit(){
             }
           } while (n);
         }
-        printf("Are You Sure Want To Edit Product\n");
-        printf("Press Y to Confirm!\n");
+        cout<<"Are You Sure Want To Edit Product"<<endl;
+        cout<<"Press Y to Confirm!"<<endl;
         fflush(stdin);
         if(toupper(getch()) == 'Y'){
           fseek(pd, -(num), SEEK_CUR);
           fwrite(&prod, num, 1, pd);
           fclose(pd);
-          printf("Edit Product Success!\n");
+          cout<<"Edit Product Success!"<<endl;
         }
-        else
-        {
-          printf("Cancel Edit!\n");
+        else{
+          cout<<"Cancel Edit!"<<endl;
         }
         n = false;
         break;
       }
     }
     if(n)
-      printf("Search This Code Not Found\n");
+      cout<<"Search This Code Not Found"<<endl;
   }
 
   footerAny();
@@ -276,18 +266,15 @@ void productDel()
 
   pdCP = fopen("backupbreak.dat", "wb");
   if((pd = fopen("product.dat", "rb")) == NULL)
-    printf("Open File 'product.dat' Error!\n");
-  else
-  {
-    char head[40] = "---| Delete Product |---";
-    printf("%*s\n", 41 + strlen(head) / 2, head, 40 - strlen(head) / 2, "");
+    cout<<"Open File 'product.dat' Error!"<<endl;
+  else{
+    cout<<"---| Delete Product |---"<<endl;
     bool n = true;
     char code[5];
-    printf("Code for Delete Product: ");
+    cout<<"Code for Delete Product: ";
     fflush(stdin);
     gets(code);
-    for (;;)
-    {
+    for (;;){
       if(fread(&prod, sizeof(prod), 1, pd) != 1){
         if(feof(pd)){
           fclose(pd);
@@ -297,10 +284,9 @@ void productDel()
       if(strcmp(prod.code, code) != 0){
         fwrite(&prod, sizeof(prod), 1, pdCP);
       }
-      else
-      {
-        printf("Are You Sure Want To Delete Product\n");
-        printf("Press Y to Confirm!\n");
+      else{
+        cout<<"Are You Sure Want To Delete Product"<<endl;
+        cout<<"Press Y to Confirm!"<<endl;
         fflush(stdin);
         if(toupper(getch()) != 'Y'){
           fwrite(&prod, sizeof(prod), 1, pdCP);
@@ -309,14 +295,14 @@ void productDel()
       }
     }
     if(n)
-      printf("Search This Code Not Found\n");
+      cout<<"Search This Code Not Found"<<endl;
   }
 
   fclose(pdCP);
   remove("product.dat");
   rename("backupbreak.dat", "product.dat");
 
-  printf("Delete Product Success!\n");
+  cout<<"Delete Product Success!"<<endl;
 
   footerAny();
 }
@@ -324,20 +310,14 @@ void productDel()
 void productMenu()
 {
   char sel;
-  do
-  {
+  do{
     system("cls");
     headerTable();
-    char head[40] = "---| Product Menu |---";
-    printf("%*s\n", 41 + strlen(head) / 2, head, 40 - strlen(head) / 2, "");
-    char menu1[40] = "Press [L] to List";
-    printf("%*s\n", 41 + strlen(menu1) / 2, menu1, 40 - strlen(menu1) / 2, "");
-    char menu2[40] = "Press [N] to New";
-    printf("%*s\n", 41 + strlen(menu2) / 2, menu2, 40 - strlen(menu2) / 2, "");
-    char menu3[40] = "Press [E] to Edit";
-    printf("%*s\n", 41 + strlen(menu3) / 2, menu3, 40 - strlen(menu3) / 2, "");
-    char menu4[40] = "Press [D] to Delete";
-    printf("%*s\n", 41 + strlen(menu4) / 2, menu4, 40 - strlen(menu4) / 2, "");
+    cout<<setw(50)<<"---| Product Menu |---"<<endl;
+    cout<<setw(46)<<"Press [L] to List"<<endl;
+    cout<<setw(45)<<"Press [N] to New"<<endl;
+    cout<<setw(46)<<"Press [E] to Edit"<<endl;
+    cout<<setw(48)<<"Press [D] to Delete"<<endl;
     puts("");
 
     footerReturn();
