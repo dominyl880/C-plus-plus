@@ -1,40 +1,29 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <conio.h>
-#include <cctype>
-#include <string.h> 
 
 #include "type.cpp"
 
-struct product
-{
+struct product{
   // char code[8];
   char code[5];
   char name[20];
   float price;
   int amount;
   int type; // type code
-} prod, prodCP, prodSE;
+} prod,prodCP,prodSE;
 
 FILE *pd, *pdCP, *pdSE;
 
-char *productName(char *code)
-{
+char *productName(char *code){
   pdSE = fopen("product.dat", "rb");
   int n = 0;
-  for (;;)
-  {
-    if (fread(&prodSE, sizeof(prodSE), 1, pdSE) != 1)
-    {
-      if (feof(pdSE))
-      {
+  for(;;){
+    if(fread(&prodSE, sizeof(prodSE), 1, pdSE) != 1){
+      if(feof(pdSE)){
         fclose(pdSE);
         break;
       }
     }
     n++;
-    if (strcmp(prodSE.code, code) == 0)
-    {
+    if(strcmp(prodSE.code, code) == 0){
       fclose(pdSE);
       return prodSE.name;
     }
@@ -45,23 +34,18 @@ char *productName(char *code)
   return unknow;
 }
 
-float productPrice(char *code)
-{
+float productPrice(char *code){
   pdSE = fopen("product.dat", "rb");
   int n = 0;
-  for (;;)
-  {
-    if (fread(&prodSE, sizeof(prodSE), 1, pdSE) != 1)
-    {
-      if (feof(pdSE))
-      {
+  for(;;){
+    if(fread(&prodSE, sizeof(prodSE), 1, pdSE) != 1){
+      if(feof(pdSE)){
         fclose(pdSE);
         break;
       }
     }
     n++;
-    if (strcmp(prodSE.code, code) == 0)
-    {
+    if(strcmp(prodSE.code, code) == 0){
       fclose(pdSE);
       return prodSE.price;
     }
@@ -70,41 +54,30 @@ float productPrice(char *code)
   return -1;
 }
 
-void productList()
-{
-
+void productList(){
   bool n = true;
-  if ((pd = fopen("product.dat", "rb")) == NULL)
-  {
+  if((pd = fopen("product.dat", "rb")) == NULL){
     printf("Open File 'product.dat' Error!\n");
-  }
-  else
-  {
-    if (fread(&prod, sizeof(prod), 1, pd) != 1)
-    {
-      if (feof(pd))
-      {
+  }else{
+    if(fread(&prod, sizeof(prod), 1, pd) != 1){
+      if(feof(pd)){
         fclose(pd);
         n = false;
         char mes[40] = "Don't Have Any Product!";
         printf("%*s\n", 41 + strlen(mes) / 2, mes, 40 - strlen(mes) / 2, "");
       }
     }
-    if (n)
-    {
+    if(n){
       char head[40] = "---| Product List |---";
       printf("%*s\n", 41 + strlen(head) / 2, head, 40 - strlen(head) / 2, "");
       printf("%6s---------------------------------------------------------------------\n", " ");
       printf("%6s   Code                 Name       Price  Amount                 Type\n", " ");
       printf("%6s---------------------------------------------------------------------\n", " ");
-      for (;;)
-      {
+      for(;;){
         printf("%7s%6s%21s%12.2f%8d%21s\n", " ", prod.code, prod.name, prod.price, prod.amount, typeDisplay(prod.type));
 
-        if (fread(&prod, sizeof(prod), 1, pd) != 1)
-        {
-          if (feof(pd))
-          {
+        if(fread(&prod, sizeof(prod), 1, pd) != 1){
+          if(feof(pd)){
             fclose(pd);
             break;
           }
@@ -117,10 +90,8 @@ void productList()
 
 void productAdd()
 {
-
   pd = fopen("product.dat", "ab");
-  do
-  {
+  do{
     char head[40] = "---| Add New Product |---";
     printf("%*s\n", 41 + strlen(head) / 2, head, 40 - strlen(head) / 2, "");
     printf("Add New Product\n");
@@ -160,46 +131,41 @@ void productAdd()
         n = true;
         printf("Amount Must Greater Than Or Equal To 0\n");
       }
-    } while (n);
+    }while(n);
     printf("\n");
     typeList();
     printf("\n");
     n = false;
-    do
-    {
+    do{
       printf("\nType : ");
       fflush(stdin);
       scanf("%d", &prod.type);
       int check = typeSearch(prod.type);
-      if (check < 0)
-      {
+      if (check < 0){
         printf("\nThis Code Not Found In Type List!\n");
         n = true;
       }
-      else
-      {
+      else{
         n = false;
       }
-    } while (n);
+    }while(n);
 
     // printf("This Product Will Be Code : %s", prod.code);
 
     printf("Are You Sure Want To Add New Product\n");
     printf("Press Y To Confirm!\n");
     fflush(stdin);
-    if (toupper(getch()) == 'Y')
-    {
+    if(toupper(getch()) == 'Y'){
       fwrite(&prod, sizeof(prod), 1, pd);
       printf("Add New Product Success!\n\n");
     }
-    else
-    {
+    else{
       printf("Cancel Add New Product!\n\n");
     }
     printf("Do You To Add More New Product?\n");
     printf("Press Y to Add More\n");
     fflush(stdin);
-  } while (toupper(getch()) == 'Y');
+  }while(toupper(getch()) == 'Y');
   fclose(pd);
 
   footerAny();
