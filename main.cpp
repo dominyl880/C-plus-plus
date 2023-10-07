@@ -26,6 +26,7 @@ void typeMenu(){
           cout<<setw(53)<<"Press [D] to Delete Type"<<endl;
           footerReturn(); //แสดง =======
           cin>>sell_t;
+          system("cls");
           sell_t = toupper(sell_t);
           if(sell_t=='L'){ 
               cout<<setw(60)<<"--------------- List Type ---------------"<<endl;
@@ -35,7 +36,7 @@ void typeMenu(){
 
                  for(int i=0;i<3;i++){
                       for(int i2=0;i2<2;i2++){
-                          cout<<left<<setw(columnWidth)<<Type_list[i][i2]<<" | ";
+                          cout<<setw(columnWidth)<<Type_list[i][i2]<<" | ";
                       }
                       //cout<<"------------------------------";
                       cout<<endl;
@@ -127,7 +128,7 @@ void sale(){
           cout<<setw(58)<<"Press [D] to Delete Sale page"<<endl;
           footerReturn(); //แสดง =======
           cin>>sell_s;
-          //system("cls");
+          system("cls");
           sell_s = toupper(sell_s);
           if(sell_s=='L'){ 
               cout<<setw(60)<<"--------------- History ---------------"<<endl;
@@ -143,7 +144,8 @@ void sale(){
                           cout<<setw(columnWidth)<<Price_list[i][i2]<<" | ";
                       }
                       cout<<endl;
-                  }   
+                      
+                  } 
           }else if(sell_s=='A'){
             cout<<setw(60)<<"--------------- Add Sale ---------------"<<endl;
             for(int m=0; m<100;m++){

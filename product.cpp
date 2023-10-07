@@ -41,6 +41,7 @@ void product(){
           cout<<setw(54)<<"Press [D] to Delete Product"<<endl;
           footerReturn(); //แสดง =======
           cin>>sell_p;
+          system("cls");
           sell_p = toupper(sell_p);
           if(sell_p=='L'){ 
               cout<<setw(60)<<"--------------- List Product ---------------"<<endl;
@@ -50,10 +51,10 @@ void product(){
 
                  for(int i=0;i<=5;i++){
                       for(int i2=0;i2<=2;i2++){
-                          cout<<left<<setw(columnWidth)<<Product_list[i][i2]<<" | ";
+                          cout<<setw(columnWidth)<<Product_list[i][i2]<<" | ";
                       }
                       for(int i2=0;i2<=1;i2++){
-                          cout<<left<<setw(columnWidth)<<Price_list[i][i2]<<" | ";
+                          cout<<setw(columnWidth)<<Price_list[i][i2]<<" | ";
                       }
                       cout<<endl;
                   }
