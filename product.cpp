@@ -107,8 +107,7 @@ void productAdd()
       printf("Price : ");
       fflush(stdin);
       scanf("%f", &prod.price);
-      if (prod.price >= 1)
-      {
+      if(prod.price >= 1){
         n = false;
       }
       else
@@ -122,8 +121,7 @@ void productAdd()
       printf("Amount : ");
       fflush(stdin);
       scanf("%d", &prod.amount);
-      if (prod.amount >= 0)
-      {
+      if(prod.amount >= 0){
         n = false;
       }
       else
@@ -141,7 +139,7 @@ void productAdd()
       fflush(stdin);
       scanf("%d", &prod.type);
       int check = typeSearch(prod.type);
-      if (check < 0){
+      if(check < 0){
         printf("\nThis Code Not Found In Type List!\n");
         n = true;
       }
@@ -171,14 +169,10 @@ void productAdd()
   footerAny();
 }
 
-void productEdit()
-{
-  if ((pd = fopen("product.dat", "r+b")) == NULL)
-  {
+void productEdit(){
+  if((pd = fopen("product.dat", "r+b")) == NULL){
     printf("Open File 'product.dat' Error!\n");
-  }
-  else
-  {
+  }else{
     int num = sizeof(prod);
     char head[40] = "---| Edit Product |---";
     printf("%*s\n", 41 + strlen(head) / 2, head, 40 - strlen(head) / 2, "");
@@ -187,24 +181,19 @@ void productEdit()
     fflush(stdin);
     gets(code);
     bool n = true;
-    for (;;)
-    {
-      if (fread(&prod, sizeof(prod), 1, pd) != 1)
-      {
-        if (feof(pd))
-        {
+    for(;;){
+      if(fread(&prod, sizeof(prod), 1, pd) != 1){
+        if(feof(pd)){
           fclose(pd);
           break;
         }
       }
-      if (strcmp(prod.code, code) == 0)
-      {
+      if(strcmp(prod.code, code) == 0){
         printf("New Value For Edit!\n");
         printf("Do You Want To Edit Code\n");
         printf("Press Y To Yes!\n");
         fflush(stdin);
-        if (toupper(getch()) == 'Y')
-        {
+        if(toupper(getch()) == 'Y'){
           printf("Code : ");
           fflush(stdin);
           gets(prod.code);
@@ -212,8 +201,7 @@ void productEdit()
         printf("Do You Want To Edit Name\n");
         printf("Press Y To Yes!\n");
         fflush(stdin);
-        if (toupper(getch()) == 'Y')
-        {
+        if(toupper(getch()) == 'Y'){
           printf("Name : ");
           fflush(stdin);
           gets(prod.name);
@@ -221,48 +209,40 @@ void productEdit()
         printf("Do You Want To Edit Price\n");
         printf("Press Y To Yes!\n");
         fflush(stdin);
-        if (toupper(getch()) == 'Y')
-        {
-          do
-          {
+        if(toupper(getch()) == 'Y'){
+          do{
             printf("Price : ");
             fflush(stdin);
             scanf("%f", &prod.price);
-            if (prod.price >= 1)
-            {
+            if(prod.price >= 1){
               n = false;
             }
-            else
-            {
+            else{
               printf("Price Must Greater Than Or Equal To 1\n");
               n = true;
             }
-          } while (n);
+          } while(n);
         }
         printf("Do You Want To Edit Type\n");
         printf("Press Y To Yes!\n");
         fflush(stdin);
-        if (toupper(getch()) == 'Y')
-        {
+        if(toupper(getch()) == 'Y'){
           bool n = false;
           printf("\n");
           typeList();
           printf("\n");
-          do
-          {
+          do{
             fflush(stdin);
             printf("\nType : ");
             scanf("%d", &prod.type);
             int check = typeSearch(prod.type);
             // fflush(stdin);
             // gets(prod.type);
-            if (check < 0)
-            {
+            if(check < 0){
               printf("\nThis Code Not Found In Type List!\n");
               n = true;
             }
-            else
-            {
+            else{
               n = false;
             }
           } while (n);
@@ -270,8 +250,7 @@ void productEdit()
         printf("Are You Sure Want To Edit Product\n");
         printf("Press Y to Confirm!\n");
         fflush(stdin);
-        if (toupper(getch()) == 'Y')
-        {
+        if(toupper(getch()) == 'Y'){
           fseek(pd, -(num), SEEK_CUR);
           fwrite(&prod, num, 1, pd);
           fclose(pd);
@@ -285,7 +264,7 @@ void productEdit()
         break;
       }
     }
-    if (n)
+    if(n)
       printf("Search This Code Not Found\n");
   }
 
@@ -296,7 +275,7 @@ void productDel()
 {
 
   pdCP = fopen("backupbreak.dat", "wb");
-  if ((pd = fopen("product.dat", "rb")) == NULL)
+  if((pd = fopen("product.dat", "rb")) == NULL)
     printf("Open File 'product.dat' Error!\n");
   else
   {
@@ -309,16 +288,13 @@ void productDel()
     gets(code);
     for (;;)
     {
-      if (fread(&prod, sizeof(prod), 1, pd) != 1)
-      {
-        if (feof(pd))
-        {
+      if(fread(&prod, sizeof(prod), 1, pd) != 1){
+        if(feof(pd)){
           fclose(pd);
           break;
         }
       }
-      if (strcmp(prod.code, code) != 0)
-      {
+      if(strcmp(prod.code, code) != 0){
         fwrite(&prod, sizeof(prod), 1, pdCP);
       }
       else
@@ -326,14 +302,13 @@ void productDel()
         printf("Are You Sure Want To Delete Product\n");
         printf("Press Y to Confirm!\n");
         fflush(stdin);
-        if (toupper(getch()) != 'Y')
-        {
+        if(toupper(getch()) != 'Y'){
           fwrite(&prod, sizeof(prod), 1, pdCP);
         }
         n = false;
       }
     }
-    if (n)
+    if(n)
       printf("Search This Code Not Found\n");
   }
 
