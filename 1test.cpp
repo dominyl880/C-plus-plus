@@ -1,20 +1,30 @@
 #include<iostream>
 using namespace std;
-#include <sstream>
+#include <sstream>  //แปลง int เป็น string
 #include <iomanip>
 
 int main(){
-    string product[100][3]={{"P1","Pen","T1"},
+    string product[100][3]={{"P1","Pen","T1"},   //สินค้า ตัวอักษร
                             {"P2","Eraser","T1"},
                             {"P3","KKK","T1"},
                             {"P4","WWWW","T1"}
 
+                           },
+            sale[100][2]={{"S1","P1"},          //การขาย ตัวอักษร 
+                          {"S2","P1"},
+                          {"S3","P3"},
+                          {"S4","P2"}
                            };
-    int price[100][2]={{5,10},
+    int price[100][2]={{5,10},                  //สินค้า ตัวเลข 
                         {2,9},
                         {5,5},
                         {5,5}
-                      };
+                      },
+        sale_total[100][2]={{2,20},             //การขาย ตัวเลข 
+                        {1,10},
+                        {3,15},
+                        {1,9}
+                      }; 
     string select,This,ID;
     int c,beforeDel,k; //หาตำแหน่ง  , จำนวนข้อมูลก่อนลบ 
     char anw; //เช็ค Y N 
@@ -26,6 +36,8 @@ int main(){
        cout<<"A = add"<<endl;
        cout<<"E = Edit"<<endl;
        cout<<"D = Delete"<<endl;
+       cout<<"K = Sale"<<endl;
+
        cout<<setw(35)<<"--Show List--"<<endl;
        cout<<endl;
        for(int m=0; m<100;m++){
@@ -56,7 +68,6 @@ int main(){
         if(select=="S"){
             cout<<"====================SEARCH================================="<<endl;
             cout<<"Enter ID : "; cin>>ID;
-
             // ตารางรายการทั้งหมด
             for(int m=0; m<100;m++){
                 for(int u=0; u<3;u++){
@@ -93,8 +104,6 @@ int main(){
             // =======================Add=================================
                 for(int m=0; m<100;m++){
                     for(int u=0; u<3;u++){
-                        // cout<<product[m][u]<<"   ";
-                        
                         if(product[m][u]==""){
                             break; //ข้ามไป
                         } 
@@ -291,10 +300,47 @@ int main(){
             This="";
             cout<<"========================================================="<<endl;
             
+        }else if(select=="K"){
+            // cout<<"===========================Sale=============================="<<endl;
+            cout<<"===========================SALE=============================="<<endl;
+            cout<<"==========================HISTORY============================"<<endl;
+                for(int m=0; m<100;m++){
+                    for(int u=0; u<2;u++){
+                        if(sale[m][u]==""){
+                            break; //ข้ามไป
+                        } 
+                        c=m+1;
+                    }
+                }
+
+                for(int i=0;i<c;i++){
+                    cout<<setw(8)<<sale[i][0]<<"   ";
+                    cout<<setw(8)<<sale[i][1]<<"   ";
+                    for(int i2=0; i2<100;i2++){
+                        // cout<<setw(8)<<product[i2][0]<<"   ";
+                        if(sale[i][1]==product[i2][0]){
+                            cout<<setw(8)<<product[i2][1]<<"   ";
+                            cout<<setw(8)<<price[i2][1]<<"   ";
+
+                        }
+                    }
+
+                    cout<<setw(8)<<sale_total[i][0]<<"   ";
+                    cout<<setw(8)<<sale_total[i][1]<<"   ";
+                     
+                    cout<<endl;
+                    cout<<endl;
+                } 
+
+                cout<<"Enter Sale : "; cin>>ID;
+                cout<<"========================================================="<<endl;
+
         }
- 
 
     }while(select!="x");
+
+
+    
 
 
 }
