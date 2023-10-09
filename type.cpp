@@ -5,11 +5,13 @@
 #include"header.cpp"
 //#include"product.cpp"
 
-// ================================Type Menu==========================
 void typeMenu(){
       string This,ID;
       char sell_t;
       int t,t2;
+      int c,beforeDel,k; //หาตำแหน่ง  , จำนวนข้อมูลก่อนลบ 
+      char anw; //เช็ค Y N 
+      string old; //เก็บไอดีเก่า
       const int columnWidth = 12;
       string Type_list[10][2]={{"T1","Stationery"},
                                 {"T2","Food"},
@@ -98,10 +100,150 @@ void typeMenu(){
                 cout<<"-------------------------------------------------------------------------------"<<endl;
             // }
           }else if(sell_t=='E'){
-            // EditType();
+            cout<<setw(60)<<"--------------- Edit Type ---------------"<<endl;
+            cout<<"Enter ID : "; cin>>ID;
+            //cout<<ID<<endl;
+            for(int m=0; m<10;m++){
+                for(int u=0;u<2;u++){
+                  //cout<<m<<"    "<<u<<" = ";
+                  //cout<<Type_list[m][u]<<endl;
+
+                    if(Type_list[m][u]==""){
+                        break; //ข้ามไป
+                    } 
+                    c=m+1;
+                }
+            }
+            //cout<<c<<endl;
+            for(int i=0;i<c;i++){
+                for(int i2=0;i2<2;i2++){
+                    //cout<<Type_list[i][i2]<<endl;
+                    if(ID==Type_list[i][i2]){
+                        
+                      
+                        This=Type_list[i][i2];
+                        c=i; 
+                    }
+                }  
+            }  
+            //cout<<c<<endl;
+
+            //cout<<This<<endl;
+
+            if(This==""){
+                cout<<"Not Found!"<<endl;
+            }else{
+                    cout<<"---------------------------------------------------"<<endl;
+                    cout<<"ID = "<<Type_list[c][0]<<endl; //ห้ามแก้ไอดี
+                    do{
+                        cout<<"Do you want to edit Name? (Y/N) : "; cin>>anw;
+                        if(anw=='Y'){
+                            cout<<"New Name : "; cin>>Type_list[c][1];
+                            cout<<"Completed."<<endl; 
+                            anw='N';
+                        }else if(anw=='N'){
+                            cout<<"You have skipped."<<endl;
+                        }else{
+                            cout<<"Try again."<<endl;
+                        }
+                    }while(anw!='N');
+                    cout<<endl;
+            }
+            This="";
+            cout<<"-------------------------------------------------------------------------------"<<endl;
           }else if(sell_t=='D'){
-            // DelType();
-          }
-      }while(sell_t!='X');
+            cout<<setw(60)<<"--------------- Delete Type ---------------"<<endl;
+            cout<<"Enter ID : "; cin>>ID;
+            //cout<<ID<<endl;
+            for(int m=0; m<10;m++){
+                for(int u=0;u<2;u++){
+                  //cout<<m<<"    "<<u<<" = ";
+                  //cout<<Type_list[m][u]<<endl;
+
+                    if(Type_list[m][u]==""){
+                        break; //ข้ามไป
+                    } 
+                    c=m+1;
+                }
+            }
+            //cout<<c<<endl;
+            for(int i=0;i<c;i++){
+                for(int i2=0;i2<2;i2++){
+                    //cout<<Type_list[i][i2]<<endl;
+                    if(ID==Type_list[i][i2]){
+                        
+                      
+                        This=Type_list[i][i2];
+                        c=i; 
+                    }
+                }  
+            }
+            if(This==""){
+                cout<<"Not Found!"<<endl;
+            }else{
+                    cout<<"-------------------------------------------------------------------------------"<<endl;
+                    do{
+                        cout<<"Do you want to delete "<<Type_list[c][0]<<"? (Y/N) : "; cin>>anw;
+                        if(anw=='Y'){
+                            Type_list[c][0]="";
+                            cout<<"Completed."<<endl; 
+                            anw='N';
+                        }else if(anw=='N'){
+                            cout<<"You have skipped."<<endl;
+                        }else{
+                            cout<<"Try again."<<endl;
+                        }
+                    }while(anw!='N');
+
+                            for(int m=0; m<10;m++){
+                                for(int u=0; u<2;u++){
+                                    if(Type_list[m][u]==""){
+                                        break;
+                                        c=m;
+                                    } 
+                                }
+                            }
+                            for(int i=0;i<c;i++){
+                                for(int i2=0;i2<2;i2++){
+                                    if(ID==Type_list[i][i2]){
+                                        This=Type_list[i][i2];
+                                        c=i; 
+                                    }
+                                }  
+                            }  
+            }
+            // cout<<c<<endl;
+          
+            // cout<<beforeDel<<endl;
+            for(int i=c;i<beforeDel;i++){
+                        Type_list[i][0]="";
+                        Type_list[i][1]="";
+                        
+                        string Rid;
+                        stringstream ss;
+                        ss << (i+1);
+                        Rid="P"+ss.str();
+
+                        Type_list[i][0]=Rid;
+                        
+                        Type_list[i][1]=Type_list[i+1][1];
+
+                        Type_list[i+1][0]="";
+                        Type_list[i+1][1]="";
+
+                        k=i;
+                        
+                cout<<endl;
+            }
+                        Type_list[k][0]="";
+                        Type_list[k][1]="";
+
+            This="";
+            cout<<"-------------------------------------------------------------------------------"<<endl;
+            
+        }
+ 
+
+    }while(sell_t!='X');
 }
 // void ShowProduct(string Product_list[]);
