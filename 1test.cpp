@@ -304,6 +304,9 @@ int main(){
             // cout<<"===========================Sale=============================="<<endl;
             cout<<"===========================SALE=============================="<<endl;
             cout<<"==========================HISTORY============================"<<endl;
+            cout<<"-------------------------------------------------------------------------------"<<endl;
+            cout<<setw(8)<<"ID"<<setw(14)<<"ID PRODUCT"<<setw(8)<<"Name"<<setw(12)<<"Price"<<setw(12)<<"Amount"<<setw(10)<<"Total"<<endl;
+            cout<<"-------------------------------------------------------------------------------"<<endl;
                 for(int m=0; m<100;m++){
                     for(int u=0; u<2;u++){
                         if(sale[m][u]==""){
@@ -314,19 +317,19 @@ int main(){
                 }
 
                 for(int i=0;i<c;i++){
-                    cout<<setw(8)<<sale[i][0]<<"   ";
-                    cout<<setw(8)<<sale[i][1]<<"   ";
+                    cout<<setw(8)<<sale[i][0]<<" | ";
+                    cout<<setw(8)<<sale[i][1]<<" | ";
                     for(int i2=0; i2<100;i2++){
-                        // cout<<setw(8)<<product[i2][0]<<"   ";
+                        // cout<<setw(8)<<product[i2][0]<<" | ";
                         if(sale[i][1]==product[i2][0]){
-                            cout<<setw(8)<<product[i2][1]<<"   ";
-                            cout<<setw(8)<<price[i2][1]<<"   ";
+                            cout<<setw(8)<<product[i2][1]<<" | ";
+                            cout<<setw(8)<<price[i2][1]<<" | ";
 
                         }
                     }
 
-                    cout<<setw(8)<<sale_total[i][0]<<"   ";
-                    cout<<setw(8)<<sale_total[i][1]<<"   ";
+                    cout<<setw(8)<<sale_total[i][0]<<" | ";
+                    cout<<setw(8)<<sale_total[i][1]<<" | ";
                      
                     cout<<endl;
                     cout<<endl;
