@@ -2,10 +2,6 @@
 #include"footer.cpp"
 #include"header.cpp"
 
-  int c,beforeDel,k; //หาตำแหน่ง  , จำนวนข้อมูลก่อนลบ 
-  char anw; //เช็ค Y N 
-  string old; //เก็บไอดีเก่า
-
 // ================================Product Menu==========================
 void product(){
       string This,ID;
@@ -14,34 +10,7 @@ void product(){
       char anw;
       const int columnWidth = 10;
       int beforeDel;
-      string Product_list[100][3]={{"P1","Pen","T1"},
-                                   {"P2","Eraser","T1"},
-                                   {"P3","Pencil","T1"},
-                                   {"P4","Ruler","T1"},
-                                   {"P5","Chicken","T2"},
-                                   {"P6","Duck","T2"},
-                                   {"P7","Pig","T2"},
-                                   {"P8","Rice","T2"},
-                                   {"P9","Egg","T2"},
-                                   {"P10","Coca cola","T3"},
-                                   {"P11","Milk","T3"},
-                                   {"P12","Water","T3"},
-                                   {"P13","Bread","T2"}
-                                  };
-      int Price_list[100][2]={{5,3},
-                              {5,3},
-                              {10,5},
-                              {10,5},
-                              {150,5},
-                              {170,5},
-                              {195,5},
-                              {7,5},
-                              {5,5},
-                              {15,5},
-                              {13,5},
-                              {10,5},
-                              {20,5}
-                          };
+
       do{
           headerTable();  //แสดง =======
 
@@ -53,21 +22,22 @@ void product(){
           cout<<setw(54)<<"Press [D] to Delete Product"<<endl;
 
           footerReturn(); //แสดง =======
+
+
+          // beforeDel--
+          for(int m=0; m<100;m++){
+            for(int u=0; u<3;u++){
+              if(Product_list[m][u]==""){
+                  break; //ข้ามไป
+              } 
+              c=m+1;
+            }
+           }
+            beforeDel=c;
+
           cin>>sell_p;
           system("cls");
           sell_p = toupper(sell_p);
-
-// beforeDel--
-            for(int m=0; m<100;m++){
-           for(int u=0; u<3;u++){
-               if(Product_list[m][u]==""){
-                   break; //ข้ามไป
-               } 
-               c=m+1;
-           }
-       }
-            beforeDel=c;
-
           if(sell_p=='L'){ 
               cout<<setw(60)<<"--------------- List Product ---------------"<<endl;
               cout<<"-------------------------------------------------------------------------------"<<endl;
@@ -339,10 +309,7 @@ void typeMenu(){
       char sell_t;
       int t,t2;
       const int columnWidth = 12;
-      string Type_list[10][2]={{"T1","Stationery"},
-                                {"T2","Food"},
-                                {"T3","Drink"}
-                                };
+  
       do{
           sell_t = toupper(sell_t);
           headerTable();  //แสดง =======
@@ -573,10 +540,8 @@ void typeMenu(){
 
     }while(sell_t!='X');
 }
-// void ShowProduct(string Product_list[]);
 
 // ================================Sale Menu==========================
- 
 void sale(){
       string This,ID;
       char sell_s;
@@ -584,15 +549,12 @@ void sale(){
       float cash,total;
       const int columnWidth = 10;
     
-      string sale[100][2]={{"S1","P1"},{"S2","P1"},{"S3","P3"},{"S4","P2"}};
-      int sale_total[100][2]={{2,20},{1,10},{3,15},{1,9}};
       do{
           headerTable();  //แสดง =======
           cout<<setw(55)<<"---------- Sale Menu ----------"<<endl;
           cout<<setw(54)<<"Press [L] to Show History"<<endl;
           cout<<setw(55)<<"Press [A] to Add Sale Page"<<endl;  
           cout<<setw(56)<<"Press [E] to Edit Sale page"<<endl;
-          cout<<setw(58)<<"Press [D] to Delete Sale page"<<endl;
           footerReturn(); //แสดง =======
           cin>>sell_s;
           system("cls");
@@ -645,7 +607,7 @@ void sale(){
               // เพิ่มการขาย
               do{
                   cout<<"Enter Product ID : "; cin>>ID;
-                  ID=toupper(ID);
+                  //ID=toupper(ID);
                           for(int i=0;i<100;i++){
                               // cout<<product[i][0]<<endl;
                               if(ID==Product_list[i][0]){
@@ -723,19 +685,67 @@ void sale(){
                     sale[c][0]=Rid;
                     sale[c][1]=ID;
                     sale_total[c][0]=amount;
-                    sale_total[C][1]=total;
+                    sale_total[c][1]=total;
                         
                     cout<<endl;
-          
-            cout<<"-------------------------------------------------------------------------------"<<endl;
+          cout<<"-------------------------------------------------------------------------------"<<endl;
+          }
       }while(sell_s!='X');
-      }
 }
 
+
 // ================================Main Menu==========================
-int main()
-{
+int main(){
+  int c,beforeDel,k; //หาตำแหน่ง  , จำนวนข้อมูลก่อนลบ 
+  char anw; //เช็ค Y N 
+  string old; //เก็บไอดีเก่า
+
   char sell;
+  string Product_list[100][3]={{"P1","Pen","T1"},
+                               {"P2","Eraser","T1"},
+                               {"P3","Pencil","T1"},
+                               {"P4","Ruler","T1"},
+                               {"P5","Chicken","T2"},
+                               {"P6","Duck","T2"},
+                               {"P7","Pig","T2"},
+                               {"P8","Rice","T2"},
+                               {"P9","Egg","T2"},
+                               {"P10","Coca cola","T3"},
+                               {"P11","Milk","T3"},
+                               {"P12","Water","T3"},
+                               {"P13","Bread","T2"}
+                               },
+        Type_list[10][2]={{"T1","Stationery"},
+                          {"T2","Food"},
+                          {"T3","Drink"}
+                          },
+        sale[100][2]={{"S1","P1"},
+                      {"S2","P1"},
+                      {"S3","P3"},
+                      {"S4","P2"}
+                      };
+
+  int Price_list[100][2]={{5,3},
+                          {5,3},
+                          {10,5},
+                          {10,5},
+                          {150,5},
+                          {170,5},
+                          {195,5},
+                          {7,5},
+                          {5,5},
+                          {15,5},
+                          {13,5},
+                          {10,5},
+                          {20,5}
+                          },
+  
+      sale_total[100][2]={{2,20},
+                          {1,10},
+                          {3,15},
+                          {1,9}
+                          };
+
   do{
       // system("cls"); //ล้างหน้าจอ
       headerTable();  //แสดง =======

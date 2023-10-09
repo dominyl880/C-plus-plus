@@ -25,11 +25,10 @@ int main(){
                         {3,15},
                         {1,9}
                       }; 
-    string select,This,ID;
+    string select,This,ID,old;
     int c,beforeDel,k,amount,am; //หาตำแหน่ง  , จำนวนข้อมูลก่อนลบ , จำนวนขาย , จำนวนที่เพิ่มสินค้า
     float cash,saletotal;
     char anw; //เช็ค Y N 
-    string old; //เก็บไอดีเก่า
 
     do{
        cout<<"========================================================="<<endl;
