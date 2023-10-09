@@ -86,8 +86,8 @@ void product(){
             }
            }
             beforeDel=c;
-
-          cin>>sell_p;
+          cout<<endl;
+          cout<<setw(45)<<"Enter Choice -> "; cin>>sell_p;
           system("cls");
           sell_p = toupper(sell_p);
           if(sell_p=='L'){ 
@@ -374,7 +374,8 @@ void typeMenu(){
           cout<<setw(53)<<"Press [D] to Delete Type"<<endl;
           
           footerReturn(); //แสดง =======
-          cin>>sell_t;
+          cout<<endl;
+          cout<<setw(45)<<"Enter Choice -> "; cin>>sell_t;
           system("cls");
           sell_t = toupper(sell_t);
           if(sell_t=='L'){ 
@@ -606,9 +607,10 @@ void saleMenu() {
           headerTable();  //แสดง =======
 
           cout<<setw(55)<<"---------------------------------> Sale Menu <---------------------------------"<<endl;
-          cout<<setw(60)<<"Press [L] to Show History And New Sale"<<endl;
+          cout<<setw(60)<<"Press [L] To Show History And New Sale"<<endl;
           footerReturn(); //แสดง =======
-          cin>>sell_s;
+          cout<<endl;
+          cout<<setw(45)<<"Enter Choice -> "; cin>>sell_s;
           system("cls");
           sell_s = toupper(sell_s);
           
@@ -671,36 +673,36 @@ void saleMenu() {
                     }
                 }
         }while(amount==-1);
-            cout<<"------------> Sale Slip <---------"<<endl;
+            cout<<"---------------------------------> Sale Slip <---------------------------------"<<endl;
             cout<<"Product ID = "<<ID<<endl;
             for(int i=0;i<100;i++){
                 if(ID==Product_list[i][0]){
-                    cout<<"Product Name = "<<Product_list[i][1]<<endl;
-                    cout<<"Product Price = "<<Price_list[i][1]<<endl;
-                    cout<<"Amount = "<<amount<<endl;
+                    cout<<setw(45)<<"Product Name = "<<Product_list[i][1]<<endl;
+                    cout<<setw(45)<<"Product Price = "<<Price_list[i][1]<<endl;
+                    cout<<setw(45)<<"Amount = "<<amount<<endl;
                     if(amount>Price_list[i][0]){
                         cout<<"Over limit! Try again."<<endl;
                         amount=-1;
                         break;
                     }
                     St=amount*Price_list[i][1];
-                    cout<<"Total cash = "<<St<<endl;
+                    cout<<setw(45)<<"Total cash = "<<St<<endl;
                     do{
-                        cout<<"Enter cash : "; cin>>cash;
+                        cout<<setw(45)<<"Enter cash : "; cin>>cash;
                         if((cash-(amount*Price_list[i][1]))<0){
                             anw='N';
                         }else{
                             anw='Y';
                         }
                     }while(anw!='Y');
-                    cout<<"Change cash = "<<cash-(amount*Price_list[i][1])<<endl;
+                    cout<<setw(45)<<"Change cash = "<<cash-(amount*Price_list[i][1])<<endl;
                 }
             }
-                cout<<"------------ Sale Slip ---------"<<endl;
+                cout<<"---------------------------------> Sale Slip <---------------------------------"<<endl;
                 // update to array price and insert to sale sale_total 
                     for(int i=0;i<100;i++){
                         // cout<<ID<<endl;
-                        cout<<Product_list[i][0]<<endl;
+                        // cout<<Product_list[i][0]<<endl;
                         if(ID==Product_list[i][0]){
                             Price_list[i][0]=Price_list[i][0]-amount;
                             break;
@@ -746,7 +748,8 @@ int main(){
         cout<<setw(53)<<"Press [S] to Sale Menu page"<<endl;
 
         footerExit();//include มาจาก sale แล้ว sale เอามาจากอื่นๆ อีกที
-        cin>>sell;
+        cout<<endl;
+        cout<<setw(45)<<"Enter Choice -> "; cin>>sell;
         system("cls"); //ล้างหน้าจอ
         sell = toupper(sell);
 
