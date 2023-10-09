@@ -1,3 +1,9 @@
+#include "head.cpp"
+//ไฟล์ sale
+// #include "sale.cpp" 
+#include"footer.cpp"
+#include"header.cpp"
+
 void product(){
       string This,ID;
       char sell_p;
@@ -121,6 +127,7 @@ void product(){
 
                 cout<<endl;
                 cout<<"-------------------------------------------------------------------------------"<<endl;
+                footerReturn();
             // }
           }else if(sell_p=='E'){
             // EditProduct();
