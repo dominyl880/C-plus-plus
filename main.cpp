@@ -1,12 +1,11 @@
 #include"head.cpp"
 #include"footer.cpp"
 #include"header.cpp"
-#include"product.cpp"
 
   int c,beforeDel,k; //หาตำแหน่ง  , จำนวนข้อมูลก่อนลบ 
   char anw; //เช็ค Y N 
   string old; //เก็บไอดีเก่า
-  
+
 // ================================Product Menu==========================
 void product(){
       string This,ID;
@@ -730,6 +729,7 @@ void sale(){
           
             cout<<"-------------------------------------------------------------------------------"<<endl;
       }while(sell_s!='X');
+      }
 }
 
 // ================================Main Menu==========================
