@@ -1,6 +1,4 @@
-#include "head.cpp"
-//ไฟล์ sale
-// #include "sale.cpp" 
+#include"head.cpp"
 #include"footer.cpp"
 #include"header.cpp"
 #include"product.cpp"
