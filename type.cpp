@@ -1,9 +1,5 @@
 #include "head.cpp"
-//ไฟล์ sale
-// #include "sale.cpp" 
-#include"footer.cpp"
-#include"header.cpp"
-//#include"product.cpp"
+#include"sale.cpp"
 
 void typeMenu(){
       string This,ID;

@@ -1,8 +1,3 @@
-#include "head.cpp"
-//ไฟล์ sale
-// #include "sale.cpp" 
-#include"footer.cpp"
-#include"header.cpp"
 #include"product.cpp"
 
   int c,beforeDel,k; //หาตำแหน่ง  , จำนวนข้อมูลก่อนลบ 

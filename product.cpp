@@ -1,8 +1,5 @@
 #include "head.cpp"
-//ไฟล์ sale
-// #include "sale.cpp" 
-#include"footer.cpp"
-#include"header.cpp"
+#include"type.cpp"
 
 void product(){
       string This,ID;

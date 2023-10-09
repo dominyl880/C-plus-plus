@@ -1,15 +1,13 @@
-#include "head.cpp"
-//ไฟล์ sale
- 
+#include"head.cpp"
 #include"footer.cpp"
 #include"header.cpp"
 #include"product.cpp"
-#include "sale.cpp"
-#include "type.cpp"
+//#include"sale.cpp"
+//#include"type.cpp"
 
-  int c,beforeDel,k; //หาตำแหน่ง  , จำนวนข้อมูลก่อนลบ 
-  char anw; //เช็ค Y N 
-  string old; //เก็บไอดีเก่า
+  //int c,beforeDel,k; //หาตำแหน่ง  , จำนวนข้อมูลก่อนลบ 
+  //char anw; //เช็ค Y N 
+  //string old; //เก็บไอดีเก่า
 
 // ================================Type Menu==========================
 /*void typeMenu(){
