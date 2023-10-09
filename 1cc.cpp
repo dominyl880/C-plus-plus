@@ -66,12 +66,14 @@ void product(){
       const int columnWidth = 10;
       do{
           headerTable();  //แสดง =======
-          cout<<setw(55)<<"---------- Product Menu ----------"<<endl;
+
+          cout<<setw(55)<<"-------------------------------> Product Menu <-------------------------------"<<endl;
           cout<<setw(57)<<"Press [L] to Show List Product"<<endl;
           cout<<setw(54)<<"Press [S] to Search Product"<<endl;
           cout<<setw(51)<<"Press [A] to Add Product"<<endl;  
           cout<<setw(52)<<"Press [E] to Edit Product"<<endl;
           cout<<setw(54)<<"Press [D] to Delete Product"<<endl;
+          
           footerReturn(); //แสดง =======
 
           // beforeDel--
@@ -89,7 +91,7 @@ void product(){
           system("cls");
           sell_p = toupper(sell_p);
           if(sell_p=='L'){ 
-              cout<<setw(60)<<"--------------- List Product ---------------"<<endl;
+              cout<<setw(60)<<"-------------------------------> List Product <-------------------------------"<<endl;
               cout<<"-------------------------------------------------------------------------------"<<endl;
               cout<<setw(8)<<"ID"<<setw(12)<<"Name"<<setw(13)<<"Type"<<setw(14)<<"Price"<<setw(13)<<"Amount"<<endl;
               cout<<"-------------------------------------------------------------------------------"<<endl;
@@ -103,8 +105,9 @@ void product(){
                       }
                       cout<<endl;
                   }
+                  cout<<"-------------------------------------------------------------------------------"<<endl;
             }else if(sell_p=='S'){
-            cout<<setw(65)<<"--------------- Search Product ---------------"<<endl;
+            cout<<setw(65)<<"------------------------------> Search Product <------------------------------"<<endl;
             cout<<"Enter ID : "; cin>>ID;
             // ID=toupper(ID);
 
@@ -140,7 +143,7 @@ void product(){
             footerReturn(); //แสดง =======
 
           }else if(sell_p=='A'){
-            cout<<setw(60)<<"--------------- Add Product ---------------"<<endl;
+            cout<<setw(60)<<"--------------------------------> Add Product <--------------------------------"<<endl;
             for(int m=0; m<100;m++){
                 for(int u=0; u<3;u++){
                     // cout<<product[m][u]<<"   ";
@@ -170,7 +173,7 @@ void product(){
                 footerReturn();
             // }
           }else if(sell_p=='E'){
-            cout<<setw(60)<<"--------------- Edit Product ---------------"<<endl;
+            cout<<setw(60)<<"-------------------------------> Edit Product <-------------------------------"<<endl;
             cout<<"Enter ID : "; cin>>ID;
             // ID=toupper(ID);
 
@@ -193,7 +196,7 @@ void product(){
             if(This==""){
                 cout<<"Not Found!"<<endl;
             }else{
-                    cout<<"---------------------------------------------------"<<endl;
+                    cout<<"-------------------------------------------------------------------------------"<<endl;
                     cout<<"ID = "<<Product_list[c][0]<<endl; //ห้ามแก้ไอดี
                     do{
                         cout<<"Do you want to edit Name? (Y/N) : "; cin>>anw;
@@ -251,7 +254,7 @@ void product(){
             This="";
             cout<<"-------------------------------------------------------------------------------"<<endl;
           }else if(sell_p=='D'){
-            cout<<setw(60)<<"--------------- Delete Product ---------------"<<endl;
+            cout<<setw(60)<<"------------------------------> Delete Product <------------------------------"<<endl;
             cout<<"Enter ID : "; cin>>ID;
             // ID=toupper(ID);
 
@@ -362,18 +365,20 @@ void typeMenu(){
       do{
           sell_t = toupper(sell_t);
           headerTable();  //แสดง =======
-          cout<<setw(54)<<"---------- Type Menu ----------"<<endl;
+
+          cout<<setw(54)<<"---------------------------------> Type Menu <---------------------------------"<<endl;
           cout<<setw(56)<<"Press [L] to Show List Type"<<endl;
           cout<<setw(53)<<"Press [S] to Search Type"<<endl;
           cout<<setw(50)<<"Press [A] to Add Type"<<endl;  
           cout<<setw(51)<<"Press [E] to Edit Type"<<endl;
           cout<<setw(53)<<"Press [D] to Delete Type"<<endl;
+          
           footerReturn(); //แสดง =======
           cin>>sell_t;
           system("cls");
           sell_t = toupper(sell_t);
           if(sell_t=='L'){ 
-              cout<<setw(60)<<"--------------- List Type ---------------"<<endl;
+              cout<<setw(60)<<"---------------------------------> List Type <---------------------------------"<<endl;
               cout<<"-------------------------------------------------------------------------------"<<endl;
               cout<<setw(8)<<"ID"<<setw(14)<<"Name"<<endl;
               cout<<"-------------------------------------------------------------------------------"<<endl;
@@ -385,8 +390,9 @@ void typeMenu(){
                       //cout<<"------------------------------";
                       cout<<endl;
                   }
+                  cout<<"-------------------------------------------------------------------------------"<<endl;
           }else if(sell_t=='S'){
-            cout<<setw(65)<<"--------------- Search Type ---------------"<<endl;
+            cout<<setw(65)<<"--------------------------------> Search Type <--------------------------------"<<endl;
             cout<<"Enter ID : "; cin>>ID;
 
 
@@ -418,7 +424,7 @@ void typeMenu(){
             cout<<"-------------------------------------------------------------------------------"<<endl;
 
           }else if(sell_t=='A'){
-            cout<<setw(60)<<"--------------- Add Type ---------------"<<endl;
+            cout<<setw(60)<<"---------------------------------> Add Type <---------------------------------"<<endl;
             for(int m=0; m<100;m++){
                 for(int u=0; u<3;u++){
                     // cout<<product[m][u]<<"   ";
@@ -443,7 +449,7 @@ void typeMenu(){
                 cout<<"-------------------------------------------------------------------------------"<<endl;
             // }
           }else if(sell_t=='E'){
-            cout<<setw(60)<<"--------------- Edit Type ---------------"<<endl;
+            cout<<setw(60)<<"---------------------------------> Edit Type <---------------------------------"<<endl;
             cout<<"Enter ID : "; cin>>ID;
             //cout<<ID<<endl;
             for(int m=0; m<10;m++){
@@ -495,7 +501,7 @@ void typeMenu(){
             This="";
             cout<<"-------------------------------------------------------------------------------"<<endl;
           }else if(sell_t=='D'){
-            cout<<setw(60)<<"--------------- Delete Type ---------------"<<endl;
+            cout<<setw(60)<<"--------------------------------> Delete Type <--------------------------------"<<endl;
             cout<<"Enter ID : "; cin>>ID;
             //cout<<ID<<endl;
             for(int m=0; m<10;m++){
@@ -598,17 +604,16 @@ void saleMenu() {
     
       do{
           headerTable();  //แสดง =======
-          cout<<setw(55)<<"---------- Sale Menu ----------"<<endl;
-          cout<<setw(54)<<"Press [L] to Show History"<<endl;
-          cout<<setw(55)<<"Press [A] to Add Sale Page"<<endl;  
-          cout<<setw(56)<<"Press [E] to Edit Sale page"<<endl;
+
+          cout<<setw(55)<<"---------------------------------> Sale Menu <---------------------------------"<<endl;
+          cout<<setw(60)<<"Press [L] to Show History And New Sale"<<endl;
           footerReturn(); //แสดง =======
           cin>>sell_s;
           system("cls");
           sell_s = toupper(sell_s);
           
-          if(sell_s=='L'){                
-            cout<<setw(60)<<"--------------- History ---------------"<<endl;
+          if(sell_s=='L'){            
+            cout<<setw(60)<<"----------------------------------> History <----------------------------------"<<endl;
             cout<<"-------------------------------------------------------------------------------"<<endl;
             cout<<setw(8)<<"ID"<<setw(14)<<"ID PRODUCT"<<setw(8)<<"Name"<<setw(12)<<"Price"<<setw(12)<<"Amount"<<setw(10)<<"Total"<<endl;
             cout<<"-------------------------------------------------------------------------------"<<endl;
@@ -620,7 +625,6 @@ void saleMenu() {
                     c=m+1;
                 }
               }
-
               for(int i=0;i<c;i++){
                 cout<<setw(8)<<sale[i][0]<<" | ";
                 cout<<setw(8)<<sale[i][1]<<" | ";
@@ -635,8 +639,12 @@ void saleMenu() {
               cout<<setw(8)<<sale_total[i][1]<<" | ";
               cout<<endl;
               cout<<endl;
-              } 
+              }
+              cout<<"-------------------------------------------------------------------------------"<<endl;
+              cout<<endl;
+              cout<<endl;
               // เพิ่มการขาย
+              cout<<setw(60)<<"---------------------------------> New Sale <----------------------------------"<<endl;
               do{
                   cout<<"Enter Product ID : "; cin>>ID;
                   //ID=toupper(ID);
@@ -663,7 +671,7 @@ void saleMenu() {
                     }
                 }
         }while(amount==-1);
-            cout<<"------------Sale Slip---------"<<endl;
+            cout<<"------------> Sale Slip <---------"<<endl;
             cout<<"Product ID = "<<ID<<endl;
             for(int i=0;i<100;i++){
                 if(ID==Product_list[i][0]){
@@ -692,8 +700,8 @@ void saleMenu() {
                 // update to array price and insert to sale sale_total 
                     for(int i=0;i<100;i++){
                         // cout<<ID<<endl;
-                        cout<<Product_List[i][0]<<endl;
-                        if(ID==Product_List[i][0]){
+                        cout<<Product_list[i][0]<<endl;
+                        if(ID==Product_list[i][0]){
                             Price_list[i][0]=Price_list[i][0]-amount;
                             break;
                         }
@@ -721,10 +729,10 @@ void saleMenu() {
                         
                     cout<<endl;
           cout<<"-------------------------------------------------------------------------------"<<endl;
+          cout<<endl;
           }
       }while(sell_s!='X');
 }
-
 
 // ==================================Main=============================
 int main(){
@@ -754,4 +762,3 @@ int main(){
 
   return 0;
 }
-
