@@ -36,14 +36,15 @@ void product(){
                               {20,5}
                           };
       do{
-          sell_p = toupper(sell_p);
           headerTable();  //แสดง =======
+
           cout<<setw(55)<<"---------- Product Menu ----------"<<endl;
           cout<<setw(57)<<"Press [L] to Show List Product"<<endl;
           cout<<setw(54)<<"Press [S] to Search Product"<<endl;
           cout<<setw(51)<<"Press [A] to Add Product"<<endl;  
           cout<<setw(52)<<"Press [E] to Edit Product"<<endl;
           cout<<setw(54)<<"Press [D] to Delete Product"<<endl;
+
           footerReturn(); //แสดง =======
           cin>>sell_p;
           system("cls");
@@ -78,7 +79,7 @@ void product(){
             }else if(sell_p=='S'){
             cout<<setw(65)<<"--------------- Search Product ---------------"<<endl;
             cout<<"Enter ID : "; cin>>ID;
-
+            // ID=toupper(ID);
 
             for(int m=0; m<100;m++){
                 for(int u=0; u<3;u++){
@@ -109,6 +110,7 @@ void product(){
             }
             This="";
             cout<<"-------------------------------------------------------------------------------"<<endl;
+            footerReturn(); //แสดง =======
 
           }else if(sell_p=='A'){
             cout<<setw(60)<<"--------------- Add Product ---------------"<<endl;
@@ -143,6 +145,8 @@ void product(){
           }else if(sell_p=='E'){
             cout<<setw(60)<<"--------------- Edit Product ---------------"<<endl;
             cout<<"Enter ID : "; cin>>ID;
+            // ID=toupper(ID);
+
             for(int m=0; m<100;m++){
                 for(int u=0; u<3;u++){
                     if(Product_list[m][u]==""){
@@ -222,6 +226,8 @@ void product(){
           }else if(sell_p=='D'){
             cout<<setw(60)<<"--------------- Delete Product ---------------"<<endl;
             cout<<"Enter ID : "; cin>>ID;
+            // ID=toupper(ID);
+
             for(int m=0; m<100;m++){
                 for(int u=0; u<3;u++){
                     if(Product_list[m][u]==""){
