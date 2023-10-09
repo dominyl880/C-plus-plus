@@ -36,6 +36,7 @@ void product(){
                               {20,5}
                           };
       do{
+          sell_p = toupper(sell_p);
           headerTable();  //แสดง =======
           cout<<setw(55)<<"---------- Product Menu ----------"<<endl;
           cout<<setw(57)<<"Press [L] to Show List Product"<<endl;
