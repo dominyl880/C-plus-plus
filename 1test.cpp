@@ -10,7 +10,7 @@ int main(){
                             {"P4","WWWW","T1"}
 
                            },
-            sale[100][3]={{"S1","P1"},          //การขาย ตัวอักษร 
+            sale[100][2]={{"S1","P1"},          //การขาย ตัวอักษร 
                           {"S2","P1"},
                           {"S3","P3"},
                           {"S4","P2"}
@@ -314,15 +314,25 @@ int main(){
                 }
 
                 for(int i=0;i<c;i++){
-                    for(int i2=0;i2<2;i2++){
-                        cout<<setw(8)<<sale[i][i2]<<"   ";
+                    cout<<setw(8)<<sale[i][0]<<"   ";
+                    cout<<setw(8)<<sale[i][1]<<"   ";
+                    for(int i2=0; i2<100;i2++){
+                        // cout<<setw(8)<<product[i2][0]<<"   ";
+                        if(sale[i][1]==product[i2][0]){
+                            cout<<setw(8)<<product[i2][1]<<"   ";
+                            cout<<setw(8)<<price[i2][1]<<"   ";
+
+                        }
                     }
-                    for(int i3=0;i3<2;i3++){
-                        cout<<setw(8)<<sale_total[i][i3]<<"   ";
-                    }
+
+                    cout<<setw(8)<<sale_total[i][0]<<"   ";
+                    cout<<setw(8)<<sale_total[i][1]<<"   ";
+                     
                     cout<<endl;
                     cout<<endl;
                 } 
+
+                cout<<"Enter Sale : "; cin>>ID;
                 cout<<"========================================================="<<endl;
 
         }
