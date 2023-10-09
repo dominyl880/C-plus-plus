@@ -1,5 +1,4 @@
 #include "head.cpp"
-#include"type.cpp"
 
 void product(){
       string This,ID;
