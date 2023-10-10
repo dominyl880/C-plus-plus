@@ -648,13 +648,12 @@ void saleMenu() {
                                 cout<<setw(columnWidth)<<Type_list[i3][1]<<" | ";
                             }
                         } 
-                      cout<<setw(8)<<Price_list[i2][1]<<" | ";
+                      cout<<setw(8)<<Price_list[i2][0]<<" | ";
                     }
               }
 
               cout<<setw(8)<<sale_total[i][0]<<" | ";
               cout<<setw(8)<<sale_total[i][1]<<" | ";
-              cout<<endl;
               cout<<endl;
               }
               cout<<"-------------------------------------------------------------------------------"<<endl;
@@ -695,10 +694,9 @@ void saleMenu() {
                         cout<<"Enter Product ID : "; cin>>ID;
                         //ID=toupper(ID);
                                 for(int i=0;i<100;i++){
-                                    // cout<<product[i][0]<<endl;
                                     if(ID==Product_list[i][0]){
                                         anw='Y';
-                                        if(Price_list[i][0]<=0){
+                                        if(Price_list[i][1]<=0){
                                             cout<<"Not Enough Stuff!"<<endl;
                                             ID="X";
                                         }
@@ -715,7 +713,7 @@ void saleMenu() {
                                 cout<<"Enter Amount : "; cin>>amount;
                                 for(int i=0;i<100;i++){
                                     if(ID==Product_list[i][0]){
-                                        if(amount>Price_list[i][0]){
+                                        if(amount>Price_list[i][1]){
                                             cout<<"Over limit! Try again."<<endl;
                                             amount=-1;
                                             break;
@@ -729,31 +727,32 @@ void saleMenu() {
                             for(int i=0;i<100;i++){
                                 if(ID==Product_list[i][0]){
                                     cout<<setw(45)<<"Product Name : "<<Product_list[i][1]<<endl;
-                                    cout<<setw(45)<<"Product Price : "<<Price_list[i][1]<<endl;
+                                    cout<<setw(45)<<"Product Price : "<<Price_list[i][0]<<endl;
                                     cout<<setw(45)<<"Amount : "<<amount<<endl;
-                                    if(amount>Price_list[i][0]){
+                                    if(amount>Price_list[i][1]){
                                         cout<<"Over limit! Try again."<<endl;
                                         amount=-1;
                                         break;
                                     }
-                                    St=amount*Price_list[i][1];
+                                    St=amount*Price_list[i][0];
                                     cout<<setw(45)<<"Total cash : "<<St<<endl;
                                     do{
                                         cout<<setw(45)<<"Enter cash : "; cin>>cash;
-                                        if((cash-(amount*Price_list[i][1]))<0){
+                                        if((cash-(amount*Price_list[i][0]))<0){
+                                            cout<<setw(51)<<"Not Enough! Try again."<<endl;
                                             anw='N';
                                         }else{
                                             anw='Y';
                                         }
                                     }while(anw!='Y');
-                                    cout<<setw(45)<<"Change cash : "<<cash-(amount*Price_list[i][1])<<endl;
+                                    cout<<setw(45)<<"Change cash : "<<cash-(amount*Price_list[i][0])<<endl;
                                 }
                             }
 
                                 // update to array price and insert to sale sale_total 
                                     for(int i=0;i<100;i++){
                                         if(ID==Product_list[i][0]){
-                                            Price_list[i][0]=Price_list[i][0]-amount;
+                                            Price_list[i][1]=Price_list[i][1]-amount;
                                             break;
                                         }
                                     }
