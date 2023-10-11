@@ -798,9 +798,9 @@ int main(){
         // system("cls"); //ล้างหน้าจอ
         headerTable();  //แสดง =======
 
-        cout<<setw(56)<<"Press [P] to Product Menu Page"<<endl;
-        cout<<setw(53)<<"Press [T] to Type Menu Page"<<endl;  
-        cout<<setw(53)<<"Press [S] to Sale Menu page"<<endl;
+        cout<<setw(56)<<"Press [P] To Product Menu Page"<<endl;
+        cout<<setw(53)<<"Press [T] To Type Menu Page"<<endl;  
+        cout<<setw(53)<<"Press [S] To Sale Menu page"<<endl;
 
         footerExit();//include มาจาก sale แล้ว sale เอามาจากอื่นๆ อีกที
         cout<<endl;

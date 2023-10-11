@@ -54,47 +54,45 @@ void product(){
                       cout<<endl;
                   }
             }else if(sell_p=='S'){
-            cout<<setw(65)<<"--------------- Search Product ---------------"<<endl;
-            cout<<"Enter ID : "; cin>>ID;
-            // ID=toupper(ID);
+                    cout<<setw(65)<<"--------------- Search Product ---------------"<<endl;
+                    cout<<"Enter ID : "; cin>>ID;
+                    // ID=toupper(ID);
 
-            for(int m=0; m<100;m++){
-                for(int u=0; u<3;u++){
-                    if(Product_list[m][u]==""){
-                        break; //ข้ามไป
-                    } 
-                    c=m+1;
-                }
-                cout<<endl;
-            }
-            for(int i=0;i<c;i++){
-                for(int i2=0;i2<3;i2++){
-                    if(ID==Product_list[i][i2]){
-                        This=Product_list[i][i2];
-                        c=i; 
+                    for(int m=0; m<100;m++){
+                        for(int u=0; u<3;u++){
+                            if(Product_list[m][u]==""){
+                                break; //ข้ามไป
+                            } 
+                            c=m+1;
+                        }
+                        cout<<endl;
                     }
-                }  
-            }  
-            if(This==""){
-                cout<<"Not Found!"<<endl;
-            }else{
-                    cout<<"ID : "<<Product_list[c][0]<<endl;
-                    cout<<"Name : "<<Product_list[c][1]<<endl;
-                    cout<<"Type : "<<Product_list[c][2]<<endl;
-                    cout<<"price : "<<Price_list[c][0]<<endl;
-                    cout<<"amount : "<<Price_list[c][1]<<endl;
-                    cout<<endl; 
-            }
-            This="";
-            cout<<"-------------------------------------------------------------------------------"<<endl;
-            footerReturn(); //แสดง =======
+                    for(int i=0;i<c;i++){
+                        for(int i2=0;i2<3;i2++){
+                            if(ID==Product_list[i][i2]){
+                                This=Product_list[i][i2];
+                                c=i; 
+                            }
+                        }  
+                    }  
+                    if(This==""){
+                        cout<<"Not Found!"<<endl;
+                    }else{
+                            cout<<"ID : "<<Product_list[c][0]<<endl;
+                            cout<<"Name : "<<Product_list[c][1]<<endl;
+                            cout<<"Type : "<<Product_list[c][2]<<endl;
+                            cout<<"price : "<<Price_list[c][0]<<endl;
+                            cout<<"amount : "<<Price_list[c][1]<<endl;
+                            cout<<endl; 
+                    }
+                    This="";
+                    cout<<"-------------------------------------------------------------------------------"<<endl;
+                    footerReturn(); //แสดง =======
 
           }else if(sell_p=='A'){
             cout<<setw(60)<<"--------------- Add Product ---------------"<<endl;
             for(int m=0; m<100;m++){
                 for(int u=0; u<3;u++){
-                    // cout<<product[m][u]<<"   ";
-                    
                     if(Product_list[m][u]==""){
                         break; //ข้ามไป
                     } 
@@ -102,7 +100,7 @@ void product(){
                 }
                 // cout<<endl;
             }
-                cout<<"last = "<<c<<endl;
+                // cout<<"last = "<<c<<endl;
                 string Rid;
                 stringstream ss;
                 ss << (c+1);
@@ -750,9 +748,9 @@ int main(){
       // system("cls"); //ล้างหน้าจอ
       headerTable();  //แสดง =======
 
-      cout<<setw(56)<<"Press [P] to Product Menu Page"<<endl;
-      cout<<setw(53)<<"Press [T] to Type Menu Page"<<endl;  
-      cout<<setw(53)<<"Press [S] to Sale Menu page"<<endl;
+      cout<<setw(56)<<"Press [P] To Product Menu Page"<<endl;
+      cout<<setw(53)<<"Press [T] To Type Menu Page"<<endl;  
+      cout<<setw(53)<<"Press [S] To Sale Menu page"<<endl;
 
       footerExit();//include มาจาก sale แล้ว sale เอามาจากอื่นๆ อีกที
       cin>>sell;
