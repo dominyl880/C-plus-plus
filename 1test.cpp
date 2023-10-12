@@ -3,6 +3,12 @@ using namespace std;
 #include <sstream>  //แปลง int เป็น string
 #include <iomanip>
 
+// file
+#include <fstream>
+#include <string>
+
+
+
 int main(){
     string product[100][3]={{"P1","Pen","T1"},   //สินค้า ตัวอักษร
                             {"P2","Eraser","T1"},
