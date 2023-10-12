@@ -4,7 +4,7 @@
 #include <iomanip>
 using namespace std;
 
-void LastrowProduct();
+void lastrowproduct(int &t);
 
 void ReadProduct();
 
@@ -34,42 +34,36 @@ int main(){
     return(0);
 }
 
-void LastrowProduct(){
+void lastrowproduct(int &t){
     // หาจำนวนข้อมูลทั้งหมดที่มี
+    int n=1;
     InFile.open(FileProduct.c_str());
-        for(int n = 1 ; n <= round ; n++) {
+        while(n>0){
             InFile>>PId>>Pname>>TId>>Price>>Pamount;
-            if(PId==PId2){
-                t2=n-1;
-                break;
-            }
-            PId=PId2;
-        }
+            // cout<<endl;
+            // cout<<PId<<"   "<<PId2;
+            // cout<<endl;
+                if(PId2==PId){
+                    t2=n-1;
+                    break;
+                }
+            PId2=PId;
+            n++;
+        } 
     InFile.close();
 }
 
 // อ่าน product
 void ReadProduct(){
-    string PId2,TId2,PId,Pname,TId,type_id,type_name;
-    int Price,Pamount,t2,t3;
-    long round=1000000000;
+    // string PId2,TId2,PId,Pname,TId,type_id,type_name;
+    // int Price,Pamount,t2,t3;
+    // long round=1000;
 
     // หาจำนวนข้อมูลทั้งหมดที่มี
-    // LastrowProduct();
-
-    // หาจำนวนข้อมูลทั้งหมดที่มี
-    InFile.open(FileProduct.c_str());
-        for(int n = 1 ; n <= round ; n++) {
-            InFile>>PId>>Pname>>TId>>Price>>Pamount;
-            if(PId==PId2){
-                t2=n-1;
-                break;
-            }
-            PId=PId2;
-        }
-    InFile.close();
-
-
+    // t2=0;
+    lastrowproduct(t2);
+    cout<<"list = "<<t2<<endl;
+    // t2=5;
     // แสดงผล
     InFile.open(FileProduct.c_str());
         for(int i=1;i<=t2;i++){
@@ -112,9 +106,7 @@ void addProduct(){
 
         ofstream OutFile("product", ios::app);//ต้องมี ถ้าไม่มีจะเขียนทับอันเก่า
         cout<<"Enter number of product : "; cin>>numpro;
-        LastrowProduct();
-        
-
+        lastrowproduct(t2);
         // ตรวจสอบว่าไฟล์ถูกเปิดหรือไม่
         if (OutFile.is_open()){
             // เพิ่มข้อมูลต่อจาก record เดิม
