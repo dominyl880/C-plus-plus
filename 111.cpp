@@ -9,6 +9,7 @@
 using namespace std;
 
 void editProductLine(const string& fileName2, const string& targetProductId, const string& newProductData);
+void editTypeLine(const string& fileName2, const string& targetProductId, const string& newProductData);
 
 void lastrowproduct(int &p);
 void lastrowtype(int &t);
@@ -116,6 +117,55 @@ void editProductLine(const string& fileName2, const string& targetProductId, con
         cout << "Product not found." << endl;
     }
 }
+
+void editTypeLine(const string& fileName2, const string& targetTypeId, const string& newTypeData) {
+    ifstream inFile2(fileName2);
+
+    if (!inFile2) {
+        cerr << "Unable to open the file: " << fileName2 << endl;
+        return;
+    }
+
+    ofstream outFile2("temp.txt");
+
+    string line;
+    bool edited = false;
+
+    while (getline(inFile2, line)) {
+        // แยกข้อมูลในบรรทัดเดิม
+        string currentTypeId, TypeName;
+        istringstream iss(line);
+        iss >> currentTypeId >> TypeName;
+
+        // เปรียบเทียบกับ ID ที่ต้องการแก้ไข
+        if (currentTypeId == targetTypeId) {
+            outFile2 << newTypeData << endl;
+            edited = true;
+        } else {
+            outFile2 << line << endl;
+        }
+    }
+
+    inFile2.close();
+    outFile2.close();
+
+// ลบไฟล์เดิมและเปลี่ยนชื่อไฟล์ชั่วคราวเป็นชื่อไฟล์หลัก
+    if (remove(fileName2.c_str()) != 0) {
+        cerr << "Unable to remove the original file: " << fileName2 << endl;
+        return;
+    }
+
+    if (rename("temp.txt", fileName2.c_str()) != 0) {
+        cerr << "Unable to rename the temporary file." << endl;
+    }
+
+    if (edited) {
+        cout << "Type information updated successfully." << endl;
+    } else {
+        cout << "Type not found." << endl;
+    }
+}
+
 
 // หาล่าสุดของสินค้า
 void lastrowproduct(int &p){
@@ -454,7 +504,67 @@ void addType(){
 }
 
 void edittype(){
+    bool ep = false, tc = false;
+    char anw;
+    string targetProductId;
+    string row; 
     
+    lastrowtype(t3);
+
+    do {
+        
+        cout << "Enter TId : ";
+        cin >> TId;
+        InFile.open(FileType.c_str());
+
+        for (int i = 1; i <= t3; i++) {
+            InFile >> TId2 >> Pname ;
+
+            if (TId == TId2) {
+                cout << TId2 << "  " << Pname;
+                cout << endl;
+                cout << "==New data==" << endl;
+
+                do {
+                    cout << "Do you want to edit Name? (Y/N) : ";
+                    cin >> anw;
+                    if (anw == 'Y') {
+                        cout << "New Name : ";
+                        cin >> Pname;
+                        cout << "Completed." << endl;
+                        anw = 'N';
+                    }
+                    else if (anw == 'N') {
+                        cout << "You have skipped." << endl;
+                    }
+                    else {
+                        cout << "Try again." << endl;
+                    }
+                } while (anw != 'N');
+
+
+                cout << endl;
+                
+                // -------------------------------------------------------
+
+
+                row=TId+" "+Pname;
+                // cout<<TId<<endl;
+                // cout<<row<<endl;
+                targetProductId=TId;
+
+                
+                // -------------------------------------------------
+               
+            }
+        }
+        InFile.close();
+                
+        editTypeLine("type.txt", targetProductId, row);
+
+        ep = true;
+    } while (ep != true);
+
 }
 
 
