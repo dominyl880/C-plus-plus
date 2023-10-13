@@ -8,6 +8,9 @@
 
 using namespace std;
 
+void deleteProductLine(const string& fileName, const string& targetProductId);
+
+
 void editProductLine(const string& fileName2, const string& targetProductId, const string& newProductData);
 void editTypeLine(const string& fileName2, const string& targetProductId, const string& newProductData);
 
@@ -18,11 +21,15 @@ void lastrowtype(int &t);
 void ReadProduct();
 void addProduct();
 void editproduct();
+void delproduct();
+
 
 
 void ReadType();
 void addType();
 void edittype();
+void deltype();
+
 
     string FileProduct="product.txt",FileType="type.txt";
     ifstream InFile,InFileType;
@@ -67,6 +74,33 @@ int main(){
     
     return(0);
 }
+
+void deleteProductLine(const string& fileName2, const string& targetProductId) {
+    ifstream inFile(fileName2);
+    ofstream outFile("temp.txt");
+
+    string line;
+    bool deleted = false;
+
+    while (getline(inFile, line)) {
+        if (line.find(targetProductId) == string::npos) {
+            outFile << line << endl;
+        } else {
+            deleted = true;
+        }
+    }
+
+    inFile.close();
+    outFile.close();
+
+    if (remove(fileName2.c_str()) != 0 || rename("temp.txt", fileName2.c_str()) != 0) {
+        cerr << "Unable to perform file operations." << endl;
+        return;
+    }
+
+    cout << (deleted ? "Product deleted successfully." : "Product not found.") << endl;
+}
+
 
 // update product
 void editProductLine(const string& fileName2, const string& targetProductId, const string& newProductData) {
@@ -201,7 +235,7 @@ void lastrowtype(int &t){
     InFileType.close();
 }
 
-
+// ------------------------------------------------------
 // อ่าน product
 void ReadProduct(){
     // หาจำนวนข้อมูลทั้งหมดที่มี
@@ -432,6 +466,12 @@ void editproduct() {
     } while (ep != true);
 }
 
+void delproduct(){
+    deleteProductLine("product.txt", "P1");
+
+}
+
+// -----------------------------------------------------
 
 // อ่าน product
 void ReadType(){
@@ -570,4 +610,7 @@ void edittype(){
 
 }
 
+void deltype(){
+    
+}
 

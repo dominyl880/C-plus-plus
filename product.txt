@@ -1,2 +1,1 @@
-P1 yyy T2 7 8
 P2 uio T2 10 5
