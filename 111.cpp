@@ -77,7 +77,7 @@ void lastrowtype(int &t){
     InFileType.open(FileType.c_str());
         while(n>0){
             InFileType>>TId>>Tname;
-                if(TId2==TId){
+                if(TId==TId2){
                     t3=n-1;
                     break;
                 }
@@ -90,36 +90,31 @@ void lastrowtype(int &t){
 // อ่าน product
 void ReadProduct(){
     // หาจำนวนข้อมูลทั้งหมดที่มี
-    // t2=0;
-    lastrowproduct(t2);
-    // cout<<"list = "<<t2<<endl;
-    lastrowtype(t3);
-    // cout<<"list type = "<<t3<<endl;
+    lastrowproduct(t2); 
+    lastrowtype(t3);  
 
-    // t2=5;
     // แสดงผล
-    InFile.open(FileProduct.c_str());
+    InFile.open(FileProduct,ios::app);
         for(int i=1;i<=t2;i++){
             InFile>>PId>>Pname>>TId>>Price>>Pamount;
             cout<<"Here :  "<<PId<<" "<<Pname<<" ";
 
-                InFileType.open(FileType.c_str());
+                InFileType.open(FileType,ios::app);
                     for(int i2=1;i2<=t3;i2++){
                         InFileType>>TId2>>Tname;
-                        if(TId2==TId){
-                            // cout<<Tname<<"  ";
+                        if(TId==TId2){
+                            cout<<Tname<<" ";
                             break;
                         }
-                        TId2=TId;
                     }
                 InFileType.close();
 
             cout<<Price<<"   "<<Pamount<<endl;
         }
     InFile.close();
-    
 
 
+    // return(0);
 }
 
 // เพิ่มข้อมูล product
@@ -168,9 +163,7 @@ void addProduct(){
                                 InFileType.open(FileType, ios::app);
                                 for(int i2=1;i2<=t3;i2++){
                                     InFileType>>TId2>>Tname;
-                                    cout<<TId2<<"  ";
-                                    if(TId2==type_id){
-                                        cout<<" = "<<type_id<<endl;
+                                    if(TId2==type_id){ 
                                         tc=true;
                                     }
                                 }
@@ -203,10 +196,8 @@ void addProduct(){
 
 // อ่าน product
 void ReadType(){
-    lastrowtype(t3);
     cout<<"list type = "<<t3<<endl;
-
-    InFileType.open(FileType.c_str());
+    InFileType.open("type",ios::app);
         for(int i2=1;i2<=t3;i2++){
             InFileType>>TId>>Tname;
             cout<<"Here :  "<<TId<<" "<<Tname<<" "<<endl;
@@ -223,14 +214,13 @@ void addType(){
         ofstream OutFileType(FileType, ios::app);//ต้องมี ถ้าไม่มีจะเขียนทับอันเก่า
         cout<<"Enter number of type : "; cin>>numpro; // เลือกจำนวนที่จะเพิ่มรายการสินค้า
         lastrowtype(t3);
-        // cout<<"t3 = "<<t3<<endl;
 
          // ตรวจสอบว่าไฟล์ถูกเปิดหรือไม่
         if (OutFileType.is_open()){
             // เพิ่มข้อมูลต่อจาก record เดิม
             for(int i=1;i<=numpro;i++){
                 cout<<endl;
-                // cout<<"i = "<<i<<endl;
+
                 InFileType.open(FileType,ios::app);
                     for(int p=1;p<=t3;p++){
                         InFileType>>Rid>>Tname;
@@ -262,10 +252,10 @@ void addType(){
                 OutFileType << Rid << " " << name<<endl;
 
                 cout<<"Complete!"<<endl;
+
                 t3++;
 
             }
-
             // ปิดไฟล์
             OutFileType.close();
         } else {
