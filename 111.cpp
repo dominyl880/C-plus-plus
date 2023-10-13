@@ -10,9 +10,13 @@ void lastrowtype(int &t);
 
 void ReadProduct();
 void addProduct();
+void editproduct();
+
 
 void ReadType();
 void addType();
+void edittype();
+
 
 
     string FileProduct="product",FileType="type";
@@ -33,6 +37,9 @@ int main(){
         cout<<"pass lt to show list type."<<endl;
         cout<<"pass ap to add product."<<endl;
         cout<<"pass at to add type."<<endl;
+        cout<<"pass ep to edit type."<<endl;
+        cout<<"pass et to edit type."<<endl;
+
 
         cout<<"Enter choice -> "; cin>>sell;
         cout<<endl;
@@ -44,6 +51,10 @@ int main(){
             ReadType();
         }else if(sell=="at"){
             addType();
+        }else if(sell=="ep"){
+            editproduct();
+        }else if(sell=="et"){
+            edittype();
         }
         
         cout<<endl;
@@ -189,7 +200,9 @@ void addProduct(){
 
 }
 
+void editproduct(){
 
+}
 
 
 // อ่าน product
@@ -262,4 +275,9 @@ void addType(){
 
 
 }
+
+void edittype(){
+    
+}
+
 
