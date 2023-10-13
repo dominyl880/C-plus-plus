@@ -78,6 +78,7 @@ int main(){
     
     return(0);
 }
+
 //delete product
 void deleteProductLine(const string& fileNameD, const string& targetProduct) {
     ifstream inFileP(fileNameD);
@@ -104,6 +105,8 @@ void deleteProductLine(const string& fileNameD, const string& targetProduct) {
 
     // cout << (deleted ? "Product deleted successfully." : "Product not found.") << endl;
 }
+
+
 
 
 
@@ -209,14 +212,17 @@ void editTypeLine(const string& fileName2, const string& targetTypeId, const str
 // หาล่าสุดของสินค้า
 void lastrowproduct(int &p){
     int n=1;
+    string a,b,c,a2;
+    int d,e;
     InFile.open(FileProduct.c_str());
         while(n>0){
-            InFile>>PId>>Pname>>TId>>Price>>Pamount;
-                if(PId2==PId){
+            InFile>>a>>b>>c>>d>>e;
+            // cout<<a<<endl;
+                if(a2==a){
                     t2=n-1;
                     break;
                 }
-            PId2=PId;
+            a2=a;
             n++;
         } 
     InFile.close();
@@ -242,10 +248,10 @@ void lastrowtype(int &t){
 // อ่าน product
 void ReadProduct(){
     // หาจำนวนข้อมูลทั้งหมดที่มี
-    lastrowproduct(t2); 
+    lastrowproduct(t2);
     lastrowtype(t3);  
     cout<<"list product = "<<t2<<endl;
-    cout<<"list type = "<<t3<<endl;
+    // cout<<"list type = "<<t3<<endl;
 
 
     // แสดงผล
@@ -266,8 +272,6 @@ void ReadProduct(){
             cout<<Price<<" "<<Pamount<<endl;
         }
     InFile.close();
-
-    // return(0);
 }
 
 // เพิ่มข้อมูล product
@@ -479,8 +483,7 @@ void delproduct(){
                 InFile >> PId2 >> Pname >> TId >> Price >> Pamount;
                 // cout<<PId2<<endl;
                 if(PId == PId2) {
-                    cout << PId2 << " " << Pname << " " << TId <<" "<< Price << " " << Pamount;
-                    cout << endl;
+                    cout << PId2 << " " << Pname << " " << TId <<" "<< Price << " " << Pamount<<endl;
                     cout << "==Delete data==" << endl;
                     do {
                         cout << "Do you want to delete "<<Pname<<" ? (Y/N) : ";
@@ -642,6 +645,43 @@ void edittype(){
 }
 
 void deltype(){
-    
+    char anw;
+    bool del=false;
+    do{
+        lastrowproduct(t3);
+        cout<<"Enter TId : "; cin>>TId;
+        InFileType.open(FileType.c_str());
+            for (int i = 1; i <= t3; i++) {
+                InFileType >> TId2 >> Tname;
+                if(TId == TId2) {
+                    cout << TId2 << " " << Tname<<endl;
+                    cout << "==Delete data==" << endl;
+                    do {
+                        cout << "Do you want to delete "<<Tname<<" ? (Y/N) : ";
+                        cin >> anw;
+                        if (anw == 'Y') {
+                            cout<<"Completed."<<endl;
+                            anw='N';
+                            del=true;
+                        }
+                        else if (anw == 'N') {
+                            cout << "You have skipped." << endl;
+                        }
+                        else {
+                            cout << "Try again." << endl;
+                        }
+                    }while (anw != 'N');
+                    cout << endl;
+                }
+            }
+       
+        InFileType.close();
+        if(del==true){
+            // -------------------------------------------------------
+                deleteProductLine(FileProduct, TId);
+            // -------------------------------------------------------
+        }   
+    }while(PId!="X");
+
 }
 
