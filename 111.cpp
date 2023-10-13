@@ -112,6 +112,7 @@ void addProduct(){
         ofstream OutFile("product", ios::app);//ต้องมี ถ้าไม่มีจะเขียนทับอันเก่า
         cout<<"Enter number of product : "; cin>>numpro; // เลือกจำนวนที่จะเพิ่มรายการสินค้า
         lastrowproduct(t2);
+        lastrowtype(t3);
 
          // ตรวจสอบว่าไฟล์ถูกเปิดหรือไม่
         if (OutFile.is_open()){
@@ -119,7 +120,7 @@ void addProduct(){
             for(int i=1;i<=numpro;i++){
                 cout<<endl;
 
-                InFile.open(FileProduct.c_str());
+                InFile.open(FileProduct,ios::app);
                     for(int p=1;p<=t2;p++){
                         InFile>>Rid>>Tname>>TId>>Price>>Pamount;
                         if(Rid==Rid2){
@@ -130,20 +131,23 @@ void addProduct(){
                 InFile.close();
                 
                 cout<<Rid<<"   ";
-                // string Rid;
-                // stringstream ss;
-                // ss << (t2+1);
-                // Rid="P"+ss.str();
+                // ดึง string ออกมา
+                string prefix = Rid.substr(0, 1);
+                // แปลง string เป็น int
+                int number = stoi(Rid.substr(1));
+                
+                stringstream ss;
+                ss << (number+i);
+                Rid=prefix+ss.str();
 
                 cout<<"order = "<<i<<endl; 
                 cout<<"Enter Pid : "<<Rid<<endl;
                 cout<<"Enter name : "; cin>>name;
 
                 // type_id
+                    InFileType.open(FileType, ios::app);
                 do{
                     cout<<"Enter type_id : "; cin>>type_id;
-
-                    InFileType.open(FileType.c_str());
                         for(int i2=1;i2<=t3;i2++){
                             InFileType>>TId2>>Tname;
                             if(TId2==type_id){
@@ -151,11 +155,11 @@ void addProduct(){
                             }
                             TId2=type_id;
                         }
-                    InFileType.close();
                     if(tc==false){
                         cout<<"Try again."<<endl;
                     }
                 }while(tc!=true);
+                    InFileType.close();
                 
                 cout<<"Enter price : "; cin>>price;
                 cout<<"Enter amount : "; cin>>amount;
@@ -175,3 +179,5 @@ void addProduct(){
 
 
 }
+
+

@@ -1,24 +1,16 @@
 #include <iostream>
-#include <fstream>
-
-using namespace std;
 
 int main() {
-    // เปิดไฟล์เพื่อเขียน (โดยใช้ mode append)
-    ofstream outputFile("example.dat", ios::app);
+    std::string input = "P10";
 
-    // ตรวจสอบว่าไฟล์ถูกเปิดหรือไม่
-    if (outputFile.is_open()) {
-        // เพิ่มข้อมูลต่อจาก record เดิม
-        outputFile << "New Data\n";
-        outputFile << 123 << '\n';
+    // ดึง string ออกมา
+    std::string prefix = input.substr(0, 1);
 
-        // ปิดไฟล์
-        outputFile.close();
-        cout << "Data has been added to the file.\n";
-    } else {
-        cerr << "Unable to open the file.\n";
-    }
+    // แปลง string เป็น int
+    int number = std::stoi(input.substr(1));
+
+    std::cout << "Prefix: " << prefix << std::endl;
+    std::cout << "Number: " << number << std::endl;
 
     return 0;
 }
