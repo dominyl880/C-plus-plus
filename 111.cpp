@@ -28,7 +28,14 @@ int main(){
 
     string sell;
     do{
+
+        cout<<"pass lp to show list product."<<endl;
+        cout<<"pass lt to show list type."<<endl;
+        cout<<"pass ap to add product."<<endl;
+        cout<<"pass at to add type."<<endl;
+
         cout<<"Enter choice -> "; cin>>sell;
+        cout<<endl;
         if(sell=="lp"){
             ReadProduct();
         }else if(sell=="ap"){
@@ -38,6 +45,9 @@ int main(){
         }else if(sell=="at"){
             addType();
         }
+        
+        cout<<endl;
+
     }while(sell!="x");
     
     return(0);
