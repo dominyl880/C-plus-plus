@@ -105,7 +105,7 @@ void ReadProduct(){
 
 // เพิ่มข้อมูล product
 void addProduct(){
-        string name,type_id,Rid;
+        string name,type_id,Rid,Rid2;
         int price,amount,numpro;
         bool tc=false;
 
@@ -120,14 +120,16 @@ void addProduct(){
                 cout<<endl;
 
                 InFile.open(FileProduct.c_str());
-                    for(int i=1;i<=t2;i++){
-                        InFile>>Rid;
-                        if(Rid=""){
-
+                    for(int p=1;p<=t2;p++){
+                        InFile>>Rid>>Tname>>TId>>Price>>Pamount;
+                        if(Rid==Rid2){
+                            break;
                         }
+                        Rid2=Rid;
                     }
                 InFile.close();
-            
+                
+                cout<<Rid<<"   ";
                 // string Rid;
                 // stringstream ss;
                 // ss << (t2+1);
