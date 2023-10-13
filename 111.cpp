@@ -35,25 +35,25 @@ void deltype();
     ifstream InFile,InFileType;
     ofstream OutFile;
 
+
     string PId2,PId,Pname,TId2,TId,Tname;
     int Price,Pamount,t2,t3;
 
 int main(){
-   
-
     string sell;
     do{
-
         cout<<"pass lp to show list product."<<endl;
         cout<<"pass lt to show list type."<<endl;
         cout<<"pass ap to add product."<<endl;
         cout<<"pass at to add type."<<endl;
         cout<<"pass ep to edit type."<<endl;
         cout<<"pass et to edit type."<<endl;
-
+        cout<<"pass dp to edit type."<<endl;
+        cout<<"pass dt to edit type."<<endl;
 
         cout<<"Enter choice -> "; cin>>sell;
         cout<<endl;
+
         if(sell=="lp"){
             ReadProduct();
         }else if(sell=="ap"){
@@ -66,6 +66,10 @@ int main(){
             editproduct();
         }else if(sell=="et"){
             edittype();
+        }else if(sell=="dp"){
+            delproduct();
+        }else if(sell=="dt"){
+            deltype();
         }
         
         cout<<endl;
@@ -74,31 +78,36 @@ int main(){
     
     return(0);
 }
-
+//delete product
 void deleteProductLine(const string& fileName2, const string& targetProductId) {
-    ifstream inFile(fileName2);
-    ofstream outFile("temp.txt");
+    ifstream inFile2(fileName2);
+    ofstream outFile2("temp.txt");
 
     string line;
     bool deleted = false;
 
-    while (getline(inFile, line)) {
+    while (getline(inFile2, line)) {
         if (line.find(targetProductId) == string::npos) {
-            outFile << line << endl;
+            outFile2 << line << endl;
         } else {
             deleted = true;
         }
     }
 
-    inFile.close();
-    outFile.close();
+
+    inFile2.close();
+    outFile2.close();
 
     if (remove(fileName2.c_str()) != 0 || rename("temp.txt", fileName2.c_str()) != 0) {
         cerr << "Unable to perform file operations." << endl;
         return;
     }
 
-    cout << (deleted ? "Product deleted successfully." : "Product not found.") << endl;
+    if (deleted) {
+        // cout << "Completed." << endl;
+    } else {
+        cout << "Product not found." << endl;
+    }
 }
 
 
@@ -146,7 +155,7 @@ void editProductLine(const string& fileName2, const string& targetProductId, con
     }
 
     if (edited) {
-        cout << "Product information updated successfully." << endl;
+        // cout << "Completed." << endl;
     } else {
         cout << "Product not found." << endl;
     }
@@ -195,12 +204,11 @@ void editTypeLine(const string& fileName2, const string& targetTypeId, const str
     }
 
     if (edited) {
-        cout << "Type information updated successfully." << endl;
+        // cout << "Completed." << endl;
     } else {
         cout << "Type not found." << endl;
     }
 }
-
 
 // หาล่าสุดของสินค้า
 void lastrowproduct(int &p){
@@ -221,7 +229,6 @@ void lastrowproduct(int &p){
 // หาล่าสุดของประเภท
 void lastrowtype(int &t){
     int n=1;
-
     InFileType.open(FileType.c_str());
         while(n>0){
             InFileType>>TId>>Tname;
@@ -253,15 +260,13 @@ void ReadProduct(){
                         InFileType>>TId2>>Tname;
                         if(TId==TId2){
                             cout<<Tname<<" ";
-                            break;
                         }
                     }
                 InFileType.close();
 
-            cout<<Price<<"   "<<Pamount<<endl;
+            cout<<Price<<" "<<Pamount<<endl;
         }
     InFile.close();
-
 
     // return(0);
 }
@@ -343,15 +348,14 @@ void addProduct(){
 // แก้ไขสินค้า
 void editproduct() {
     bool ep = false, tc = false;
-    char anw;
     string targetProductId;
     string row; 
+    char anw;
     
     lastrowproduct(t2);
     lastrowtype(t3);
 
-    do {
-        
+    do { 
         cout << "Enter PId : ";
         cin >> PId;
         InFile.open(FileProduct.c_str());
@@ -360,7 +364,7 @@ void editproduct() {
             InFile >> PId2 >> Pname >> TId >> Price >> Pamount;
 
             if (PId == PId2) {
-                cout << PId2 << "  " << Pname << "  " << TId << Price << "  " << Pamount;
+                cout << PId2 << " " << Pname << " " << TId <<" "<< Price << " " << Pamount;
                 cout << endl;
                 cout << "==New data==" << endl;
 
@@ -392,7 +396,10 @@ void editproduct() {
                             InFileType.open(FileType);
                                 for (int i2 = 1; i2 <= t3; i2++) {
                                     InFileType >> TId2 >> Tname;
+                                    cout<<TId<<endl;
                                     if (TId2 == TId) {
+                                        // cout<<TId<<endl;
+
                                         tc = true;
                                     }
                                 }
@@ -449,25 +456,60 @@ void editproduct() {
                 amount_in <<(Pamount);
                 
                 row=PId+" "+Pname+" "+TId+" "+price_in.str()+" "+amount_in.str();
-                cout<<PId<<endl;
-                cout<<row<<endl;
                 targetProductId=PId;
-
-                
-                // -------------------------------------------------
-               
+                // -------------------------------------------------               
             }
         }
         InFile.close();
                 
         editProductLine("product.txt", targetProductId, row);
-
-        ep = true;
+        if(PId=="X"){
+            ep = true;
+        }
     } while (ep != true);
 }
 
 void delproduct(){
-    deleteProductLine("product.txt", "P1");
+    char anw;
+
+    do{
+        cout<<"Enter PId : "; cin>>PId;
+        for (int i = 1; i <= t2; i++) {
+            InFile >> PId2 >> Pname >> TId >> Price >> Pamount;
+
+            if (PId == PId2) {
+                cout << PId2 << " " << Pname << " " << TId <<" "<< Price << " " << Pamount;
+                cout << endl;
+                cout << "==Delete data==" << endl;
+
+                do {
+                    cout << "Do you want to delete "<<Pname<<" ? (Y/N) : ";
+                    cin >> anw;
+                    if (anw == 'Y') {
+                        anw = 'N';
+                    }
+                    else if (anw == 'N') {
+                        cout << "You have skipped." << endl;
+                    }
+                    else {
+                        cout << "Try again." << endl;
+                    }
+                } while (anw != 'N');
+
+                cout << endl;
+                
+               
+            }
+        }
+        InFile.close();
+
+        // -------------------------------------------------------
+            deleteProductLine("type.txt", PId);
+        // -------------------------------------------------------
+
+    }while(PId!="X");
+    
+    
 
 }
 
@@ -475,10 +517,10 @@ void delproduct(){
 
 // อ่าน product
 void ReadType(){
-    lastrowtype(t3);
+    lastrowtype(t3); 
     cout<<"list type = "<<t3<<endl;
-    InFileType.open("type.txt",ios::app);
-        for(int i2=1;i2<=t3;i2++){
+    InFileType.open(FileType,ios::app);
+        for(int i=1;i<=t3;i++){
             InFileType>>TId>>Tname;
             cout<<"Here :  "<<TId<<" "<<Tname<<" "<<endl;
         }
@@ -584,19 +626,11 @@ void edittype(){
                         cout << "Try again." << endl;
                     }
                 } while (anw != 'N');
-
-
                 cout << endl;
                 
                 // -------------------------------------------------------
-
-
                 row=TId+" "+Pname;
-                // cout<<TId<<endl;
-                // cout<<row<<endl;
                 targetProductId=TId;
-
-                
                 // -------------------------------------------------
                
             }
