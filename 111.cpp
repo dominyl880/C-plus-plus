@@ -92,9 +92,9 @@ void ReadProduct(){
     // หาจำนวนข้อมูลทั้งหมดที่มี
     // t2=0;
     lastrowproduct(t2);
-    cout<<"list = "<<t2<<endl;
+    // cout<<"list = "<<t2<<endl;
     lastrowtype(t3);
-    cout<<"list type = "<<t3<<endl;
+    // cout<<"list type = "<<t3<<endl;
 
     // t2=5;
     // แสดงผล
@@ -107,7 +107,7 @@ void ReadProduct(){
                     for(int i2=1;i2<=t3;i2++){
                         InFileType>>TId2>>Tname;
                         if(TId2==TId){
-                            cout<<Tname<<"  ";
+                            // cout<<Tname<<"  ";
                             break;
                         }
                         TId2=TId;
@@ -124,11 +124,11 @@ void ReadProduct(){
 
 // เพิ่มข้อมูล product
 void addProduct(){
-        string name,type_id,Rid,Rid2;
+        string name,type_id,Rid,Rid2,Rid3;
         int price,amount,numpro;
         bool tc=false;
 
-        ofstream OutFile("product", ios::app);//ต้องมี ถ้าไม่มีจะเขียนทับอันเก่า
+        ofstream OutFile(FileProduct, ios::app);//ต้องมี ถ้าไม่มีจะเขียนทับอันเก่า
         cout<<"Enter number of product : "; cin>>numpro; // เลือกจำนวนที่จะเพิ่มรายการสินค้า
         lastrowproduct(t2);
         lastrowtype(t3);
@@ -141,44 +141,43 @@ void addProduct(){
 
                 InFile.open(FileProduct,ios::app);
                     for(int p=1;p<=t2;p++){
-                        InFile>>Rid>>Tname>>TId>>Price>>Pamount;
-                        if(Rid==Rid2){
-                            break;
-                        }
-                        Rid2=Rid;
+                        InFile>>Rid>>Pname>>TId>>Price>>Pamount;
                     }
                 InFile.close();
                 
-                cout<<Rid<<"   ";
+                if(Rid==""){
+                    Rid="P0";
+                }
+
                 // ดึง string ออกมา
                 string prefix = Rid.substr(0, 1);
                 // แปลง string เป็น int
                 int number = stoi(Rid.substr(1));
                 
                 stringstream ss;
-                ss << (number+i);
+                ss << (number+1);
                 Rid=prefix+ss.str();
 
                 cout<<"order = "<<i<<endl; 
-                cout<<"Enter Pid : "<<Rid<<endl;
+                cout<<"Enter PId : "<<Rid<<endl;
                 cout<<"Enter name : "; cin>>name;
 
                 // type_id
-                    InFileType.open(FileType, ios::app);
-                do{
-                    cout<<"Enter type_id : "; cin>>type_id;
-                        for(int i2=1;i2<=t3;i2++){
-                            InFileType>>TId2>>Tname;
-                            if(TId2==type_id){
-                                tc=true;
-                            }
-                            TId2=type_id;
-                        }
-                    if(tc==false){
-                        cout<<"Try again."<<endl;
-                    }
-                }while(tc!=true);
-                    InFileType.close();
+                        do{
+                            cout<<"Enter type_id : "; cin>>type_id;
+                                InFileType.open(FileType, ios::app);
+                                for(int i2=1;i2<=t3;i2++){
+                                    InFileType>>TId2>>Tname;
+                                    cout<<TId2<<"  ";
+                                    if(TId2==type_id){
+                                        cout<<" = "<<type_id<<endl;
+                                        tc=true;
+                                    }
+                                }
+                                InFileType.close();
+                                if(tc==false){ cout<<"Try again."<<endl; }
+                        }while(tc!=true);
+                        tc=false;
                 
                 cout<<"Enter price : "; cin>>price;
                 cout<<"Enter amount : "; cin>>amount;
@@ -187,7 +186,7 @@ void addProduct(){
                 OutFile << price << " " << amount << endl;
 
                 cout<<"Complete!"<<endl;
-
+                t2++;
             }
 
             // ปิดไฟล์
@@ -204,93 +203,71 @@ void addProduct(){
 
 // อ่าน product
 void ReadType(){
-    // หาจำนวนข้อมูลทั้งหมดที่มี
-    // t2=0;
     lastrowtype(t3);
     cout<<"list type = "<<t3<<endl;
 
-    // t2=5;
-    // แสดงผล
-
     InFileType.open(FileType.c_str());
-                    for(int i2=1;i2<=t3;i2++){
-                        InFileType>>TId>>Tname;
-                        cout<<"Here :  "<<TId<<" "<<Tname<<" "<<endl;
-                    }
+        for(int i2=1;i2<=t3;i2++){
+            InFileType>>TId>>Tname;
+            cout<<"Here :  "<<TId<<" "<<Tname<<" "<<endl;
+        }
     InFileType.close();
 
 }
 
 // เพิ่มข้อมูล product
 void addType(){
-        string name,type_id,Rid,Rid2;
-        int price,amount,numpro;
-        bool tc=false;
+        string name,Rid,Rid2;
+        int numpro;
 
-        ofstream OutFile("product", ios::app);//ต้องมี ถ้าไม่มีจะเขียนทับอันเก่า
-        cout<<"Enter number of product : "; cin>>numpro; // เลือกจำนวนที่จะเพิ่มรายการสินค้า
-        lastrowproduct(t2);
+        ofstream OutFileType(FileType, ios::app);//ต้องมี ถ้าไม่มีจะเขียนทับอันเก่า
+        cout<<"Enter number of type : "; cin>>numpro; // เลือกจำนวนที่จะเพิ่มรายการสินค้า
         lastrowtype(t3);
+        // cout<<"t3 = "<<t3<<endl;
 
          // ตรวจสอบว่าไฟล์ถูกเปิดหรือไม่
-        if (OutFile.is_open()){
+        if (OutFileType.is_open()){
             // เพิ่มข้อมูลต่อจาก record เดิม
             for(int i=1;i<=numpro;i++){
                 cout<<endl;
-
-                InFile.open(FileProduct,ios::app);
-                    for(int p=1;p<=t2;p++){
-                        InFile>>Rid>>Tname>>TId>>Price>>Pamount;
-                        if(Rid==Rid2){
-                            break;
-                        }
-                        Rid2=Rid;
+                // cout<<"i = "<<i<<endl;
+                InFileType.open(FileType,ios::app);
+                    for(int p=1;p<=t3;p++){
+                        InFileType>>Rid>>Tname;
                     }
-                InFile.close();
+                InFileType.close();
+
+                cout<<endl;
+
+                if(Rid==""){
+                    Rid="T0";
+                }
                 
-                cout<<Rid<<"   ";
+                cout<<Rid<<endl;
+         
                 // ดึง string ออกมา
                 string prefix = Rid.substr(0, 1);
                 // แปลง string เป็น int
                 int number = stoi(Rid.substr(1));
                 
                 stringstream ss;
-                ss << (number+i);
+                ss << (number+1);
                 Rid=prefix+ss.str();
 
                 cout<<"order = "<<i<<endl; 
-                cout<<"Enter Pid : "<<Rid<<endl;
+                cout<<"Enter TId : "<<Rid<<endl;
                 cout<<"Enter name : "; cin>>name;
+  
 
-                // type_id
-                    InFileType.open(FileType, ios::app);
-                do{
-                    cout<<"Enter type_id : "; cin>>type_id;
-                        for(int i2=1;i2<=t3;i2++){
-                            InFileType>>TId2>>Tname;
-                            if(TId2==type_id){
-                                tc=true;
-                            }
-                            TId2=type_id;
-                        }
-                    if(tc==false){
-                        cout<<"Try again."<<endl;
-                    }
-                }while(tc!=true);
-                    InFileType.close();
-                
-                cout<<"Enter price : "; cin>>price;
-                cout<<"Enter amount : "; cin>>amount;
-
-                OutFile << Rid << " " << name << " "<<type_id<<" ";
-                OutFile << price << " " << amount << endl;
+                OutFileType << Rid << " " << name<<endl;
 
                 cout<<"Complete!"<<endl;
+                t3++;
 
             }
 
             // ปิดไฟล์
-            OutFile.close();
+            OutFileType.close();
         } else {
             cerr << "Unable to open the file.\n";
         }
