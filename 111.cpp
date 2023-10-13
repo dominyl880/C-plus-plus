@@ -68,7 +68,7 @@ int main(){
     return(0);
 }
 
-
+// update product
 void editProductLine(const string& fileName2, const string& targetProductId, const string& newProductData) {
     ifstream inFile2(fileName2);
 
@@ -118,6 +118,7 @@ void editProductLine(const string& fileName2, const string& targetProductId, con
     }
 }
 
+// update type
 void editTypeLine(const string& fileName2, const string& targetTypeId, const string& newTypeData) {
     ifstream inFile2(fileName2);
 
@@ -305,6 +306,7 @@ void addProduct(){
 
 }
 
+// แก้ไขสินค้า
 void editproduct() {
     bool ep = false, tc = false;
     char anw;
@@ -503,6 +505,7 @@ void addType(){
 
 }
 
+// แก้ไขประเภท
 void edittype(){
     bool ep = false, tc = false;
     char anw;
