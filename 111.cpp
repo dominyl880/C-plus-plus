@@ -4,7 +4,9 @@
 #include <iomanip>
 using namespace std;
 
-void lastrowproduct(int &t);
+void lastrowproduct(int &p);
+void lastrowtype(int &t);
+
 
 void ReadProduct();
 
@@ -14,9 +16,9 @@ void addProduct();
     ifstream InFile,InFileType;
     ofstream OutFile;
 
-    string PId2,TId2,PId,Pname,TId,type_id,type_name;
+    string PId2,PId,Pname,TId2,TId,Tname;
     int Price,Pamount,t2,t3;
-    long round=1000000000;
+    // long round=1000000000;
 
 int main(){
    
@@ -34,15 +36,12 @@ int main(){
     return(0);
 }
 
-void lastrowproduct(int &t){
-    // หาจำนวนข้อมูลทั้งหมดที่มี
+void lastrowproduct(int &p){
+    // หาจำนวนข้อมูลทั้งหมดที่มี-สินค้า
     int n=1;
     InFile.open(FileProduct.c_str());
         while(n>0){
             InFile>>PId>>Pname>>TId>>Price>>Pamount;
-            // cout<<endl;
-            // cout<<PId<<"   "<<PId2;
-            // cout<<endl;
                 if(PId2==PId){
                     t2=n-1;
                     break;
@@ -53,16 +52,31 @@ void lastrowproduct(int &t){
     InFile.close();
 }
 
+void lastrowtype(int &t){
+    // หาจำนวนข้อมูลทั้งหมดที่มี-สินค้า
+    int n=1;
+    InFileType.open(FileType.c_str());
+        while(n>0){
+            InFileType>>TId>>Tname;
+                if(TId2==TId){
+                    t3=n-1;
+                    break;
+                }
+            TId2=TId;
+            n++;
+        } 
+    InFileType.close();
+}
+
 // อ่าน product
 void ReadProduct(){
-    // string PId2,TId2,PId,Pname,TId,type_id,type_name;
-    // int Price,Pamount,t2,t3;
-    // long round=1000;
-
     // หาจำนวนข้อมูลทั้งหมดที่มี
     // t2=0;
     lastrowproduct(t2);
     cout<<"list = "<<t2<<endl;
+    lastrowtype(t3);
+    cout<<"list type = "<<t3<<endl;
+
     // t2=5;
     // แสดงผล
     InFile.open(FileProduct.c_str());
@@ -71,25 +85,16 @@ void ReadProduct(){
             cout<<"Here :  "<<PId<<" "<<Pname<<" ";
 
                 InFileType.open(FileType.c_str());
-                    for(int n = 1 ; n <= round ; n++) {
-                        InFileType>>type_id>>type_name;
-                            if(type_id==TId2){
-                                t3=n-1;
-                                break;
-                            }
-                            TId2=type_id;
+                    for(int i2=1;i2<=t3;i2++){
+                        InFileType>>TId2>>Tname;
+                        if(TId2==TId){
+                            cout<<Tname<<"  ";
+                            break;
+                        }
+                        TId2=TId;
                     }
                 InFileType.close();
 
-                InFileType.open(FileType.c_str());
-                    for(int i2=1;i2<=t3;i2++){
-                        InFileType>>type_id>>type_name;
-                        if(type_id==TId){
-                            cout<<type_name<<"  ";
-                        }
-                    }
-                InFileType.close();
-        
             cout<<Price<<"   "<<Pamount<<endl;
         }
     InFile.close();
@@ -100,38 +105,68 @@ void ReadProduct(){
 
 // เพิ่มข้อมูล product
 void addProduct(){
-    
-        string name,type_id;
+        string name,type_id,Rid;
         int price,amount,numpro;
+        bool tc=false;
 
         ofstream OutFile("product", ios::app);//ต้องมี ถ้าไม่มีจะเขียนทับอันเก่า
-        cout<<"Enter number of product : "; cin>>numpro;
+        cout<<"Enter number of product : "; cin>>numpro; // เลือกจำนวนที่จะเพิ่มรายการสินค้า
         lastrowproduct(t2);
-        // ตรวจสอบว่าไฟล์ถูกเปิดหรือไม่
+
+         // ตรวจสอบว่าไฟล์ถูกเปิดหรือไม่
         if (OutFile.is_open()){
             // เพิ่มข้อมูลต่อจาก record เดิม
             for(int i=1;i<=numpro;i++){
                 cout<<endl;
 
-                string Rid;
-                stringstream ss;
-                ss << (t2+1);
-                Rid="P"+ss.str();
+                InFile.open(FileProduct.c_str());
+                    for(int i=1;i<=t2;i++){
+                        InFile>>Rid;
+                        if(Rid=""){
+
+                        }
+                    }
+                InFile.close();
+            
+                // string Rid;
+                // stringstream ss;
+                // ss << (t2+1);
+                // Rid="P"+ss.str();
 
                 cout<<"order = "<<i<<endl; 
                 cout<<"Enter Pid : "<<Rid<<endl;
                 cout<<"Enter name : "; cin>>name;
-                cout<<"Enter type_id : "; cin>>type_id;
+
+                // type_id
+                do{
+                    cout<<"Enter type_id : "; cin>>type_id;
+
+                    InFileType.open(FileType.c_str());
+                        for(int i2=1;i2<=t3;i2++){
+                            InFileType>>TId2>>Tname;
+                            if(TId2==type_id){
+                                tc=true;
+                            }
+                            TId2=type_id;
+                        }
+                    InFileType.close();
+                    if(tc==false){
+                        cout<<"Try again."<<endl;
+                    }
+                }while(tc!=true);
+                
                 cout<<"Enter price : "; cin>>price;
                 cout<<"Enter amount : "; cin>>amount;
 
                 OutFile << Rid << " " << name << " "<<type_id<<" ";
                 OutFile << price << " " << amount << endl;
+
+                cout<<"Complete!"<<endl;
+
             }
 
             // ปิดไฟล์
             OutFile.close();
-            cout << "Data has been added to the file.\n";
         } else {
             cerr << "Unable to open the file.\n";
         }
