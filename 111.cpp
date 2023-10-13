@@ -46,10 +46,13 @@ int main(){
         cout<<"pass lt to show list type."<<endl;
         cout<<"pass ap to add product."<<endl;
         cout<<"pass at to add type."<<endl;
-        cout<<"pass ep to edit type."<<endl;
+        cout<<"pass ep to edit product."<<endl;
         cout<<"pass et to edit type."<<endl;
-        cout<<"pass dp to edit type."<<endl;
-        cout<<"pass dt to edit type."<<endl;
+        cout<<"pass dp to delete product."<<endl;
+        cout<<"pass dt to delete type."<<endl;
+        cout<<"pass ls to show list sale."<<endl;
+        cout<<"pass as to add sale."<<endl;
+
 
         cout<<"Enter choice -> "; cin>>sell;
         cout<<endl;
@@ -70,6 +73,10 @@ int main(){
             delproduct();
         }else if(sell=="dt"){
             deltype();
+        }else if(sell=="ls"){
+            Readsale();
+        }else if(sell=="as"){
+            addsale();
         }
         
         cout<<endl;
@@ -703,3 +710,13 @@ void deltype(){
 
 }
 
+// ---------------------------------------------------------------
+// อ่านรายการขาย
+void Readsale(){
+
+}
+
+// เพิ่มการขาย
+void addsale(){
+
+}
