@@ -55,7 +55,6 @@ int main(){
 
 // หาล่าสุดของสินค้า
 void lastrowproduct(int &p){
-    // หาจำนวนข้อมูลทั้งหมดที่มี-สินค้า
     int n=1;
     InFile.open(FileProduct.c_str());
         while(n>0){
@@ -72,7 +71,6 @@ void lastrowproduct(int &p){
 
 // หาล่าสุดของประเภท
 void lastrowtype(int &t){
-    // หาจำนวนข้อมูลทั้งหมดที่มี-สินค้า
     int n=1;
     InFileType.open(FileType.c_str());
         while(n>0){
