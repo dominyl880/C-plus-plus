@@ -201,6 +201,11 @@ void addProduct(){
 }
 
 void editproduct(){
+    bool ep=false;
+    do{
+        cout<<"Enter PId : "; cin>>PId;
+        cout<<PId<<endl;
+    }while(ep!=true);
     
 }
 
