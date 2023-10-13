@@ -2,56 +2,13 @@
 #include <fstream>
 #include <string>
 #include <iomanip>
+
+#include <sstream>  // เพิ่มบรรทัดนี้
+
+
 using namespace std;
 
-void editProductLine(const string& fileName, const string& targetProductId, const string& newProductData) {
-    ifstream inFile(fileName);
-
-    if (!inFile) {
-        cerr << "Unable to open the file: " << fileName << endl;
-        return;
-    }
-
-    ofstream outFile("temp.txt");
-
-    string line;
-    bool edited = false;
-
-    while (getline(inFile, line)) {
-        // แยกข้อมูลในบรรทัดเดิม
-        string currentProductId, productName, typeId;
-        int price, amount;
-        istringstream iss(line);
-        iss >> currentProductId >> productName >> typeId >> price >> amount;
-
-        // เปรียบเทียบกับ ID ที่ต้องการแก้ไข
-        if (currentProductId == targetProductId) {
-            outFile << newProductData << endl;
-            edited = true;
-        } else {
-            outFile << line << endl;
-        }
-    }
-
-    inFile.close();
-    outFile.close();
-
-// ลบไฟล์เดิมและเปลี่ยนชื่อไฟล์ชั่วคราวเป็นชื่อไฟล์หลัก
-    if (remove(fileName.c_str()) != 0) {
-        cerr << "Unable to remove the original file: " << fileName << endl;
-        return;
-    }
-
-    if (rename("temp.txt", fileName.c_str()) != 0) {
-        cerr << "Unable to rename the temporary file." << endl;
-    }
-
-    if (edited) {
-        cout << "Product information updated successfully." << endl;
-    } else {
-        cout << "Product not found." << endl;
-    }
-}
+void editProductLine(const string& fileName2, const string& targetProductId, const string& newProductData);
 
 void lastrowproduct(int &p);
 void lastrowtype(int &t);
@@ -66,7 +23,7 @@ void ReadType();
 void addType();
 void edittype();
 
-    string FileProduct="product.txt",FileType="type";
+    string FileProduct="product.txt",FileType="type.txt";
     ifstream InFile,InFileType;
     ofstream OutFile;
 
@@ -110,20 +67,54 @@ int main(){
     return(0);
 }
 
-// หาล่าสุดของประเภท
-void lastrowtype(int &t){
-    int n=1;
-    InFileType.open(FileType.c_str());
-        while(n>0){
-            InFileType>>TId>>Tname;
-                if(TId==TId2){
-                    t3=n-1;
-                    break;
-                }
-            TId2=TId;
-            n++;
-        } 
-    InFileType.close();
+
+void editProductLine(const string& fileName2, const string& targetProductId, const string& newProductData) {
+    ifstream inFile2(fileName2);
+
+    if (!inFile2) {
+        cerr << "Unable to open the file: " << fileName2 << endl;
+        return;
+    }
+
+    ofstream outFile2("temp.txt");
+
+    string line;
+    bool edited = false;
+
+    while (getline(inFile2, line)) {
+        // แยกข้อมูลในบรรทัดเดิม
+        string currentProductId, productName, typeId;
+        int price, amount;
+        istringstream iss(line);
+        iss >> currentProductId >> productName >> typeId >> price >> amount;
+
+        // เปรียบเทียบกับ ID ที่ต้องการแก้ไข
+        if (currentProductId == targetProductId) {
+            outFile2 << newProductData << endl;
+            edited = true;
+        } else {
+            outFile2 << line << endl;
+        }
+    }
+
+    inFile2.close();
+    outFile2.close();
+
+// ลบไฟล์เดิมและเปลี่ยนชื่อไฟล์ชั่วคราวเป็นชื่อไฟล์หลัก
+    if (remove(fileName2.c_str()) != 0) {
+        cerr << "Unable to remove the original file: " << fileName2 << endl;
+        return;
+    }
+
+    if (rename("temp.txt", fileName2.c_str()) != 0) {
+        cerr << "Unable to rename the temporary file." << endl;
+    }
+
+    if (edited) {
+        cout << "Product information updated successfully." << endl;
+    } else {
+        cout << "Product not found." << endl;
+    }
 }
 
 // หาล่าสุดของสินค้า
@@ -142,6 +133,22 @@ void lastrowproduct(int &p){
     InFile.close();
 }
 
+// หาล่าสุดของประเภท
+void lastrowtype(int &t){
+    int n=1;
+
+    InFileType.open(FileType.c_str());
+        while(n>0){
+            InFileType>>TId>>Tname;
+                if(TId==TId2){
+                    t3=n-1;
+                    break;
+                }
+            TId2=TId;
+            n++;
+        } 
+    InFileType.close();
+}
 
 
 // อ่าน product
@@ -251,7 +258,8 @@ void addProduct(){
 void editproduct() {
     bool ep = false, tc = false;
     char anw;
-    string row;
+    string targetProductId;
+    string row; 
     
     lastrowproduct(t2);
     lastrowtype(t3);
@@ -298,7 +306,6 @@ void editproduct() {
                             InFileType.open(FileType);
                                 for (int i2 = 1; i2 <= t3; i2++) {
                                     InFileType >> TId2 >> Tname;
-                                    cout<<TId<<" "<<Tname<<endl;
                                     if (TId2 == TId) {
                                         tc = true;
                                     }
@@ -350,22 +357,25 @@ void editproduct() {
                 } while (anw != 'N');
                 cout << endl;
                 
-
                 // -------------------------------------------------------
                 stringstream price_in,amount_in;
                 price_in <<(Price);
                 amount_in <<(Pamount);
-
-                // ss << (c+1);
+                
                 row=PId+" "+Pname+" "+TId+" "+price_in.str()+" "+amount_in.str();
+                cout<<PId<<endl;
                 cout<<row<<endl;
+                targetProductId=PId;
 
-                editProductLine("product.txt", PId, row);
                 
                 // -------------------------------------------------
+               
             }
         }
         InFile.close();
+                
+        editProductLine("product.txt", targetProductId, row);
+
         ep = true;
     } while (ep != true);
 }
@@ -373,6 +383,7 @@ void editproduct() {
 
 // อ่าน product
 void ReadType(){
+    lastrowtype(t3);
     cout<<"list type = "<<t3<<endl;
     InFileType.open("type.txt",ios::app);
         for(int i2=1;i2<=t3;i2++){

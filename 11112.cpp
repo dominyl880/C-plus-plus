@@ -58,7 +58,7 @@ int main() {
     // ตัวอย่างการใช้งาน
     string targetProductId = "P1";
     string newProductData = "P1 Pen T1 7 3";
-    editProductLine("product.txt", targetProductId, "P1 Pen T1 7 4");
+    editProductLine("product.txt", targetProductId, "P1 yanisa T1 5 5");
 
     return 0;
 }
