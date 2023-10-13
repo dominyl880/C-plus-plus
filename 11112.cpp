@@ -6,7 +6,7 @@ using namespace std;
 void deleteProductLine(const string& fileName, const string& targetProductId);
 
 int main() {
-    deleteProductLine("product.txt", "P1");
+    deleteProductLine("product.txt", "P2");
     return 0;
 }
 
@@ -33,5 +33,5 @@ void deleteProductLine(const string& fileName, const string& targetProductId) {
         return;
     }
 
-    cout << (deleted ? "Product deleted successfully." : "Product not found.") << endl;
+    // cout << (deleted ? "Product deleted successfully." : "Product not found.") << endl;
 }

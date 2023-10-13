@@ -1,3 +1,1 @@
-P1 pp T2 10 5
-P2 ll T3 5 10
-P3 oo T1 5 99
+P5 Io T3 4 4

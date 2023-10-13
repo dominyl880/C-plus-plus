@@ -79,36 +79,32 @@ int main(){
     return(0);
 }
 //delete product
-void deleteProductLine(const string& fileName2, const string& targetProductId) {
-    ifstream inFile2(fileName2);
-    ofstream outFile2("temp.txt");
+void deleteProductLine(const string& fileNameD, const string& targetProduct) {
+    ifstream inFileP(fileNameD);
+    ofstream outFileP("temp.txt");
 
     string line;
     bool deleted = false;
 
-    while (getline(inFile2, line)) {
-        if (line.find(targetProductId) == string::npos) {
-            outFile2 << line << endl;
+    while (getline(inFileP, line)) {
+        if (line.find(targetProduct) == string::npos) {
+            outFileP << line << endl;
         } else {
             deleted = true;
         }
     }
 
+    inFileP.close();
+    outFileP.close();
 
-    inFile2.close();
-    outFile2.close();
-
-    if (remove(fileName2.c_str()) != 0 || rename("temp.txt", fileName2.c_str()) != 0) {
+    if (remove(fileNameD.c_str()) != 0 || rename("temp.txt", fileNameD.c_str()) != 0) {
         cerr << "Unable to perform file operations." << endl;
         return;
     }
 
-    if (deleted) {
-        // cout << "Completed." << endl;
-    } else {
-        cout << "Product not found." << endl;
-    }
+    // cout << (deleted ? "Product deleted successfully." : "Product not found.") << endl;
 }
+
 
 
 // update product
@@ -248,6 +244,9 @@ void ReadProduct(){
     // หาจำนวนข้อมูลทั้งหมดที่มี
     lastrowproduct(t2); 
     lastrowtype(t3);  
+    cout<<"list product = "<<t2<<endl;
+    cout<<"list type = "<<t3<<endl;
+
 
     // แสดงผล
     InFile.open(FileProduct,ios::app);
@@ -471,46 +470,44 @@ void editproduct() {
 
 void delproduct(){
     char anw;
-
+    bool del=false;
     do{
+        lastrowproduct(t2);
         cout<<"Enter PId : "; cin>>PId;
-        for (int i = 1; i <= t2; i++) {
-            InFile >> PId2 >> Pname >> TId >> Price >> Pamount;
-
-            if (PId == PId2) {
-                cout << PId2 << " " << Pname << " " << TId <<" "<< Price << " " << Pamount;
-                cout << endl;
-                cout << "==Delete data==" << endl;
-
-                do {
-                    cout << "Do you want to delete "<<Pname<<" ? (Y/N) : ";
-                    cin >> anw;
-                    if (anw == 'Y') {
-                        anw = 'N';
-                    }
-                    else if (anw == 'N') {
-                        cout << "You have skipped." << endl;
-                    }
-                    else {
-                        cout << "Try again." << endl;
-                    }
-                } while (anw != 'N');
-
-                cout << endl;
-                
-               
+        InFile.open(FileProduct.c_str());
+            for (int i = 1; i <= t2; i++) {
+                InFile >> PId2 >> Pname >> TId >> Price >> Pamount;
+                // cout<<PId2<<endl;
+                if(PId == PId2) {
+                    cout << PId2 << " " << Pname << " " << TId <<" "<< Price << " " << Pamount;
+                    cout << endl;
+                    cout << "==Delete data==" << endl;
+                    do {
+                        cout << "Do you want to delete "<<Pname<<" ? (Y/N) : ";
+                        cin >> anw;
+                        if (anw == 'Y') {
+                            cout<<"Completed."<<endl;
+                            anw='N';
+                            del=true;
+                        }
+                        else if (anw == 'N') {
+                            cout << "You have skipped." << endl;
+                        }
+                        else {
+                            cout << "Try again." << endl;
+                        }
+                    }while (anw != 'N');
+                    cout << endl;
+                }
             }
-        }
+       
         InFile.close();
-
-        // -------------------------------------------------------
-            deleteProductLine("type.txt", PId);
-        // -------------------------------------------------------
-
+        if(del==true){
+            // -------------------------------------------------------
+                deleteProductLine(FileProduct, PId);
+            // -------------------------------------------------------
+        }   
     }while(PId!="X");
-    
-    
-
 }
 
 // -----------------------------------------------------
