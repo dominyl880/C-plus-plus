@@ -1,4 +1,1 @@
-P11 ooo T3 4 4
-P12 lkol T2 5 5
-P13 oo T1 55 55
-P14 qq T1 8 58
+P1 op T7 5 4

@@ -231,14 +231,16 @@ void lastrowproduct(int &p){
 // หาล่าสุดของประเภท
 void lastrowtype(int &t){
     int n=1;
+    string f,f2,z;
+
     InFileType.open(FileType.c_str());
         while(n>0){
-            InFileType>>TId>>Tname;
-                if(TId==TId2){
+            InFileType>>f>>z;
+                if(f==f2){
                     t3=n-1;
                     break;
                 }
-            TId2=TId;
+            f2=f;
             n++;
         } 
     InFileType.close();
@@ -281,69 +283,74 @@ void addProduct(){
         bool tc=false;
 
         ofstream OutFile(FileProduct, ios::app);//ต้องมี ถ้าไม่มีจะเขียนทับอันเก่า
-        cout<<"Enter number of product : "; cin>>numpro; // เลือกจำนวนที่จะเพิ่มรายการสินค้า
-        lastrowproduct(t2);
-        lastrowtype(t3);
+        do{
+            cout<<"Enter 0 to exit."<<endl;
+            cout<<"Enter number of product : "; cin>>numpro; // เลือกจำนวนที่จะเพิ่มรายการสินค้า
+            lastrowproduct(t2);
+            lastrowtype(t3);
 
-         // ตรวจสอบว่าไฟล์ถูกเปิดหรือไม่
-        if (OutFile.is_open()){
-            // เพิ่มข้อมูลต่อจาก record เดิม
-            for(int i=1;i<=numpro;i++){
-                cout<<endl;
+            // ตรวจสอบว่าไฟล์ถูกเปิดหรือไม่
+            if (OutFile.is_open()){
+                // เพิ่มข้อมูลต่อจาก record เดิม
+                for(int i=1;i<=numpro;i++){
+                    cout<<endl;
 
-                InFile.open(FileProduct,ios::app);
-                    for(int p=1;p<=t2;p++){
-                        InFile>>Rid>>Pname>>TId>>Price>>Pamount;
+                    InFile.open(FileProduct,ios::app);
+                        for(int p=1;p<=t2;p++){
+                            InFile>>Rid>>Pname>>TId>>Price>>Pamount;
+                        }
+                    InFile.close();
+                    
+                    if(Rid==""){
+                        Rid="P0";
                     }
-                InFile.close();
-                
-                if(Rid==""){
-                    Rid="P0";
+
+                    // ดึง string ออกมา
+                    string prefix = Rid.substr(0, 1);
+                    // แปลง string เป็น int
+                    int number = stoi(Rid.substr(1));
+                    
+                    stringstream ss;
+                    ss << (number+1);
+                    Rid=prefix+ss.str();
+
+                    cout<<"order = "<<i<<endl; 
+                    cout<<"Enter PId : "<<Rid<<endl;
+                    cout<<"Enter name : "; cin>>name;
+
+                    // type_id
+                            do{
+                                cout<<"Enter type_id : "; cin>>type_id;
+                                    InFileType.open(FileType, ios::app);
+                                    for(int i2=1;i2<=t3;i2++){
+                                        InFileType>>TId2>>Tname;
+                                        if(TId2==type_id){ 
+                                            tc=true;
+                                        }
+                                    }
+                                    InFileType.close();
+                                    if(tc==false){ cout<<"Try again."<<endl; }
+                            }while(tc!=true);
+                            tc=false;
+                    
+                    cout<<"Enter price : "; cin>>price;
+                    cout<<"Enter amount : "; cin>>amount;
+
+                    OutFile << Rid << " " << name << " "<<type_id<<" ";
+                    OutFile << price << " " << amount << endl;
+
+                    cout<<"Complete!"<<endl;
+                    t2++;
                 }
 
-                // ดึง string ออกมา
-                string prefix = Rid.substr(0, 1);
-                // แปลง string เป็น int
-                int number = stoi(Rid.substr(1));
-                
-                stringstream ss;
-                ss << (number+1);
-                Rid=prefix+ss.str();
-
-                cout<<"order = "<<i<<endl; 
-                cout<<"Enter PId : "<<Rid<<endl;
-                cout<<"Enter name : "; cin>>name;
-
-                // type_id
-                        do{
-                            cout<<"Enter type_id : "; cin>>type_id;
-                                InFileType.open(FileType, ios::app);
-                                for(int i2=1;i2<=t3;i2++){
-                                    InFileType>>TId2>>Tname;
-                                    if(TId2==type_id){ 
-                                        tc=true;
-                                    }
-                                }
-                                InFileType.close();
-                                if(tc==false){ cout<<"Try again."<<endl; }
-                        }while(tc!=true);
-                        tc=false;
-                
-                cout<<"Enter price : "; cin>>price;
-                cout<<"Enter amount : "; cin>>amount;
-
-                OutFile << Rid << " " << name << " "<<type_id<<" ";
-                OutFile << price << " " << amount << endl;
-
-                cout<<"Complete!"<<endl;
-                t2++;
+                // ปิดไฟล์
+                OutFile.close();
+            } else {
+                cerr << "Unable to open the file.\n";
             }
 
-            // ปิดไฟล์
-            OutFile.close();
-        } else {
-            cerr << "Unable to open the file.\n";
-        }
+        }while(numpro!=0);
+        
 
 
 }
@@ -359,6 +366,8 @@ void editproduct() {
     lastrowtype(t3);
 
     do { 
+        cout<<"Enter X to exit."<<endl;
+
         cout << "Enter PId : ";
         cin >> PId;
         InFile.open(FileProduct.c_str());
@@ -476,6 +485,7 @@ void delproduct(){
     char anw;
     bool del=false;
     do{
+        cout<<"Enter X to exit."<<endl;
         lastrowproduct(t2);
         cout<<"Enter PId : "; cin>>PId;
         InFile.open(FileProduct.c_str());
@@ -534,55 +544,59 @@ void addType(){
         int numpro;
 
         ofstream OutFileType(FileType, ios::app);//ต้องมี ถ้าไม่มีจะเขียนทับอันเก่า
-        cout<<"Enter number of type : "; cin>>numpro; // เลือกจำนวนที่จะเพิ่มรายการสินค้า
-        lastrowtype(t3);
+        do{
+            cout<<"Enter 0 to exit."<<endl;
+            cout<<"Enter number of type : "; cin>>numpro; // เลือกจำนวนที่จะเพิ่มรายการสินค้า
+            lastrowtype(t3);
 
-         // ตรวจสอบว่าไฟล์ถูกเปิดหรือไม่
-        if (OutFileType.is_open()){
-            // เพิ่มข้อมูลต่อจาก record เดิม
-            for(int i=1;i<=numpro;i++){
-                cout<<endl;
+            // ตรวจสอบว่าไฟล์ถูกเปิดหรือไม่
+            if (OutFileType.is_open()){
+                // เพิ่มข้อมูลต่อจาก record เดิม
+                for(int i=1;i<=numpro;i++){
+                    cout<<endl;
 
-                InFileType.open(FileType,ios::app);
-                    for(int p=1;p<=t3;p++){
-                        InFileType>>Rid>>Tname;
+                    InFileType.open(FileType,ios::app);
+                        for(int p=1;p<=t3;p++){
+                            InFileType>>Rid>>Tname;
+                        }
+                    InFileType.close();
+
+                    cout<<endl;
+
+                    if(Rid==""){
+                        Rid="T0";
                     }
-                InFileType.close();
+                    
+                    // cout<<Rid<<endl;
+            
+                    // ดึง string ออกมา
+                    string prefix = Rid.substr(0, 1);
+                    // แปลง string เป็น int
+                    int number = stoi(Rid.substr(1));
+                    
+                    stringstream ss;
+                    ss << (number+1);
+                    Rid=prefix+ss.str();
 
-                cout<<endl;
+                    cout<<"order = "<<i<<endl; 
+                    cout<<"Enter TId : "<<Rid<<endl;
+                    cout<<"Enter name : "; cin>>name;
+    
 
-                if(Rid==""){
-                    Rid="T0";
+                    OutFileType << Rid << " " << name<<endl;
+
+                    cout<<"Complete!"<<endl;
+
+                    t3++;
+
                 }
-                
-                cout<<Rid<<endl;
-         
-                // ดึง string ออกมา
-                string prefix = Rid.substr(0, 1);
-                // แปลง string เป็น int
-                int number = stoi(Rid.substr(1));
-                
-                stringstream ss;
-                ss << (number+1);
-                Rid=prefix+ss.str();
-
-                cout<<"order = "<<i<<endl; 
-                cout<<"Enter TId : "<<Rid<<endl;
-                cout<<"Enter name : "; cin>>name;
-  
-
-                OutFileType << Rid << " " << name<<endl;
-
-                cout<<"Complete!"<<endl;
-
-                t3++;
-
+                // ปิดไฟล์
+                OutFileType.close();
+            } else {
+                cerr << "Unable to open the file.\n";
             }
-            // ปิดไฟล์
-            OutFileType.close();
-        } else {
-            cerr << "Unable to open the file.\n";
-        }
+        }while(numpro!=0);
+
 
 
 }
@@ -597,7 +611,8 @@ void edittype(){
     lastrowtype(t3);
 
     do {
-        
+        cout<<"Enter X to exit."<<endl;
+
         cout << "Enter TId : ";
         cin >> TId;
         InFile.open(FileType.c_str());
@@ -638,8 +653,9 @@ void edittype(){
         InFile.close();
                 
         editTypeLine("type.txt", targetProductId, row);
-
-        ep = true;
+        if(PId=="X"){
+            ep = true;
+        }
     } while (ep != true);
 
 }
@@ -648,11 +664,13 @@ void deltype(){
     char anw;
     bool del=false;
     do{
-        lastrowproduct(t3);
+        cout<<"Enter X to exit."<<endl;
+        lastrowtype(t3);
         cout<<"Enter TId : "; cin>>TId;
         InFileType.open(FileType.c_str());
             for (int i = 1; i <= t3; i++) {
                 InFileType >> TId2 >> Tname;
+                // cout<<TId2<<endl;
                 if(TId == TId2) {
                     cout << TId2 << " " << Tname<<endl;
                     cout << "==Delete data==" << endl;
@@ -678,10 +696,10 @@ void deltype(){
         InFileType.close();
         if(del==true){
             // -------------------------------------------------------
-                deleteProductLine(FileProduct, TId);
+                deleteProductLine(FileType, TId);
             // -------------------------------------------------------
         }   
-    }while(PId!="X");
+    }while(TId!="X");
 
 }
 
