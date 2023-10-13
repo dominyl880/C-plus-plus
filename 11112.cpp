@@ -1,16 +1,41 @@
 #include <iostream>
+#include <fstream>
+#include <algorithm>
+#include <string>
+
+using namespace std;
 
 int main() {
-    std::string input = "P10";
+    // เปิดไฟล์สำหรับอ่านและเขียน
+    ifstream inputFile("example.txt");
+    ofstream outputFile("temp.txt");
 
-    // ดึง string ออกมา
-    std::string prefix = input.substr(0, 1);
+    if (!inputFile || !outputFile) {
+        cerr << "ไม่สามารถเปิดไฟล์ได้" << endl;
+        return 1;
+    }
 
-    // แปลง string เป็น int
-    int number = std::stoi(input.substr(1));
+    // ค้นหาและแทนที่ข้อมูล
+    string search = "P";
+    string replace = "Q";
+    string line;
 
-    std::cout << "Prefix: " << prefix << std::endl;
-    std::cout << "Number: " << number << std::endl;
+    while (getline(inputFile, line)) {
+        replace(line.begin(), line.end(), search.begin(), search.end(), replace.begin());
+        outputFile << line << endl;
+    }
+
+    // ปิดไฟล์
+    inputFile.close();
+    outputFile.close();
+
+    // ลบไฟล์เดิม
+    remove("example.txt");
+
+    // เปลี่ยนชื่อไฟล์
+    rename("temp.txt", "example.txt");
+
+    cout << "แก้ไขข้อมูลเรียบร้อย" << endl;
 
     return 0;
 }
