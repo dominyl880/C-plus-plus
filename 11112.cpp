@@ -1,41 +1,64 @@
 #include <iostream>
 #include <fstream>
-#include <algorithm>
+#include <sstream>  // เพิ่มบรรทัดนี้
 #include <string>
 
 using namespace std;
 
-int main() {
-    // เปิดไฟล์สำหรับอ่านและเขียน
-    ifstream inputFile("example.txt");
-    ofstream outputFile("temp.txt");
+void editProductLine(const string& fileName, const string& targetProductId, const string& newProductData) {
+    ifstream inFile(fileName);
 
-    if (!inputFile || !outputFile) {
-        cerr << "ไม่สามารถเปิดไฟล์ได้" << endl;
-        return 1;
+    if (!inFile) {
+        cerr << "Unable to open the file: " << fileName << endl;
+        return;
     }
 
-    // ค้นหาและแทนที่ข้อมูล
-    string search = "P";
-    string replace = "Q";
+    ofstream outFile("temp.txt");
+
     string line;
+    bool edited = false;
 
-    while (getline(inputFile, line)) {
-        replace(line.begin(), line.end(), search.begin(), search.end(), replace.begin());
-        outputFile << line << endl;
+    while (getline(inFile, line)) {
+        // แยกข้อมูลในบรรทัดเดิม
+        string currentProductId, productName, typeId;
+        int price, amount;
+        istringstream iss(line);
+        iss >> currentProductId >> productName >> typeId >> price >> amount;
+
+        // เปรียบเทียบกับ ID ที่ต้องการแก้ไข
+        if (currentProductId == targetProductId) {
+            outFile << newProductData << endl;
+            edited = true;
+        } else {
+            outFile << line << endl;
+        }
     }
 
-    // ปิดไฟล์
-    inputFile.close();
-    outputFile.close();
+    inFile.close();
+    outFile.close();
 
-    // ลบไฟล์เดิม
-    remove("example.txt");
+// ลบไฟล์เดิมและเปลี่ยนชื่อไฟล์ชั่วคราวเป็นชื่อไฟล์หลัก
+    if (remove(fileName.c_str()) != 0) {
+        cerr << "Unable to remove the original file: " << fileName << endl;
+        return;
+    }
 
-    // เปลี่ยนชื่อไฟล์
-    rename("temp.txt", "example.txt");
+    if (rename("temp.txt", fileName.c_str()) != 0) {
+        cerr << "Unable to rename the temporary file." << endl;
+    }
 
-    cout << "แก้ไขข้อมูลเรียบร้อย" << endl;
+    if (edited) {
+        cout << "Product information updated successfully." << endl;
+    } else {
+        cout << "Product not found." << endl;
+    }
+}
+
+int main() {
+    // ตัวอย่างการใช้งาน
+    string targetProductId = "P1";
+    string newProductData = "P1 Pen T1 7 3";
+    editProductLine("product.txt", targetProductId, "P1 Pen T1 7 4");
 
     return 0;
 }

@@ -4,6 +4,55 @@
 #include <iomanip>
 using namespace std;
 
+void editProductLine(const string& fileName, const string& targetProductId, const string& newProductData) {
+    ifstream inFile(fileName);
+
+    if (!inFile) {
+        cerr << "Unable to open the file: " << fileName << endl;
+        return;
+    }
+
+    ofstream outFile("temp.txt");
+
+    string line;
+    bool edited = false;
+
+    while (getline(inFile, line)) {
+        // แยกข้อมูลในบรรทัดเดิม
+        string currentProductId, productName, typeId;
+        int price, amount;
+        istringstream iss(line);
+        iss >> currentProductId >> productName >> typeId >> price >> amount;
+
+        // เปรียบเทียบกับ ID ที่ต้องการแก้ไข
+        if (currentProductId == targetProductId) {
+            outFile << newProductData << endl;
+            edited = true;
+        } else {
+            outFile << line << endl;
+        }
+    }
+
+    inFile.close();
+    outFile.close();
+
+// ลบไฟล์เดิมและเปลี่ยนชื่อไฟล์ชั่วคราวเป็นชื่อไฟล์หลัก
+    if (remove(fileName.c_str()) != 0) {
+        cerr << "Unable to remove the original file: " << fileName << endl;
+        return;
+    }
+
+    if (rename("temp.txt", fileName.c_str()) != 0) {
+        cerr << "Unable to rename the temporary file." << endl;
+    }
+
+    if (edited) {
+        cout << "Product information updated successfully." << endl;
+    } else {
+        cout << "Product not found." << endl;
+    }
+}
+
 void lastrowproduct(int &p);
 void lastrowtype(int &t);
 
@@ -17,15 +66,12 @@ void ReadType();
 void addType();
 void edittype();
 
-
-
-    string FileProduct="product",FileType="type";
+    string FileProduct="product.txt",FileType="type";
     ifstream InFile,InFileType;
     ofstream OutFile;
 
     string PId2,PId,Pname,TId2,TId,Tname;
     int Price,Pamount,t2,t3;
-    // long round=1000000000;
 
 int main(){
    
@@ -64,6 +110,22 @@ int main(){
     return(0);
 }
 
+// หาล่าสุดของประเภท
+void lastrowtype(int &t){
+    int n=1;
+    InFileType.open(FileType.c_str());
+        while(n>0){
+            InFileType>>TId>>Tname;
+                if(TId==TId2){
+                    t3=n-1;
+                    break;
+                }
+            TId2=TId;
+            n++;
+        } 
+    InFileType.close();
+}
+
 // หาล่าสุดของสินค้า
 void lastrowproduct(int &p){
     int n=1;
@@ -80,21 +142,7 @@ void lastrowproduct(int &p){
     InFile.close();
 }
 
-// หาล่าสุดของประเภท
-void lastrowtype(int &t){
-    int n=1;
-    InFileType.open(FileType.c_str());
-        while(n>0){
-            InFileType>>TId>>Tname;
-                if(TId==TId2){
-                    t3=n-1;
-                    break;
-                }
-            TId2=TId;
-            n++;
-        } 
-    InFileType.close();
-}
+
 
 // อ่าน product
 void ReadProduct(){
@@ -200,20 +248,133 @@ void addProduct(){
 
 }
 
-void editproduct(){
-    bool ep=false;
-    do{
-        cout<<"Enter PId : "; cin>>PId;
-        cout<<PId<<endl;
-    }while(ep!=true);
+void editproduct() {
+    bool ep = false, tc = false;
+    char anw;
+    string row;
     
+    lastrowproduct(t2);
+    lastrowtype(t3);
+
+    do {
+        
+        cout << "Enter PId : ";
+        cin >> PId;
+        InFile.open(FileProduct.c_str());
+
+        for (int i = 1; i <= t2; i++) {
+            InFile >> PId2 >> Pname >> TId >> Price >> Pamount;
+
+            if (PId == PId2) {
+                cout << PId2 << "  " << Pname << "  " << TId << Price << "  " << Pamount;
+                cout << endl;
+                cout << "==New data==" << endl;
+
+                do {
+                    cout << "Do you want to edit Name? (Y/N) : ";
+                    cin >> anw;
+                    if (anw == 'Y') {
+                        cout << "New Name : ";
+                        cin >> Pname;
+                        cout << "Completed." << endl;
+                        anw = 'N';
+                    }
+                    else if (anw == 'N') {
+                        cout << "You have skipped." << endl;
+                    }
+                    else {
+                        cout << "Try again." << endl;
+                    }
+                } while (anw != 'N');
+
+                do {
+                    cout << "Do you want to edit Type? (Y/N) : ";
+                    cin >> anw;
+                    if (anw == 'Y') {
+                        // type_id
+                        do {
+                            cout << "New Type : ";
+                            cin >> TId;
+                            InFileType.open(FileType);
+                                for (int i2 = 1; i2 <= t3; i2++) {
+                                    InFileType >> TId2 >> Tname;
+                                    cout<<TId<<" "<<Tname<<endl;
+                                    if (TId2 == TId) {
+                                        tc = true;
+                                    }
+                                }
+                            InFileType.close();
+                            if (tc == false) { cout << "Try again." << endl; }
+                        } while (tc != true);
+                        tc = false;
+                        cout << "Completed." << endl;
+                        anw = 'N';
+                    }
+                    else if (anw == 'N') {
+                        cout << "You have skipped." << endl;
+                    }
+                } while (anw != 'N');
+
+                do {
+                    cout << "Do you want to edit Price? (Y/N) : ";
+                    cin >> anw;
+                    if (anw == 'Y') {
+                        cout << "New Price : ";
+                        cin >> Price;
+                        cout << "Completed." << endl;
+                        anw = 'N';
+                    }
+                    else if (anw == 'N') {
+                        cout << "You have skipped." << endl;
+                    }
+                    else {
+                        cout << "Try again." << endl;
+                    }
+                } while (anw != 'N');
+
+                do {
+                    cout << "Do you want to edit Amount? (Y/N) : ";
+                    cin >> anw;
+                    if (anw == 'Y') {
+                        cout << "New Amount : ";
+                        cin >> Pamount;
+                        cout << "Completed." << endl;
+                        anw = 'N';
+                    }
+                    else if (anw == 'N') {
+                        cout << "You have skipped." << endl;
+                    }
+                    else {
+                        cout << "Try again." << endl;
+                    }
+                } while (anw != 'N');
+                cout << endl;
+                
+
+                // -------------------------------------------------------
+                stringstream price_in,amount_in;
+                price_in <<(Price);
+                amount_in <<(Pamount);
+
+                // ss << (c+1);
+                row=PId+" "+Pname+" "+TId+" "+price_in.str()+" "+amount_in.str();
+                cout<<row<<endl;
+
+                editProductLine("product.txt", PId, row);
+                
+                // -------------------------------------------------
+            }
+        }
+        InFile.close();
+        ep = true;
+    } while (ep != true);
 }
 
 
 // อ่าน product
 void ReadType(){
     cout<<"list type = "<<t3<<endl;
-    InFileType.open("type",ios::app);
+    InFileType.open("type.txt",ios::app);
         for(int i2=1;i2<=t3;i2++){
             InFileType>>TId>>Tname;
             cout<<"Here :  "<<TId<<" "<<Tname<<" "<<endl;
