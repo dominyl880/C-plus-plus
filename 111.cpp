@@ -287,23 +287,24 @@ void ReadProduct(){
     cout<<"list product = "<<t2<<endl;
     // cout<<"list type = "<<t3<<endl;
 
+    cout<<"PID      Pname         Type         Price   Amount"<<endl;
 
     // แสดงผล
     InFile.open(FileProduct,ios::app);
         for(int i=1;i<=t2;i++){
             InFile>>PId>>Pname>>TId>>Price>>Pamount;
-            cout<<"Here :  "<<PId<<" "<<Pname<<" ";
+            cout<<setw(3)<<PId<<setw(10)<<Pname;
 
                 InFileType.open(FileType,ios::app);
                     for(int i2=1;i2<=t3;i2++){
                         InFileType>>TId2>>Tname;
                         if(TId==TId2){
-                            cout<<Tname<<" ";
+                            cout<<setw(15)<<Tname;
                         }
                     }
                 InFileType.close();
 
-            cout<<Price<<" "<<Pamount<<endl;
+            cout<<setw(10)<<Price<<setw(10)<<Pamount<<endl;
         }
     InFile.close();
 }
@@ -558,10 +559,11 @@ void delproduct(){
 void ReadType(){
     lastrowtype(t3); 
     cout<<"list type = "<<t3<<endl;
+    cout<<"TID         Tname"<<endl;
     InFileType.open(FileType,ios::app);
         for(int i=1;i<=t3;i++){
             InFileType>>TId>>Tname;
-            cout<<"Here :  "<<TId<<" "<<Tname<<" "<<endl;
+            cout<<setw(3)<<TId<<setw(14)<<Tname<<endl;
         }
     InFileType.close();
 
@@ -732,17 +734,47 @@ void deltype(){
 // อ่านรายการขาย
 void readsale(){
     lastrowsale(t4); 
+    lastrowproduct(t2);
+    lastrowtype(t3);
+    string ra1,ra2,r3;
     cout<<"list sale = "<<t4<<endl;
     InFileSale.open(FileSale,ios::app);
-        for(int i=1;i<=t4;i++){
+            cout<<"SID       PID        Pname         Type         Price      Amount      Total    "<<endl;
+
+        for(int i3=1;i3<=t4;i3++){
             InFileSale>>SId>>PId>>Samount>>Total;
-            cout<<"Here :  "<<SId<<" "<<PId<<" "<<Samount<<" "<<Total<<" "<<endl;
+            cout<<setw(3)<<SId<<setw(10)<<PId<<"        ";
+
+                    InFile.open(FileProduct,ios::app);
+                        for(int i=1;i<=t2;i++){
+                            // cout<<i<<" ";
+                            InFile>>ra1>>Pname>>TId>>Price>>Pamount;
+                if(PId==ra1){
+                            cout<<setw(5)<<Pname;
+
+                                InFileType.open(FileType,ios::app);
+                                    for(int i2=1;i2<=t3;i2++){
+                                        InFileType>>TId2>>Tname;
+                                        if(TId==TId2){
+                                            cout<<setw(15)<<Tname<<" ";
+                                        }
+                                    }
+                                InFileType.close();
+
+                            cout<<setw(8)<<Price<<" ";
+                }
+                        }
+                    InFile.close();
+
+            cout<<setw(10)<<Samount<<setw(15)<<Total<<endl;
+
         }
     InFileSale.close();
 }
 
 // เพิ่มการขาย
 void addsale(){
+        
         string J1,J2,J22,row,targetProductId,Pname1,Pname2;
         int J3,amount,numpro,priceHere,amo;
         bool tc=false;
@@ -751,6 +783,7 @@ void addsale(){
             lastrowsale(t4);
             lastrowproduct(t2);
         do{
+            ReadProduct();
             cout<<"Enter 0 to exit."<<endl;
             cout<<"Enter number of sale list : "; cin>>numpro; // เลือกจำนวนที่จะเพิ่มรายการสินค้า
 
@@ -826,7 +859,7 @@ void addsale(){
                         
                         J4=J3*priceHere;
                         cout<<"Total = "<<J4<<endl;
-                        cout<<J1<<"  "<<J2<<"  "<<J3<<"  "<<J4<<endl;
+                        // cout<<J1<<"  "<<J2<<"  "<<J3<<"  "<<J4<<endl;
                         OutFilesale << J1 << " " << J2 << " ";
                         OutFilesale << J3 << " " << J4 << endl;
 
