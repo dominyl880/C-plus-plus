@@ -800,7 +800,11 @@ void addsale(){
                                         InFile>>J22>>Pname>>TId>>Price>>Pamount;
                                         if(J22==J2){ 
                                             priceHere=Price;
-                                            tc=true;
+                                            if(Pamount!=0){
+                                                
+                                                tc=true;
+                                            }
+                                            
                                         }
                                     }
                                     InFile.close();
