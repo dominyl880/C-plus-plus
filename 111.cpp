@@ -438,10 +438,9 @@ void editproduct() {
                             InFileType.open(FileType);
                                 for (int i2 = 1; i2 <= t3; i2++) {
                                     InFileType >> TId2 >> Tname;
-                                    cout<<TId<<endl;
+                                    // cout<<TId<<endl;
                                     if (TId2 == TId) {
                                         // cout<<TId<<endl;
-
                                         tc = true;
                                     }
                                 }
@@ -641,8 +640,8 @@ void edittype(){
     do {
         cout<<"Enter X to exit."<<endl;
 
-        cout << "Enter TId : ";
-        cin >> TId;
+        cout << "Enter TId : "; cin >> TId;
+
         InFile.open(FileType.c_str());
 
         for (int i = 1; i <= t3; i++) {
@@ -681,10 +680,8 @@ void edittype(){
         InFile.close();
                 
         editTypeLine("type.txt", targetProductId, row);
-        if(PId=="X"){
-            ep = true;
-        }
-    } while (ep != true);
+
+    }while(TId!="X");
 
 }
 
