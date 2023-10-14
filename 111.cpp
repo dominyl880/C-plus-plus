@@ -803,7 +803,7 @@ void addsale(){
                                 }while(tc!=true);
                                 tc=false;
                         // Pamount
-                        cout<<Pname1<<endl;
+                        // cout<<Pname1<<endl;
                                 do{
                                     cout<<"Enter amount : "; cin>>J3;
                                         InFile.open(FileProduct, ios::app);
@@ -822,24 +822,23 @@ void addsale(){
                                         if(tc==false){ cout<<"Over limit."<<endl; }
                                 }while(tc!=true);
                                 tc=false; 
-                        cout<<Pname2<<endl;
+                        // cout<<Pname2<<endl;
                         
                         J4=J3*priceHere;
                         cout<<"Total = "<<J4<<endl;
-
+                        cout<<J1<<"  "<<J2<<"  "<<J3<<"  "<<J4<<endl;
                         OutFilesale << J1 << " " << J2 << " ";
                         OutFilesale << J3 << " " << J4 << endl;
 
-                    OutFilesale.close();
                     
                     stringstream price_in,amount_in;
                     price_in <<(Price);
                     amount_in <<(amo-J3);
 
-                    row=J2+" "+Pname2+" "+TId+" "+price_in.str()+" "+amount_in.str();
+                    row=J2+" "+Pname1+" "+TId+" "+price_in.str()+" "+amount_in.str();
                     targetProductId=J2;
                     
-                    cout<<row<<endl;
+                    // cout<<row<<endl;
                     
                     
                     cout<<"Complete!"<<endl;
@@ -850,6 +849,7 @@ void addsale(){
                 
  
                 }
+                    OutFilesale.close();
                 editProductLine(FileProduct, targetProductId, row);
 
         }while(numpro!=0);
