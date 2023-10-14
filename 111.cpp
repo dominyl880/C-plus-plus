@@ -224,16 +224,16 @@ void editTypeLine(const string& fileName2, const string& targetTypeId, const str
 
 // หาล่าสุดของสินค้า
 void lastrowproduct(int &p){
-    int n=1;
+    int n=1,d,e;
     string a,b,c,a2;
-    int d,e;
+    bool ra=false;
     InFile.open(FileProduct.c_str());
-        while(n>0){
+        while(ra!=true){
             InFile>>a>>b>>c>>d>>e;
-            // cout<<a<<endl;
+            // cout<<a<<" : "<<a2<<endl;
                 if(a2==a){
                     t2=n-1;
-                    break;
+                    ra=true;
                 }
             a2=a;
             n++;
@@ -245,7 +245,6 @@ void lastrowproduct(int &p){
 void lastrowtype(int &t){
     int n=1;
     string f,f2,z;
-
     InFileType.open(FileType.c_str());
         while(n>0){
             InFileType>>f>>z;
@@ -378,8 +377,6 @@ void addProduct(){
 
                 // ปิดไฟล์
                 OutFile.close();
-            } else {
-                cerr << "Unable to open the file.\n";
             }
 
         }while(numpro!=0);
@@ -616,7 +613,7 @@ void addType(){
                     cout<<"Enter name : "; cin>>name;
     
 
-                    OutFileType << Rid << " " << name<<endl;
+                    OutFileType << Rid << " " << name <<" "<<endl;
 
                     cout<<"Complete!"<<endl;
 
@@ -625,8 +622,6 @@ void addType(){
                 }
                 // ปิดไฟล์
                 OutFileType.close();
-            } else {
-                cerr << "Unable to open the file.\n";
             }
         }while(numpro!=0);
 
@@ -755,85 +750,85 @@ void addsale(){
         int J3,amount,numpro,priceHere;
         bool tc=false;
         float J4;
-        ofstream OutFile(FileSale, ios::app);//ต้องมี ถ้าไม่มีจะเขียนทับอันเก่า
+        ofstream OutFilesale(FileSale, ios::app);//ต้องมี ถ้าไม่มีจะเขียนทับอันเก่า
             lastrowsale(t4);
             lastrowproduct(t2);
         do{
             cout<<"Enter 0 to exit."<<endl;
             cout<<"Enter number of sale list : "; cin>>numpro; // เลือกจำนวนที่จะเพิ่มรายการสินค้า
 
-
-            // ตรวจสอบว่าไฟล์ถูกเปิดหรือไม่
                 // เพิ่มข้อมูลต่อจาก record เดิม
                 for(int i=1;i<=numpro;i++){
-                OutFile.is_open();
-                    cout<<endl;
+                    OutFilesale.is_open();
+                        cout<<endl;
 
-                    InFileSale.open(FileSale,ios::app);
-                        for(int p=1;p<=t4;p++){
-                            InFileSale>>J1>>J2>>J3>>J4;
+                        InFileSale.open(FileSale,ios::app);
+                            for(int p=1;p<=t4;p++){
+                                InFileSale>>J1>>J2>>J3>>J4;
+                            }
+                        InFileSale.close();
+                        
+                        if(J1==""){
+                            J1="S0";
                         }
-                    InFileSale.close();
-                    
-                    if(J1==""){
-                        J1="S0";
-                    }
 
-                    // ดึง string ออกมา
-                    string prefix = J1.substr(0, 1);
-                    // แปลง string เป็น int
-                    int number = stoi(J1.substr(1));
-                    
-                    stringstream ss;
-                    ss << (number+1);
-                    J1=prefix+ss.str();
+                        // ดึง string ออกมา
+                        string prefix = J1.substr(0, 1);
+                        // แปลง string เป็น int
+                        int number = stoi(J1.substr(1));
+                        
+                        stringstream ss;
+                        ss << (number+1);
+                        J1=prefix+ss.str();
 
-                    cout<<"order = "<<i<<endl; 
-                    cout<<"Enter SId : "<<J1<<endl;
-                    
+                        cout<<"order = "<<i<<endl; 
+                        cout<<"Enter SId : "<<J1<<endl;
+                        
 
-                    // PId
-                            do{
-                                cout<<"Enter PId : "; cin>>J2;
-                                    InFile.open(FileProduct, ios::app);
-                                    for(int i2=1;i2<=t2;i2++){
-                                        InFile>>J22>>Pname>>TId>>Price>>Pamount;
-                                        if(J22==J2){ 
-                                            priceHere=Price;
-                                            if(Pamount!=0){
-                                                tc=true;
+                        // PId
+                                do{
+                                    cout<<"Enter PId : "; cin>>J2;
+                                        InFile.open(FileProduct, ios::app);
+                                        for(int i2=1;i2<=t2;i2++){
+                                            InFile>>J22>>Pname>>TId>>Price>>Pamount;
+                                            if(J22==J2){ 
+                                                priceHere=Price;
+                                                if(Pamount!=0){
+                                                    tc=true;
+                                                }
+                                                
                                             }
-                                            
                                         }
-                                    }
-                                    InFile.close();
-                                    if(tc==false){ cout<<"Try again."<<endl; }
-                            }while(tc!=true);
-                            tc=false;
-                    // Pamount
-                             do{
-                                cout<<"Enter amount : "; cin>>J3;
-                                    InFile.open(FileProduct, ios::app);
-                                    for(int i2=1;i2<=t2;i2++){
-                                        InFile>>J22>>Pname>>TId>>Price>>Pamount;
-                                        if(J22==J2){ 
-                                            if(J3<=Pamount){
-                                                tc=true;
+                                        InFile.close();
+                                        if(tc==false){ cout<<"Try again."<<endl; }
+                                }while(tc!=true);
+                                tc=false;
+                        // Pamount
+                                do{
+                                    cout<<"Enter amount : "; cin>>J3;
+                                        InFile.open(FileProduct, ios::app);
+                                        for(int i2=1;i2<=t2;i2++){
+                                            InFile>>J22>>Pname>>TId>>Price>>Pamount;
+                                            if(J22==J2){ 
+                                                if(J3<=Pamount){
+                                                    tc=true;
+                                                }
+                                                
                                             }
-                                            
                                         }
-                                    }
-                                    InFile.close();
-                                    if(tc==false){ cout<<"Over limit."<<endl; }
-                            }while(tc!=true);
-                            tc=false; 
+                                        InFile.close();
+                                        if(tc==false){ cout<<"Over limit."<<endl; }
+                                }while(tc!=true);
+                                tc=false; 
+                        
+                        J4=J3*priceHere;
+                        cout<<"Total = "<<J4<<endl;
+
+                        OutFilesale << J1 << " " << J2 << " ";
+                        OutFilesale << J3 << " " << J4 << endl;
+
+                    OutFilesale.close();
                     
-                    J4=J3*priceHere;
-                    cout<<"Total = "<<J4<<endl;
-
-                    OutFile << J1 << " " << J2 << " ";
-                    OutFile << J3 << " " << J4 << endl;
-
                     stringstream price_in,amount_in;
                     price_in <<(Price);
                     amount_in <<(Pamount-J3);
@@ -842,7 +837,7 @@ void addsale(){
                     targetProductId=J2;
                     
                     cout<<row<<endl;
-                    OutFile.close();
+                    
                     
                     cout<<"Complete!"<<endl;
                     t4++;
