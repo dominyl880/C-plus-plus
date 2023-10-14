@@ -765,8 +765,8 @@ void addsale(){
 
             // ตรวจสอบว่าไฟล์ถูกเปิดหรือไม่
                 // เพิ่มข้อมูลต่อจาก record เดิม
-                OutFile.is_open();
                 for(int i=1;i<=numpro;i++){
+                OutFile.is_open();
                     cout<<endl;
 
                     InFileSale.open(FileSale,ios::app);
@@ -838,20 +838,20 @@ void addsale(){
                     price_in <<(Price);
                     amount_in <<(Pamount-J3);
 
-                    row=J22+" "+Pname+" "+TId+" "+price_in.str()+" "+amount_in.str();
-                    targetProductId=J22;
+                    row=J2+" "+Pname+" "+TId+" "+price_in.str()+" "+amount_in.str();
+                    targetProductId=J2;
                     
-                    // cout<<row<<endl;
+                    cout<<row<<endl;
+                    OutFile.close();
                     
                     cout<<"Complete!"<<endl;
                     t4++;
 
                 // ปิดไฟล์
+                    editProductLine(FileProduct, targetProductId, row);
                 
  
                 }
-                    OutFile.close();
-                    editProductLine(FileProduct, targetProductId, row);
 
         }while(numpro!=0);
         

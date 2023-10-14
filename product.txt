@@ -1,2 +1,2 @@
-P1 op T7 5 20
-P2 opp T7 5 11
+P1 opp T7 5 -19
+P2 opp T7 5 -14
