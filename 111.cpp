@@ -218,7 +218,7 @@ void editTypeLine(const string& fileName2, const string& targetTypeId, const str
     if (edited) {
         // cout << "Completed." << endl;
     } else {
-        cout << "Type not found." << endl;
+        // cout << "Type not found." << endl;
     }
 }
 
@@ -407,7 +407,21 @@ void editproduct() {
             InFile >> PId2 >> Pname >> TId >> Price >> Pamount;
 
             if (PId == PId2) {
-                cout << PId2 << " " << Pname << " " << TId <<" "<< Price << " " << Pamount;
+                cout<<"PID      Pname         Type         Price   Amount"<<endl;
+
+                cout <<setw(3)<<PId2<<setw(10)<<Pname<<setw(5)<<TId;
+                            InFileType.open(FileType);
+                                for (int i5 = 1; i5 <= t3; i5++) {
+                                    InFileType >> TId2 >> Tname;
+                                    if (TId2 == TId) {
+                                        cout<<"("<<Tname<<")";
+                                        tc = true;
+                                    }
+                                }
+                            InFileType.close();
+                
+                
+                cout<<setw(8)<<Price<<setw(10)<<Pamount;
                 cout << endl;
                 cout << "==New data==" << endl;
 
@@ -432,6 +446,8 @@ void editproduct() {
                     cout << "Do you want to edit Type? (Y/N) : ";
                     cin >> anw;
                     if (anw == 'Y') {
+                        tc = false;
+
                         // type_id
                         do {
                             cout << "New Type : ";
@@ -441,7 +457,7 @@ void editproduct() {
                                     InFileType >> TId2 >> Tname;
                                     // cout<<TId<<endl;
                                     if (TId2 == TId) {
-                                        // cout<<TId<<endl;
+                                        cout<<TId<<"  : "<<TId2<<endl;
                                         tc = true;
                                     }
                                 }
@@ -514,8 +530,8 @@ void editproduct() {
 void delproduct(){
     char anw;
     bool del=false;
+    cout<<"Enter X to exit."<<endl;
     do{
-        cout<<"Enter X to exit."<<endl;
         lastrowproduct(t2);
         cout<<"Enter PId : "; cin>>PId;
         InFile.open(FileProduct.c_str());
@@ -523,7 +539,7 @@ void delproduct(){
                 InFile >> PId2 >> Pname >> TId >> Price >> Pamount;
                 // cout<<PId2<<endl;
                 if(PId == PId2) {
-                    cout << PId2 << " " << Pname << " " << TId <<" "<< Price << " " << Pamount<<endl;
+                    // cout << PId2 << " " << Pname << " " << TId <<" "<< Price << " " << Pamount<<endl;
                     cout << "==Delete data==" << endl;
                     do {
                         cout << "Do you want to delete "<<Pname<<" ? (Y/N) : ";
@@ -639,8 +655,8 @@ void edittype(){
     
     lastrowtype(t3);
 
-    do {
         cout<<"Enter X to exit."<<endl;
+    do {
 
         cout << "Enter TId : "; cin >> TId;
 
@@ -650,7 +666,8 @@ void edittype(){
             InFile >> TId2 >> Pname ;
 
             if (TId == TId2) {
-                cout << TId2 << "  " << Pname;
+                cout << "TID      Pname"<<endl;
+                cout << TId2 << "        " << Pname;
                 cout << endl;
                 cout << "==New data==" << endl;
 
@@ -690,8 +707,9 @@ void edittype(){
 void deltype(){
     char anw;
     bool del=false;
+
+    cout<<"Enter X to exit."<<endl;
     do{
-        cout<<"Enter X to exit."<<endl;
         lastrowtype(t3);
         cout<<"Enter TId : "; cin>>TId;
         InFileType.open(FileType.c_str());
@@ -699,7 +717,7 @@ void deltype(){
                 InFileType >> TId2 >> Tname;
                 // cout<<TId2<<endl;
                 if(TId == TId2) {
-                    cout << TId2 << " " << Tname<<endl;
+                    // cout << TId2 << " " << Tname<<endl;
                     cout << "==Delete data==" << endl;
                     do {
                         cout << "Do you want to delete "<<Tname<<" ? (Y/N) : ";
