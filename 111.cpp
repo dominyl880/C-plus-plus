@@ -743,8 +743,8 @@ void readsale(){
 
 // เพิ่มการขาย
 void addsale(){
-        string J1,J2,J22,row,targetProductId;
-        int J3,amount,numpro,priceHere;
+        string J1,J2,J22,row,targetProductId,Pname1,Pname2;
+        int J3,amount,numpro,priceHere,amo;
         bool tc=false;
         float J4;
         ofstream OutFilesale(FileSale, ios::app);//ต้องมี ถ้าไม่มีจะเขียนทับอันเก่า
@@ -787,11 +787,13 @@ void addsale(){
                                     cout<<"Enter PId : "; cin>>J2;
                                         InFile.open(FileProduct, ios::app);
                                         for(int i2=1;i2<=t2;i2++){
-                                            InFile>>J22>>Pname>>TId>>Price>>Pamount;
+                                            InFile>>J22>>Pname1>>TId>>Price>>Pamount;
                                             if(J22==J2){ 
                                                 priceHere=Price;
                                                 if(Pamount!=0){
                                                     tc=true;
+                                                    break;
+
                                                 }
                                                 
                                             }
@@ -801,14 +803,17 @@ void addsale(){
                                 }while(tc!=true);
                                 tc=false;
                         // Pamount
+                        cout<<Pname1<<endl;
                                 do{
                                     cout<<"Enter amount : "; cin>>J3;
                                         InFile.open(FileProduct, ios::app);
                                         for(int i2=1;i2<=t2;i2++){
-                                            InFile>>J22>>Pname>>TId>>Price>>Pamount;
+                                            InFile>>J22>>Pname2>>TId>>Price>>Pamount;
                                             if(J22==J2){ 
                                                 if(J3<=Pamount){
+                                                    amo=Pamount;
                                                     tc=true;
+                                                    break;
                                                 }
                                                 
                                             }
@@ -817,6 +822,7 @@ void addsale(){
                                         if(tc==false){ cout<<"Over limit."<<endl; }
                                 }while(tc!=true);
                                 tc=false; 
+                        cout<<Pname2<<endl;
                         
                         J4=J3*priceHere;
                         cout<<"Total = "<<J4<<endl;
@@ -828,9 +834,9 @@ void addsale(){
                     
                     stringstream price_in,amount_in;
                     price_in <<(Price);
-                    amount_in <<(Pamount-J3);
+                    amount_in <<(amo-J3);
 
-                    row=J2+" "+Pname+" "+TId+" "+price_in.str()+" "+amount_in.str();
+                    row=J2+" "+Pname2+" "+TId+" "+price_in.str()+" "+amount_in.str();
                     targetProductId=J2;
                     
                     cout<<row<<endl;
@@ -840,10 +846,11 @@ void addsale(){
                     t4++;
 
                 // ปิดไฟล์
-                    editProductLine(FileProduct, targetProductId, row);
+                editProductLine(FileProduct, targetProductId, row);
                 
  
                 }
+                editProductLine(FileProduct, targetProductId, row);
 
         }while(numpro!=0);
         

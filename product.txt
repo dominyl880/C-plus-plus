@@ -1,5 +1,5 @@
-P1 Pen T1 5 5 
-P2 Eraser T1 5 5 
+P1 Pen T1 5 3
+P2 Eraser T1 5 0
 P3 Pencil T1 10 5 
 P4 Ruler T1 10 5 
 P5 Chicken T2 150 5 
