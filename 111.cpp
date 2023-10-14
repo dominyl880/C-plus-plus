@@ -16,6 +16,8 @@ void editTypeLine(const string& fileName2, const string& targetProductId, const 
 
 void lastrowproduct(int &p);
 void lastrowtype(int &t);
+void lastrowsale(int &sa);
+
 
 
 void ReadProduct();
@@ -30,15 +32,19 @@ void addType();
 void edittype();
 void deltype();
 
+void readsale();
+void addsale();
 
-    string FileProduct="product.txt",FileType="type.txt";
-    ifstream InFile,InFileType;
+
+
+    string FileProduct="product.txt",FileType="type.txt",FileSale="sale.txt";
+    ifstream InFile,InFileType,InFileSale;
     ofstream OutFile;
 
 
-    string PId2,PId,Pname,TId2,TId,Tname;
-    int Price,Pamount,t2,t3;
-
+    string PId2,PId,Pname,TId2,TId,Tname,SId2,SId;
+    int Price,Pamount,Samount,t2,t3,t4;
+    float Total=0;
 int main(){
     string sell;
     do{
@@ -74,7 +80,7 @@ int main(){
         }else if(sell=="dt"){
             deltype();
         }else if(sell=="ls"){
-            Readsale();
+            readsale();
         }else if(sell=="as"){
             addsale();
         }
@@ -251,6 +257,26 @@ void lastrowtype(int &t){
             n++;
         } 
     InFileType.close();
+}
+
+// หาล่าสุดของประเภท
+void lastrowsale(int &sa){
+    int n=1;
+    string sa1,sa2,m;
+    int sm;
+    float to;
+
+    InFileSale.open(FileSale.c_str());
+        while(n>0){
+            InFileSale>>sa1>>m>>sm>>to;
+                if(sa1==sa2){
+                    t4=n-1;
+                    break;
+                }
+            sa2=sa1;
+            n++;
+        } 
+    InFileSale.close();
 }
 
 // ------------------------------------------------------
@@ -481,7 +507,7 @@ void editproduct() {
         }
         InFile.close();
                 
-        editProductLine("product.txt", targetProductId, row);
+        editProductLine(FileProduct, targetProductId, row);
         if(PId=="X"){
             ep = true;
         }
@@ -712,11 +738,106 @@ void deltype(){
 
 // ---------------------------------------------------------------
 // อ่านรายการขาย
-void Readsale(){
-
+void readsale(){
+    lastrowsale(t4); 
+    cout<<"list sale = "<<t4<<endl;
+    InFileSale.open(FileSale,ios::app);
+        for(int i=1;i<=t4;i++){
+            InFileSale>>SId>>PId>>Samount>>Total;
+            cout<<"Here :  "<<SId<<" "<<PId<<" "<<Samount<<" "<<Total<<" "<<endl;
+        }
+    InFileSale.close();
 }
 
 // เพิ่มการขาย
 void addsale(){
+        string J1,J2,J22,row,targetProductId;
+        int J3,amount,numpro,priceHere;
+        bool tc=false;
+        float J4;
+        ofstream OutFile(FileSale, ios::app);//ต้องมี ถ้าไม่มีจะเขียนทับอันเก่า
+        do{
+            cout<<"Enter 0 to exit."<<endl;
+            cout<<"Enter number of sale list : "; cin>>numpro; // เลือกจำนวนที่จะเพิ่มรายการสินค้า
+            lastrowsale(t4);
+            lastrowproduct(t2);
+
+
+            // ตรวจสอบว่าไฟล์ถูกเปิดหรือไม่
+            if (OutFile.is_open()){
+                // เพิ่มข้อมูลต่อจาก record เดิม
+                for(int i=1;i<=numpro;i++){
+                    cout<<endl;
+
+                    InFileSale.open(FileSale,ios::app);
+                        for(int p=1;p<=t4;p++){
+                            InFileSale>>J1>>J2>>J3>>J4;
+                        }
+                    InFileSale.close();
+                    
+                    if(J1==""){
+                        J1="S0";
+                    }
+
+                    // ดึง string ออกมา
+                    string prefix = J1.substr(0, 1);
+                    // แปลง string เป็น int
+                    int number = stoi(J1.substr(1));
+                    
+                    stringstream ss;
+                    ss << (number+1);
+                    J1=prefix+ss.str();
+
+                    cout<<"order = "<<i<<endl; 
+                    cout<<"Enter SId : "<<J1<<endl;
+                    
+
+                    // PId
+                            do{
+                                cout<<"Enter PId : "; cin>>J2;
+                                    InFile.open(FileProduct, ios::app);
+                                    for(int i2=1;i2<=t2;i2++){
+                                        InFile>>J22>>Pname>>TId>>Price>>Pamount;
+                                        if(J22==J2){ 
+                                            priceHere=Price;
+                                            tc=true;
+                                        }
+                                    }
+                                    InFile.close();
+                                    if(tc==false){ cout<<"Try again."<<endl; }
+                            }while(tc!=true);
+                            tc=false;
+                    
+                    cout<<"Enter amount : "; cin>>J3;
+                    
+                    J4=J3*priceHere;
+                    cout<<"Total = "<<J4<<endl;
+                    OutFile << J1 << " " << J2 << " ";
+                    OutFile << J3 << " " << J4 << endl;
+                    OutFile.close();
+
+                    stringstream price_in,amount_in;
+                    price_in <<(Price);
+                    amount_in <<(Pamount-J3);
+
+                    row=J22+" "+Pname+" "+TId+" "+price_in.str()+" "+amount_in.str();
+                    targetProductId=J22;
+                    
+                    cout<<row<<endl;
+                    
+                    cout<<"Complete!"<<endl;
+                    t4++;
+                    editProductLine(FileProduct, targetProductId, row);
+                }
+
+                // ปิดไฟล์
+                
+
+            } else {
+                cerr << "Unable to open the file.\n";
+            }
+
+        }while(numpro!=0);
+        
 
 }
