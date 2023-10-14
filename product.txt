@@ -12,3 +12,6 @@ P11 Milk T3 13 5
 P12 Water T3 10 5 
 P13 Bread T2 20 5
 P14 love T3 10 10
+P15 test1 T5 55 64
+P16 test2 T4 44 0
+P17 test3 T3 1 40

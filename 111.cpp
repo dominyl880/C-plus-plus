@@ -787,7 +787,6 @@ void addsale(){
             cout<<"Enter 0 to exit."<<endl;
             cout<<"Enter number of sale list : "; cin>>numpro; // เลือกจำนวนที่จะเพิ่มรายการสินค้า
 
-                // เพิ่มข้อมูลต่อจาก record เดิม
                 for(int i=1;i<=numpro;i++){
                     OutFilesale.is_open();
                         cout<<endl;
