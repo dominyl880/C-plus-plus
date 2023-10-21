@@ -50,16 +50,16 @@ int main(){
     string sell;
     do{
         cout<<"=============================|   General Store   |============================="<<endl;
-        cout<<setw(56)<<"Pass [lp] to Show List Product."<<endl;
-        cout<<setw(53)<<"Pass [lt] to Show List Type."<<endl;
-        cout<<setw(53)<<"Pass [ls] to Show List Sale."<<endl;
-        cout<<setw(50)<<"Pass [ap] to Add Product."<<endl;
-        cout<<setw(47)<<"Pass [at] to Add Type."<<endl;
-        cout<<setw(47)<<"Pass [as] to Add Sale."<<endl;
-        cout<<setw(51)<<"Pass [ep] to Edit Product."<<endl;
-        cout<<setw(48)<<"Pass [et] to Edit Type."<<endl;
-        cout<<setw(53)<<"Pass [dp] to Delete Product."<<endl;
-        cout<<setw(50)<<"Pass [dt] to Delete Type."<<endl;
+        cout<<setw(56)<<"Pass [lp] To Show List Product."<<endl;
+        cout<<setw(53)<<"Pass [lt] To Show List Type."<<endl;
+        cout<<setw(53)<<"Pass [ls] To Show List Sale."<<endl;
+        cout<<setw(50)<<"Pass [ap] To Add Product."<<endl;
+        cout<<setw(47)<<"Pass [at] To Add Type."<<endl;
+        cout<<setw(47)<<"Pass [as] To Add Sale."<<endl;
+        cout<<setw(51)<<"Pass [ep] To Edit Product."<<endl;
+        cout<<setw(48)<<"Pass [et] To Edit Type."<<endl;
+        cout<<setw(53)<<"Pass [dp] To Delete Product."<<endl;
+        cout<<setw(50)<<"Pass [dt] To Delete Type."<<endl;
         cout<<"==============================================================================="<<endl;
 
 
