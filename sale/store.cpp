@@ -793,20 +793,18 @@ void readsale(){
                         for(int i=1;i<=t2;i++){
                             // cout<<i<<" ";
                             InFile>>ra1>>Pname>>TId>>Price>>Pamount;
-                if(PId==ra1){
-                            cout<<setw(10)<<Pname;
-
-                                InFileType.open(FileType,ios::app);
-                                    for(int i2=1;i2<=t3;i2++){
-                                        InFileType>>TId2>>Tname;
-                                        if(TId==TId2){
-                                            cout<<setw(12)<<Tname<<" ";
-                                        }
-                                    }
-                                InFileType.close();
-
-                            cout<<setw(10)<<Price<<" ";
-                }
+                                if(PId==ra1){
+                                    cout<<setw(10)<<Pname;
+                                        InFileType.open(FileType,ios::app);
+                                            for(int i2=1;i2<=t3;i2++){
+                                                InFileType>>TId2>>Tname;
+                                                if(TId==TId2){
+                                                    cout<<setw(12)<<Tname<<" ";
+                                                }
+                                            }
+                                        InFileType.close();
+                                    cout<<setw(10)<<Price<<" ";
+                                }
                         }
                     InFile.close();
 
