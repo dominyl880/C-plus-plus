@@ -19,12 +19,10 @@ void lastrowtype(int &t);
 void lastrowsale(int &sa);
 
 
-
 void ReadProduct();
 void addProduct();
 void editproduct();
 void delproduct();
-
 
 
 void ReadType();
