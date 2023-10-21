@@ -673,8 +673,8 @@ void edittype(){
     
     lastrowtype(t3);
 
-        cout<<setw(60)<<"=================================> Edit Type <================================="<<endl;
     do {
+        cout<<setw(60)<<"=================================> Edit Type <================================="<<endl;
         cout<<"Enter X To Exit."<<endl;
         cout<< "Enter TId : "; cin >> TId;
 
