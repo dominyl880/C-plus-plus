@@ -217,7 +217,7 @@ void editTypeLine(const string& fileName2, const string& targetTypeId, const str
     if (edited) {
         // cout << "Completed." << endl;
     } else {
-        // cout << "Type not found." << endl;
+        cout << "Type not found." << endl;
     }
 }
 
