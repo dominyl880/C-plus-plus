@@ -542,9 +542,9 @@ void editproduct() {
 void delproduct(){
     char anw;
     bool del=false;
-    cout<<setw(60)<<"===============================> Delete Product <=============================="<<endl;
-    cout<<"Enter X To Exit."<<endl;
     do{
+        cout<<setw(60)<<"===============================> Delete Product <=============================="<<endl;
+        cout<<"Enter X To Exit."<<endl;
         lastrowproduct(t2);
         cout<<"Enter PId : "; cin>>PId;
         InFile.open(FileProduct.c_str());
@@ -553,7 +553,7 @@ void delproduct(){
                 // cout<<PId2<<endl;
                 if(PId == PId2) {
                     // cout << PId2 << " " << Pname << " " << TId <<" "<< Price << " " << Pamount<<endl;
-                    cout<<setw(60)<<"================================> Delete Data <================================"<<endl;
+                    // cout<<setw(60)<<"================================> Delete Data <================================"<<endl;
                     do{
                         cout << "Do you want to delete "<<Pname<<" ? (Y/N) : ";
                         cin >> anw;
@@ -629,7 +629,7 @@ void addType(){
                         }
                     InFileType.close();
 
-                    cout<<endl;
+                    //cout<<endl;
 
                     if(Rid==""){
                         Rid="T0";
@@ -646,14 +646,14 @@ void addType(){
                     ss << (number+1);
                     Rid=prefix+ss.str();
 
-                    cout<<"order : "<<i<<endl; 
-                    cout<<"Enter TId : "<<Rid<<endl;
-                    cout<<"Enter name : "; cin>>name;
+                    cout<<setw(45)<<"order : "<<i<<endl; 
+                    cout<<setw(45)<<"Enter TId : "<<Rid<<endl;
+                    cout<<setw(45)<<"Enter name : "; cin>>name;
     
 
                     OutFileType << Rid << " " << name <<" "<<endl;
 
-                    cout<<"Complete!"<<endl;
+                    cout<<setw(45)<<"Complete!"<<endl;
                     cout<<endl;
 
                     t3++;
@@ -729,8 +729,8 @@ void deltype(){
     char anw;
     bool del=false;
 
-    cout<<setw(60)<<"================================> Delete Type <================================"<<endl;
     do{
+        cout<<setw(60)<<"================================> Delete Type <================================"<<endl;
         cout<<"Enter X To Exit."<<endl;
         lastrowtype(t3);
         cout<<"Enter TId : "; cin>>TId;
@@ -740,7 +740,7 @@ void deltype(){
                 // cout<<TId2<<endl;
                 if(TId == TId2) {
                     // cout << TId2 << " " << Tname<<endl;
-                    cout<<setw(60)<<"================================> Delete Data <================================"<<endl;
+                    // cout<<setw(60)<<"================================> Delete Data <================================"<<endl;
                     do {
                         cout << "Do you want to delete "<<Tname<<" ? (Y/N) : ";
                         cin >> anw;
