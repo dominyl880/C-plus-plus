@@ -384,7 +384,7 @@ void addProduct(){
                 // ปิดไฟล์
                 OutFile.close();
             }
-
+            numpro=0;
         }while(numpro!=0);
       cout<<"-------------------------------------------------------------------------------"<<endl;  
 }
@@ -419,7 +419,7 @@ void editproduct() {
                 cout <<setw(8)<<PId2<<setw(16)<<Pname<<setw(14)<<TId;
                             InFileType.open(FileType);
                                 for (int i5 = 1; i5 <= t3; i5++) {
-                                    InFileType >> TId2 >> Tname;
+                                     InFileType >> TId2 >> Tname;
                                     if (TId2 == TId) {
                                         cout<<"("<<Tname<<")";
                                         tc = true;
@@ -449,9 +449,9 @@ void editproduct() {
                     else {
                         cout << "Try again." << endl;
                     }
-                } while (anw != 'N');
+                } while (anw != 'N'); 
 
-                do {
+                  do {
                     cout << "Do you want to edit Type? (Y/N) : ";
                     cin >> anw;
                     if (anw == 'Y') {
@@ -526,7 +526,9 @@ void editproduct() {
                 targetProductId=PId;
                 // -------------------------------------------------               
             }
-        }
+        
+        
+          }
         InFile.close();
                 
         editProductLine(FileProduct, targetProductId, row);
@@ -569,6 +571,7 @@ void delproduct(){
                     }while(anw!='N');
                     cout << endl;
                 }
+
             }
        
         InFile.close();
@@ -613,6 +616,7 @@ void addType(){
             cout<<setw(60)<<"==================================> Add Type <================================="<<endl;
             cout<<"Enter 0 To Exit."<<endl;
             cout<<"Enter number of type : "; cin>>numpro; // เลือกจำนวนที่จะเพิ่มรายการสินค้า
+
             lastrowtype(t3);
 
             // ตรวจสอบว่าไฟล์ถูกเปิดหรือไม่
@@ -660,6 +664,7 @@ void addType(){
                 // ปิดไฟล์
                 OutFileType.close();
             }
+            numpro=0;
         }while(numpro!=0);
     cout<<"-------------------------------------------------------------------------------"<<endl;
 }
