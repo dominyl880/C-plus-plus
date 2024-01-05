@@ -1,6 +1,6 @@
 P1 Serum_Skin T2 49 8
 P2 Pencil T1 10 8
-P3 Milk T4 13 3
+P3 Milk T4 13 0
 P4 Green_Tea T4 25 10
 P5 Lay T3 20 5
 P6 Kitkat T3 10 10
@@ -8,4 +8,4 @@ P7 Hot_Latte T4 35 10
 P8 Ovantin T4 15 0
 P9 Perhaps T4 120 0
 P10 12 T1 10 5
-P11 123 T1 10 5
+P11 112 T1 100 5

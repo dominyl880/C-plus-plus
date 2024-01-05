@@ -1,3 +1,0 @@
-T1 Stationery
-T2 Food2
-T3 Drink

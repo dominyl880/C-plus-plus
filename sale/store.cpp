@@ -322,7 +322,7 @@ void addProduct(){
         do{
             cout<<setw(60)<<"================================> Add Product <================================"<<endl;
             cout<<"Enter 0 To Exit."<<endl;
-            cout<<"Enter number of product : "; cin>>numpro; // เลือกจำนวนที่จะเพิ่มรายการสินค้า
+            cout<<"Enter Number of product : "; cin>>numpro; // เลือกจำนวนที่จะเพิ่มรายการสินค้า
             lastrowproduct(t2);
             lastrowtype(t3);
 
@@ -528,7 +528,7 @@ void editproduct() {
             }
         
         
-          }
+        }
         InFile.close();
                 
         editProductLine(FileProduct, targetProductId, row);
@@ -615,7 +615,7 @@ void addType(){
         do{
             cout<<setw(60)<<"==================================> Add Type <================================="<<endl;
             cout<<"Enter 0 To Exit."<<endl;
-            cout<<"Enter number of type : "; cin>>numpro; // เลือกจำนวนที่จะเพิ่มรายการสินค้า
+            cout<<"Enter Number of type : "; cin>>numpro; // เลือกจำนวนที่จะเพิ่มรายการสินค้า
 
             lastrowtype(t3);
 
@@ -834,7 +834,7 @@ void addsale(){
             ReadProduct();
             cout<<setw(60)<<"---------------------------------> New Sale <----------------------------------"<<endl;
             cout<<"Enter 0 To Exit."<<endl;
-            cout<<"Enter number of sale list : "; cin>>numpro; // เลือกจำนวนที่จะเพิ่มรายการสินค้า
+            cout<<"Enter Number of sale list : "; cin>>numpro; // เลือกจำนวนที่จะเพิ่มรายการสินค้า
 
                 for(int i=1;i<=numpro;i++){
                     OutFilesale.is_open();
@@ -932,8 +932,10 @@ void addsale(){
                 
  
                 }
+                if(numpro!=0){
                     OutFilesale.close();
-                editProductLine(FileProduct, targetProductId, row);
+                    editProductLine(FileProduct, targetProductId, row);
+                }
 
         }while(numpro!=0);
         cout<<"-------------------------------------------------------------------------------"<<endl;
