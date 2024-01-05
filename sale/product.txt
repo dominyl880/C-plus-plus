@@ -1,4 +1,4 @@
-P1 Serum_Skin T2 49 8
+P1 Serum_Skin T2 49 4
 P2 Pencil T1 10 8
 P3 Milk T4 13 0
 P4 Green_Tea T4 25 10
